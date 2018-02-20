@@ -204,7 +204,10 @@ class Projeto:
         v1 =  (self.par[0] - self.par[1])*np.exp(-((t-self.tCheg)/self.par[2])**self.par[3])*(1 - norm.pdf(self.performance, self.par[4],self.par[5])) + self.par[1]
         print ('VALOR LAN :'+str(v1))
         return v1
-	
+    def valorLanPerf(self,t,perf):
+        v1 =  (self.par[0] - self.par[1])*np.exp(-((t-self.tCheg)/self.par[2])**self.par[3])*(1 - norm.pdf(perf, self.par[4],self.par[5])) + self.par[1]
+        print ('VALOR LAN :'+str(v1))
+        return v1
     def valor(self,modo, t):
         perf1 = self.performance + self.modos[self.etapa-1][modo].deltap
         perf2 = self.performance - self.modos[self.etapa-1][modo].deltap
