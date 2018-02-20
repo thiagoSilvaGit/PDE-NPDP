@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from gurobipy import *
 import math
 from cStringIO import StringIO
