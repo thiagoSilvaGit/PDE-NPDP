@@ -590,6 +590,121 @@ class Politica:
  		
         d = Decisao(vy, vf, vw, vtn, obj,Valor)
         return d
+class Politica_GulosaVPL:
+    ''' Política 3: Política Gulosa
+
+        1. Para todo o projeto, calcular o VPL esperado médio (sem considerar atraso) das seguintes situações:
+
+            a. Continuar sempre os projetos;
+            b. Melhorar depois continuar sempre os projetos;
+            c. Acelerar depois continuar sempre os projetos.
+        2. Selecionar o melhor VPL ($VPL_{max}$);
+
+            a. Se $VPL_{max} \leq 0$, cancela o projeto;
+
+               Senão:
+                   i. Ranquear os projetos por VPL e fazer todos que caibam no orçamento;
+                   ii. Congelar os que sobraram e, se não puder congelar, cancelar.
+                   
+    '''
+    def __init__(self, ParPol):
+        '''
+           Construtor
+           \par ParPol - lista com parâmetros para a politica
+  
+           DEVE SER SOBRESCRITO
+        '''  
+        parametros = ParPol
+    
+    def solver(self,EstX):
+        '''
+           Metodo de solucao
+           \par EstX - instancia da classe estado
+           \return - deve retornar uma instancia da classe decisao
+  
+           DEVE SER SOBRESCRITO
+        '''
+        vy = [0 for i in range(len(EstX.P))]
+        vf = [0 for i in range(len(EstX.P))]
+        vtn = [0 for i in range(len(EstX.E))]
+        vw = []
+        for p in range(len(EstX.P)):
+            vlinha = []
+            ie = EstX.E.index(EstX.P[p].etapa)
+            for mod in range(len(EstX.P[p].modos[ie])):    
+                vlinha.append(0)
+            vw.append(vlinha)
+
+        tupUnsorted = []
+        for p in EstX.P:
+            tup = self.SelectMaxModo(p)
+            tupUnsorted.append(tup)
+        pSorted = [p1 for _,p1 in sorted(zip(tupUnsorted,EstX.P), reverse = True)]
+        tupSorted =  sorted(tupUnsorted, reverse = True)
+
+        pCan = [EstX.P.index(pSorted[i]) for i in range(len(tupSorted))  if tupSorted[i][0]<=0.0] # guarda o índice dos projetos cancelados 
+        pDec = [pSorted[i] for i in range(len(tupSorted))  if tupSorted[i][0]>0.0] # cancela os que não são viáveis
+
+        Recdisp = EstX.qn_k
+        pReal = []
+        pCong = []
+                  
+        for pid in range(len(pDec)):
+            pmodo = tupSorted[pid][1]
+            petapa = pDec[pid].etapa-1
+            custo = pDec[pid].modos[petapa][pmodo].nrn  
+            if (custo <Recdisp):
+                Recdisp = Recdisp - custo
+                vtn[petapa] = vtn[petapa] + custo  
+                pReal.append((EstX.P.index(pDec[pid]),pmodo)) # guarda o índice do projeto executado e seu respectivo modo de execucao
+            else:
+                if((pDec[pid].div)&(pDec[pid].cmax>0)):
+                    pCong.append(EstX.P.index(pDec[pid])) # guarda o índice do projeto congelado
+                else:
+                    pCan.append(EstX.P.index(pDec[pid]))  # Cancela o projeto e guarda o índice deste   
+
+        for i in pCan:
+            vy[i] = 1
+        for i in pCong:
+            vf[i] = 1
+        for i in range(len(pReal)):
+            (pid,pmodo) = pReal[i] 
+            vw[pid][pmodo] = 1
+  
+        print('SOLUCAO:\n')
+        for p in range(len(EstX.P)):
+            if (vy[p]>0):
+                print(EstX.P[p].nome +' foi cancelado')
+            elif (vf[p]>0):
+                print(EstX.P[p].nome +' foi congelado')
+            else:
+                for mod in range(len(vw[p])):
+                    if(vw[p][mod]>0):
+                        print(EstX.P[p].nome +' foi executado com o modo '+ EstX.P[p].modos[EstX.E.index(EstX.P[p].etapa)][mod].nome)
+				
+        Valor = sum(vtn)
+ 	obj=0	
+        d = Decisao(vy, vf, vw, vtn, obj,Valor)
+
+    
+        return d
+
+    def CalcPerfEsp(self, proj, modoinit):
+        ePerf = 0
+
+        return ePerf      
+
+    def CalcTimeEsp(self, proj, modoinit):
+        eTime = 0
+        eCusto = 0
+
+        return [eTime, eCusto]      
+
+    def SelectMaxModo(self, proj):
+        vplMax = 0
+        modoMax = 0
+
+        return (vplMax,modoMax)
 
 # Classe Simulador
 class Simulador:
