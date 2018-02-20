@@ -615,10 +615,10 @@ class Politica_GulosaVPL:
         '''
            Construtor
            \par ParPol - lista com parâmetros para a politica
-  
+                       - [0]: Taxa de desconto 
            DEVE SER SOBRESCRITO
         '''  
-        parametros = ParPol
+        self.txDesc = ParPol[0]
     
     def solver(self,EstX):
         '''
@@ -689,25 +689,59 @@ class Politica_GulosaVPL:
         Valor = sum(vtn)
  	obj=0	
         d = Decisao(vy, vf, vw, vtn, obj,Valor)
-
-    
         return d
 
-    def CalcPerfEsp(self, proj, modoinit):
-        ePerf = 0
-
+       def CalcPerfEsp(self, proj, modoinit):
+        ePerf = proj.performance
+        init = 1
+        for e in range(proj.etapa-1, len(proj.tempo)):
+            resTime = proj.tempo[e]
+            i=0
+            while i < resTime:
+                if init:
+                    ePerf = ePerf + (2*proj.modos[e][modoinit].prob -1)*proj.modos[e][modoinit].deltap #modo inicial
+                    init = 0
+                    i = i + proj.modos[e][modoinit].deltat
+                else:
+                    ePerf = ePerf + (2*proj.modos[e][0].prob -1)*proj.modos[e][0].deltap #continuar
+                    i = i +  proj.modos[e][0].deltat
         return ePerf      
 
     def CalcTimeEsp(self, proj, modoinit):
-        eTime = 0
-        eCusto = 0
-
+        eTime = 0  
+        eCusto = 0 # deve-se calcular o custo em termos de valor presente
+        init = 1
+        for e in range(proj.etapa-1, len(proj.tempo)):
+            resTime = proj.tempo[e] #número de períodos que faltam para conlcuir a etapa
+            i=0
+            while i < resTime:
+                if init:
+                    eCusto = eCusto + (1/((1+self.txDesc)**(eTime)))*proj.modos[e][modoinit].nrn*(1/proj.modos[e][modoinit].probAtr) #trazendo para o presente 
+                    eTime = eTime + (1/proj.modos[e][modoinit].probAtr) # tempo esperado para concluir o período considerando o atraso  
+                    init = 0
+                    i = i + proj.modos[e][modoinit].deltat
+                else:
+                    eCusto = eCusto + (1/((1+self.txDesc)**(eTime)))*proj.modos[e][0].nrn*(1/proj.modos[e][0].probAtr) #trazendo para o presente 
+                    eTime = eTime + (1/proj.modos[e][0].probAtr) # tempo esperado para concluir o período considerando o atraso  
+                    i = i + proj.modos[e][0].deltat
+        eTime = eTime + proj.tCheg # deve-se partir do tempo atual
         return [eTime, eCusto]      
 
     def SelectMaxModo(self, proj):
         vplMax = 0
         modoMax = 0
-
+        pEtapa = proj.etapa -1
+        for mod in range(len(proj.modos[pEtapa])):
+            ePerf = self.CalcPerfEsp(proj, mod)
+            [eTime,eCusto] = self.CalcTimeEsp(proj, mod) 
+            vp = proj.valorLanPerf(eTime, ePerf)/((1+self.txDesc)**(eTime -proj.tCheg))
+            if (mod==0):
+                vplMax = vp - eCusto
+            else:
+                if(vplMax <= vp - eCusto):
+                    modoMax = mod
+                    vplMax = vp - eCusto
+            
         return (vplMax,modoMax)
 
 # Classe Simulador
