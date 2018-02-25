@@ -536,7 +536,7 @@ class Politica:
 
 # Função Objetivo           
         m.setObjective(quicksum(p.valor(mod,estado_x.estagio)*w[estado_x.P.index(p)][mod] for p in estado_x.P for mod in range(len(p.modos[estado_x.E.index(p.etapa)]))) - quicksum(V[a]*estado_x.roum for a in range(len(estado_x.A)))- quicksum(J[e][idp]*estado_x.rodois for e in range(len(estado_x.E)) for idp in range(len(estado_x.P_e[e]))), GRB.MAXIMIZE)
-#
+	#
 # Restrições
         
     # Restrição 1: Status dos projetos que não podem ser congelados 
@@ -641,7 +641,9 @@ class Politica:
 
 				
         Valor = sum([w[estado_x.P.index(p)][mod].x*p.modos[p.etapa -1][mod].nrn for p in estado_x.P for mod in range(len(p.modos[estado_x.E.index(p.etapa)]))])
- 		
+        Valor = Valor + sum([V[a].x*estado_x.roum for a in range(len(estado_x.A))])
+        Valor = Valor + sum([sum([J[e][idp].x*estado_x.rodois for idp in range(len(estado_x.P_e[e]))]) for e in range(len(estado_x.E))])
+	
         d = Decisao(vy, vf, vw, vtn, obj,Valor)
         return d
 class Politica_GulosaVPL:
