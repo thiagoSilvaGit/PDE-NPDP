@@ -766,16 +766,16 @@ class Politica_GulosaVPL:
             i=0
             while i < resTime:
                 if init:
-                    eCusto = eCusto + (1/((1+self.txDesc)**(eTime)))*proj.modos[e][modoinit].nrn*(1/proj.modos[e][modoinit].probAtr) #trazendo para o presente 
-                    eTime = eTime + (1/proj.modos[e][modoinit].probAtr) # tempo esperado para concluir o período considerando o atraso  
+                    eCusto = eCusto + (1/((1+self.txDesc)**(eTime)))*proj.modos[e][modoinit].nrn*(1/(1-proj.modos[e][modoinit].probAtr)) #trazendo para o presente 
+                    eTime = eTime + (1/(1-proj.modos[e][modoinit].probAtr)) # tempo esperado para concluir o período considerando o atraso  
                     init = 0
                     i = i + proj.modos[e][modoinit].deltat
                 else:
-                    eCusto = eCusto + (1/((1+self.txDesc)**(eTime)))*proj.modos[e][0].nrn*(1/proj.modos[e][0].probAtr) #trazendo para o presente 
-                    eTime = eTime + (1/proj.modos[e][0].probAtr) # tempo esperado para concluir o período considerando o atraso  
+                    eCusto = eCusto + (1/((1+self.txDesc)**(eTime)))*proj.modos[e][0].nrn*(1/(1-proj.modos[e][0].probAtr)) #trazendo para o presente 
+                    eTime = eTime + (1/(1-proj.modos[e][0].probAtr)) # tempo esperado para concluir o período considerando o atraso  
                     i = i + proj.modos[e][0].deltat
         eTime = eTime + proj.tCheg # deve-se partir do tempo atual
-        return [eTime, eCusto]      
+        return [eTime, eCusto] 
 
     def SelectMaxModo(self, proj):
         vplMax = 0
