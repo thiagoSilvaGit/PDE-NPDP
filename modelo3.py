@@ -358,8 +358,15 @@ class GeraIncerteza:
     def geraIncertezaHuz1(self,proj):  
 
         # Redefine os parametros: retorno maximo e minimo esperados 
-        nMx = max(proj.par[0] + np.random.normal(0,0.05*proj.par[0]),0.0)
-        nmn = max(proj.par[1] + np.random.normal(0,0.05*proj.par[1]),0.0)
+        if (proj.par[0]>0):
+            nMx = max(proj.par[0] + np.random.normal(0,0.05*proj.par[0]),0.0)
+        else:
+            nMx = 0
+
+        if (proj.par[1]>0):
+            nmn = max(proj.par[1] + np.random.normal(0,0.05*proj.par[1]),0.0)
+        else:
+            nmn = 0
 
         if (nMx>nmn):
             proj.par[0] = nMx
