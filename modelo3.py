@@ -234,12 +234,14 @@ class Estado_GCPDNP:
     # Estagio inicial = 0
     estagio = 0
     # Estado inical recebe as areas, etapas, o valor das constantes das restricoes, a quantidade de recursos disponivel e os projetos
-    def __init__(self, lprojeto, vfi, vbe, vqrn, lareas, letapas):
+    def __init__(self, lprojeto, vfi, vbe,vroum,vrodois, vqrn, lareas, letapas):
         self.A = lareas
         self.E = letapas
         self.P = lprojeto
         self.fi = vfi
         self.be = vbe
+        self.roum = vroum
+        self.rodois = vrodois
         self.qn_k = vqrn 
         self.P_a = [[p for p in self.P if p.area == a] for a in self.A]
         self.P_e = [[p for p in self.P if p.etapa == e] for e in self.E]
@@ -920,11 +922,13 @@ P  = [p1, p2,p3, p4, p5]
 
 vfi = 0.5
 vbe = 0.1
+vroum = 0.1
+vrodois = 0.1
 lqrn = 70
 lareas = ["A1", "A2"]
 letapas = [1, 2]
 
-S = Estado_GCPDNP(P, vfi, vbe, lqrn, lareas, letapas)
+S = Estado_GCPDNP(P, vfi, vbe, vroum, vrodois, lqrn, lareas, letapas)
 
 S.imprime()
 Pol = Politica() 
