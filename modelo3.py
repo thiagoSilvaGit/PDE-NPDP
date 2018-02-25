@@ -458,20 +458,20 @@ class Politica:
 # Modelo "m"
         m = Model("assignment")
 
-# Variaveis do modelo
-    # Variavel y_p: Projeto abortado
+# Variáveis do modelo
+    # Variável y_p: Projeto abandonado
         y = []
         for p in range(len(estado_x.P)):
             y.append(m.addVar(vtype = GRB.BINARY, name = "y[{}]".format(estado_x.P[p].nome)))
         m.update()
 
-    # Variavel f_p: Projeto congelado 
+    # Variável f_p: Projeto congelado 
         f = []
         for p in range(len(estado_x.P)):
             f.append(m.addVar(vtype = GRB.BINARY, name = "f[{}]". format(estado_x.P[p].nome)))
         m.update()    
 
-    # Variavel w_mp: Projeto continuado de determinado modo
+    # Variável w_mp: Projeto continuado de determinado modo
         w = []
         for p in estado_x.P:
             linha = []
@@ -480,61 +480,102 @@ class Politica:
             w.append(linha)
         m.update()
 
-    # Variavel tn_e: Quantidade de recurso alocado na etapa do funil
+    # Variável tn_e: Quantidade de recurso alocado na etapa do funil
         tn = []
         for e in range(len(estado_x.E)):
             tn.append(m.addVar(vtype = GRB.CONTINUOUS, name = "tn[{}]".format(estado_x.E[e])))
-        m.update()    
+        
+        m.update()
 
-# Funcao Objetivo           
-        m.setObjective(quicksum(p.valor(mod,estado_x.estagio)*w[estado_x.P.index(p)][mod] for p in estado_x.P for mod in range(len(p.modos[estado_x.E.index(p.etapa)]))), GRB.MAXIMIZE)
+    # Variável V_a: Penalização da área
+        V = []
+        for a in range(len(estado_x.A)):
+            V.append(m.addVar(vtype = GRB.BINARY, name = "V[{}]".format(estado_x.A[a])))
+        m.update()
+
+    # Variável J_ep: Penalização do projeto
+        J = []
+        for e in range(len(estado_x.E)):
+            linha = []
+            for p in estado_x.P_e[e]:
+                linha.append(m.addVar(vtype = GRB.BINARY, name = "J[{}][{}]".format(estado_x.E[e],p.nome)))
+            J.append(linha)
+        m.update()
+
+    # Variável mn_a: Ativar ou desativar determinada restrição das áreas
+        mn = []
+        for a in range(len(estado_x.A)):
+            mn.append(m.addVar(vtype = GRB.BINARY, name = "mn[{}]".format(estado_x.A[a])))
+        m.update()
+
+    # Variável Quota_a: Cota para execução dos projetos em uma área
+        Quota =[]
+        for a in range(len(estado_x.A)):
+            Quota.append(m.addVar(vtype = GRB.CONTINUOUS, name = "Quota[{}]".format(estado_x.A[a])))
+
+        m.update()
+    # Parâmetro cmin_a: Custo mínimo para execução dos projetos em uma area
+        cmin = []
+        for a in range(len(estado_x.A)):
+            cmina = 0
+            for pa in estado_x.P_a[a]:
+                cmodmin = pa.modos[pa.etapa-1][0].nrn
+                for mod in range(1,len(pa.modos[pa.etapa-1])):
+                    if pa.modos[pa.etapa-1][mod].nrn < cmodmin:
+                        cmodmin = pa.modos[pa.etapa-1][mod].nrn
+                cmina = cmina+ cmodmin
+            cmin.append(cmina)      
+
+
+# Função Objetivo           
+        m.setObjective(quicksum(p.valor(mod,estado_x.estagio)*w[estado_x.P.index(p)][mod] for p in estado_x.P for mod in range(len(p.modos[estado_x.E.index(p.etapa)]))) - quicksum(V[a]*estado_x.roum for a in range(len(estado_x.A)))- quicksum(J[e][idp]*estado_x.rodois for e in range(len(estado_x.E)) for idp in range(len(estado_x.P_e[e]))), GRB.MAXIMIZE)
+#
+# Restrições
         
-# Restricoes
-        
-    # Restricao 1: Status dos projetos que podem nao podem ser congelados 
+    # Restrição 1: Status dos projetos que não podem ser congelados 
         PmPc = [p for p in estado_x.P if p not in estado_x.Pc]
         for p in range(len(PmPc)):
             ip = estado_x.P.index(PmPc[p])
             m.addConstr(y[ip] + quicksum(w[ip][mod] for mod in range(len(PmPc[p].modos[estado_x.E.index(PmPc[p].etapa)]))) == 1)  
         
-    # Restricao 2: Status dos projetos que podem ser congelados 
+    # Restrição 2: Status dos projetos que podem ser congelados 
         for p in range(len(estado_x.Pc)):
             ip = estado_x.P.index(estado_x.Pc[p])        
             m.addConstr(y[ip] + f[ip] +quicksum(w[ip][mod] for mod in range(len(estado_x.Pc[p].modos[estado_x.E.index(estado_x.Pc[p].etapa)]))) == 1)        
         
-    # Restricao 3: O somatorio das necessidades de recursos dos projetos ativos deve ser igual a quantidade disponivel por etapa
+    # Restrição 3: O somatório das necessidades de recursos dos projetos ativos deve ser igual a quantidade disponível por etapa
         for e in range(len(estado_x.E)):
-            m.addConstr( quicksum(quicksum(w[estado_x.P.index(estado_x.P_e[e][idp])][mod] for mod in range(len(estado_x.P_e[e][idp].modos[e]))) for idp in range(len(estado_x.P_e[e])) ) <= tn[e])
+            m.addConstr( quicksum(quicksum(w[estado_x.P.index(estado_x.P_e[e][idp])][mod] for mod in range(len(estado_x.P_e[e][idp].modos[e]))) for idp in range(len(estado_x.P_e[e])) ) == tn[e])
      
-    # Restricao 4: Um projeto nao podera capturar todo o recurso disponivel por etapa
+    # Restrição 4: Um projeto nao poderá capturar todo o recurso disponível por etapa
         for e in range(len(estado_x.E)):
             for p in range(len(estado_x.P_e[e])):
-                for mod in range(len(estado_x.P_e[e][p].modos[e])):
-                    m.addConstr(w[estado_x.P.index(estado_x.P_e[e][p])][mod]*estado_x.P_e[e][p].modos[e][mod].nrn <= estado_x.fi*tn[e])
-    # Restricao 5: Uma area nao podera capturar todo o recurso disponivel
+                m.addConstr(quicksum(w[estado_x.P.index(estado_x.P_e[e][p])][mod]*estado_x.P_e[e][p].modos[e][mod].nrn for mod in range(len(estado_x.P_e[e][p].modos[e]))) <=  estado_x.fi*tn[e]+ J[e][p]*estado_x.qn_k)
+#
+
+    # Restrição 5a: Uma área nao poderá capturar todo o recurso disponível
         for a in range(len(estado_x.A)):
             print('a s: '+ str(a) + '\n')
-    #        print estado_x.P_a[a]
-            if len(estado_x.P_a[a]) > 0: # # 
+            if len(estado_x.P_a[a]) > 0:
                 rest=0
                 for p in estado_x.P_a[a]:
-#                    print p.nome
-#                    print('lista de tempos: '+ str(p.tempo))
-#                    print('Etapa: '+ str(p.etapa))
                     pid = estado_x.P.index(p)
-#                    print('index :' + str(pid))
-#                    print range(len(p.modos[p.etapa -1]))
-#                    print('W :'+ str(len(w)))
-#                    print('W[p] :'+ str(len(w[estado_x.P.index(p)])))
-#                    print('\n')
                     for mod in range(len(p.modos[p.etapa -1])):
                         rest = rest + w[pid][mod]*p.modos[p.etapa -1][mod].nrn			
-#                        print rest
-                m.addConstr( rest >= estado_x.be*quicksum(tn[e] for e in range(len(estado_x.E))))
-     # Restricao 6: As quantidades de recurso alocadas por etapa devem ser menores ou iguais as quantidades disponiveis totais  
+                m.addConstr( rest >= Quota[a] - V[a]*estado_x.qn_k)
+
+    # Restrição 5b
+        for a in range(len(estado_x.A)):
+            m.addConstr(Quota[a] >= quicksum(estado_x.be*tn[e] for e in range(len(estado_x.E))) - estado_x.qn_k*(1 - mn[a]))
+
+    # Restrição 5c
+        for a in range(len(estado_x.A)):
+            m.addConstr(Quota[a] >= cmin[a] - estado_x.qn_k*(mn[a]))
+
+     # Restrição 6: As quantidades de recurso alocadas por etapa devem ser menores ou iguais as quantidades disponiveis totais  
         m.addConstr(quicksum(tn[e] for e in range(len(estado_x.E))) <= estado_x.qn_k)
         
-# Solucao
+# Solução
         m.update()
         m.optimize()
         obj = m.objVal
@@ -693,7 +734,7 @@ class Politica_GulosaVPL:
         d = Decisao(vy, vf, vw, vtn, obj,Valor)
         return d
 
-       def CalcPerfEsp(self, proj, modoinit):
+    def CalcPerfEsp(self, proj, modoinit):
         ePerf = proj.performance
         init = 1
         for e in range(proj.etapa-1, len(proj.tempo)):
