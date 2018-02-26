@@ -552,13 +552,12 @@ class Politica:
         
     # Restrição 3: O somatório das necessidades de recursos dos projetos ativos deve ser igual a quantidade disponível por etapa
         for e in range(len(estado_x.E)):
-            m.addConstr( quicksum(quicksum(w[estado_x.P.index(estado_x.P_e[e][idp])][mod] for mod in range(len(estado_x.P_e[e][idp].modos[e]))) for idp in range(len(estado_x.P_e[e])) ) == tn[e])
+            m.addConstr( quicksum(quicksum(w[estado_x.P.index(estado_x.P_e[e][idp])][mod]*estado_x.P_e[e][idp].modos[e][mod].nrn for mod in range(len(estado_x.P_e[e][idp].modos[e]))) for idp in range(len(estado_x.P_e[e])) ) == tn[e] )
      
     # Restrição 4: Um projeto nao poderá capturar todo o recurso disponível por etapa
         for e in range(len(estado_x.E)):
             for p in range(len(estado_x.P_e[e])):
                 m.addConstr(quicksum(w[estado_x.P.index(estado_x.P_e[e][p])][mod]*estado_x.P_e[e][p].modos[e][mod].nrn for mod in range(len(estado_x.P_e[e][p].modos[e]))) <=  estado_x.fi*tn[e]+ J[e][p]*estado_x.qn_k)
-#
 
     # Restrição 5a: Uma área nao poderá capturar todo o recurso disponível
         for a in range(len(estado_x.A)):
@@ -691,6 +690,20 @@ class Politica_GulosaVPL:
                 vlinha.append(0)
             vw.append(vlinha)
 
+    # Parâmetro cmin_a: Custo mínimo para execução dos projetos em uma area
+        cmin = []
+        for a in range(len(EstX.A)):
+            cmina = 0
+            for pa in EstX.P_a[a]:
+                cmodmin = pa.modos[pa.etapa-1][0].nrn
+                for mod in range(1,len(pa.modos[pa.etapa-1])):
+                    if pa.modos[pa.etapa-1][mod].nrn < cmodmin:
+                        cmodmin = pa.modos[pa.etapa-1][mod].nrn
+                cmina = cmina+ cmodmin
+            cmin.append(cmina) 
+
+
+
         tupUnsorted = []
         for p in EstX.P:
             tup = self.SelectMaxModo(p)
@@ -704,15 +717,18 @@ class Politica_GulosaVPL:
         Recdisp = EstX.qn_k
         pReal = []
         pCong = []
+
+        vAloc = [0 for a in range(len(EstX.A))]
                   
         for pid in range(len(pDec)):
             pmodo = tupSorted[pid][1]
             petapa = pDec[pid].etapa-1
-            custo = pDec[pid].modos[petapa][pmodo].nrn  
+            custo = pDec[pid].modos[petapa][pmodo].nrn 
             if (custo <Recdisp):
                 Recdisp = Recdisp - custo
                 vtn[petapa] = vtn[petapa] + custo  
                 pReal.append((EstX.P.index(pDec[pid]),pmodo)) # guarda o índice do projeto executado e seu respectivo modo de execucao
+                vAloc[EstX.A.index(pDec[pid].area)] = vAloc[EstX.A.index(pDec[pid].area)]+ custo #contabiliza valor para area
             else:
                 if((pDec[pid].div)&(pDec[pid].cmax>0)):
                     pCong.append(EstX.P.index(pDec[pid])) # guarda o índice do projeto congelado
@@ -726,7 +742,23 @@ class Politica_GulosaVPL:
         for i in range(len(pReal)):
             (pid,pmodo) = pReal[i] 
             vw[pid][pmodo] = 1
-  
+
+        #cálculo do custo com violações
+        vQ = [min(cmin[a],EstX.be*sum(vtn)) for a in range(len(EstX.A))]
+        vioA = [0 for a in range(len(EstX.A))]
+        for a in range(len(EstX.A)):
+            if vQ[a]> vAloc[a]:
+                vioA[a] = EstX.roum
+        print("VioA: " + str(vioA))
+
+        vioE = [0 for e in range(len(EstX.E))]     
+        for i in range(len(pReal)):
+            (pid,pmodo) = pReal[i] 
+            petapa = EstX.P[pid].etapa-1
+            ncusto = EstX.P[pid].modos[petapa][pmodo].nrn 
+            if ncusto> vtn[petapa]*EstX.fi:
+                vioE[petapa] = vioE[petapa] + EstX.rodois      
+        print("VioE: " + str(vioE))     
         print('SOLUCAO:\n')
         for p in range(len(EstX.P)):
             if (vy[p]>0):
@@ -738,10 +770,16 @@ class Politica_GulosaVPL:
                     if(vw[p][mod]>0):
                         print(EstX.P[p].nome +' foi executado com o modo '+ EstX.P[p].modos[EstX.E.index(EstX.P[p].etapa)][mod].nome)
 				
-        Valor = sum(vtn)
+        Valor = sum(vtn) + sum(vioA) + sum(vioE)
+        print("Gulosa - vtn: " +str(sum(vtn)))
+        print("Gulosa - vioA: " +str(sum(vioA)))
+        print("Gulosa - vioE: " +str(sum(vioE)))
+        
+
  	obj=0	
         d = Decisao(vy, vf, vw, vtn, obj,Valor)
         return d
+
 
     def CalcPerfEsp(self, proj, modoinit):
         ePerf = proj.performance
