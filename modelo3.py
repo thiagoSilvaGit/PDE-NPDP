@@ -547,7 +547,7 @@ class Politica:
 
 
 # Função Objetivo           
-        m.setObjective(quicksum(p.valor(mod,estado_x.estagio)*w[estado_x.P.index(p)][mod] for p in estado_x.P for mod in range(len(p.modos[estado_x.E.index(p.etapa)]))) - quicksum(V[a]*estado_x.roum for a in range(len(estado_x.A)))- quicksum(J[e][idp]*estado_x.rodois for e in range(len(estado_x.E)) for idp in range(len(estado_x.P_e[e]))), GRB.MAXIMIZE)
+        m.setObjective(quicksum((p.valor(mod,estado_x.estagio) - p.getMinCost())*w[estado_x.P.index(p)][mod] for p in estado_x.P for mod in range(len(p.modos[estado_x.E.index(p.etapa)]))) - quicksum(V[a]*estado_x.roum for a in range(len(estado_x.A)))- quicksum(J[e][idp]*estado_x.rodois for e in range(len(estado_x.E)) for idp in range(len(estado_x.P_e[e]))), GRB.MAXIMIZE)
 	#
 # Restrições
         
