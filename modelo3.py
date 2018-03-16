@@ -461,6 +461,18 @@ class GeraIncerteza:
 # Classe Politica
 class Politica:
     parametros = []
+    def getMinCost(self,p):
+        cmin = 0
+        for e in range(len(p.modos)):
+            cmodmin=0
+            for m in range(len(p.modos[e])):
+                if(m==0):
+                    cmodmin = p.modos[e][0].nrn
+                else:
+                    if(cmodmin>p.modos[e][m].nrn):
+                        cmodmin = p.modos[e][m].nrn
+            cmin = cmin + cmodmin*p.tempos[e] #assume que não haverá atraso
+        return cmin 
     def solver(self,estado_x):
 # Modelo "m"
         m = Model("assignment")
