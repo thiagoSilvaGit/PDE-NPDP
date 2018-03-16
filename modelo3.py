@@ -200,6 +200,18 @@ class Projeto:
         self.etapa= vetapa
         # instante de tempo para chegadas
         self.tCheg = estagio
+    def getMinCost(self):
+        cmin = 0
+        for e in range(len(self.modos)):
+            cmodmin=0
+            for m in range(len(self.modos[e])):
+                if(m==0):
+                    cmodmin = self.modos[e][0].nrn
+                else:
+                    if(cmodmin>self.modos[e][m].nrn):
+                        cmodmin = self.modos[e][m].nrn
+            cmin = cmin + cmodmin*self.tempo[e] #assume que não haverá atraso
+        return cmin 
     def valorLan(self,t):
         v1 =  (self.par[0] - self.par[1])*np.exp(-((t-self.tCheg)/self.par[2])**self.par[3])*(1 - norm.pdf(self.performance, self.par[4],self.par[5])) + self.par[1]
         print ('VALOR LAN :'+str(v1))
@@ -461,18 +473,6 @@ class GeraIncerteza:
 # Classe Politica
 class Politica:
     parametros = []
-    def getMinCost(self,p):
-        cmin = 0
-        for e in range(len(p.modos)):
-            cmodmin=0
-            for m in range(len(p.modos[e])):
-                if(m==0):
-                    cmodmin = p.modos[e][0].nrn
-                else:
-                    if(cmodmin>p.modos[e][m].nrn):
-                        cmodmin = p.modos[e][m].nrn
-            cmin = cmin + cmodmin*p.tempos[e] #assume que não haverá atraso
-        return cmin 
     def solver(self,estado_x):
 # Modelo "m"
         m = Model("assignment")
