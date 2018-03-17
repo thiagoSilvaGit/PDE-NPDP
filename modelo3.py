@@ -851,6 +851,8 @@ class Simulador:
     def simulacao(self, S, Pol, niter, vmax):
         vlist = []
         vlist2 = []
+        vlist3 = []
+        vlist4 = [] 
         v0 = 0
         for n in range(niter):
             print('iteracao ' + str(n) + ': \n')		
@@ -858,13 +860,16 @@ class Simulador:
             print('\n\n')
             d = Pol.solver(S)
             custoSim = d.valor
+            vlist3.append(custoSim)
             valorSim = S.transicao(d,vmax)
+            vlist4.append(valorSim)
             print ('Valor Simulado:' + str(valorSim))
+            print ('custo Simulado:' + str(custoSim))
             vlist.append(valorSim - custoSim)
             v0 = 0.995*v0 + 0.005*(valorSim - custoSim)
             vlist2.append(v0)
         S.imprime()
-        return [vlist,vlist2]
+        return [vlist,vlist2,vlist3,vlist4]
 
 # Instancia gerada manualmente
 
