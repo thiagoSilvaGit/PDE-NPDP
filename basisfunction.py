@@ -3,7 +3,7 @@
 
 #10 - QUANTIDADE DE PROJETOS DIVISÍVEIS
 
-def QprojDiv(self, p):                                      #Função recebe os projetos como parâmetro do Estado
+def QprojDiv(estado_x):                                      #Função recebe os projetos como parâmetro do Estado
 
     lpdiv = []                                              #Lista vazia que irá armazenar os projetos que são divisíveis
     contpdiv = 0                                            #Contador que irá armazenar a quantidade de projetos divisíveis
@@ -22,7 +22,7 @@ def QprojDiv(self, p):                                      #Função recebe os 
 	
 #11 - QUANTIDADE DE PROJETOS DIVISÍVEIS EM CADA ÁREA
 
-def QprojDiva(self, p):
+def QprojDiva(estado_x):
 
     lpdiva = []
     contpdiva = 0
@@ -41,7 +41,7 @@ def QprojDiva(self, p):
 	
 #12 - QUANTIDADE DE PROJETOS DIVISÍVEIS EM CADA ETAPA DO FUNIL
 
-def QprojDive(self, p):
+def QprojDive(estado_x):
 
     lpdive = []
     contpdive = 0
