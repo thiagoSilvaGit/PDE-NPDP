@@ -7,7 +7,7 @@ from cStringIO import StringIO
 
 #01 - QUANTIDADE TOTAL DE PROJETOS NO FUNIL
 
-def Qproj(estado_x):                                                                      #Função recebe o Estado como parâmetro
+def QProj(estado_x):                                                                      #Função recebe o Estado como parâmetro
 
     contp = 0                                                                             #Contador que irá armazenar a quantidade de projetos total no funil
     for p in estado_x.P:                                                                  #Para todos os projetos no conjunto de projetos 'P'   
@@ -23,7 +23,7 @@ def Qproj(estado_x):                                                            
 
 #02 - QUANTIDADE DE NOVOS PROJETOS ENTRANDO NO FUNIL
 
-def QprojNovos(estado_x):                                                                 #Função recebe o Estado como parâmetro
+def QProjNovos(estado_x):                                                                 #Função recebe o Estado como parâmetro
 
     contpnovos = 0                                                                        #Contador que irá armazenar a quantidade de projetos novos
     contpestagio1 = 0                                                                     #Contador que irá armazenar a quantidade de projetos no estágio 1
@@ -60,7 +60,7 @@ def QprojNovos(estado_x):                                                       
 
 #03 - QUANTIDADE DE PROJETOS POR ETAPA DO FUNIL
 
-def Qproje(estado_x):                                                                     #Função recebe o Estado como parâmetro
+def QProje(estado_x):                                                                     #Função recebe o Estado como parâmetro
 
     contpe = 0                                                                            #Contador que irá armazenar a quantidade de projetos por etapa do funil
     lpe = []                                                                              #Lista que irá armazenar as quantidades de projetos por etapa do funil
@@ -82,7 +82,7 @@ def Qproje(estado_x):                                                           
 
 #04 - QUANTIDADE DE RECURSOS ALOCADOS NO FUNIL
 
-def Qrecaloc(estado_x):                                                                   #Função recebe o Estado como parâmetro
+def QRecAloc(estado_x):                                                                   #Função recebe o Estado como parâmetro
 
     qtotal = 0
     for e in estado_x.E:                                                                  #Para todo etapa no conjunto de Etapas do funil
@@ -94,7 +94,7 @@ def Qrecaloc(estado_x):                                                         
 
 #05 - QUANTIDADE DE RECURSOS ALOCADOS EM CADA ETAPA DO FUNIL
 
-def Qrecaloce(estado_x):                                                                  #Função recebe o Estado como parâmetro
+def QRecAloce(estado_x):                                                                  #Função recebe o Estado como parâmetro
 
     lqtotale = []                                                                         #Lista que irá armazenar as quantidades alocadas em cada etapa do funil
     for e in estado_x.E:                                                                  #Para cada etapa no conjunto de Etapas do funil
@@ -106,12 +106,11 @@ def Qrecaloce(estado_x):                                                        
 
 #06 - QUANTIDADE DE PROJETOS POR ÁREA DO FUNIL
 
-def Qproja(estado_x):                                                                     #Função recebe o Estado como parâmetro
+def QProja(estado_x):                                                                     #Função recebe o Estado como parâmetro
 
     contpa = 0                                                                            #Contador que irá armazenar a quantidade de projetos por área do funil
     lpa = []                                                                              #Lista que irá armazenar as quantidades de projetos por área do funil
     lpanome = []                                                                          #Lista que irá armazenar o nome dos projetos por área do funil
-
     for a in estado_x.A:                                                                  #Para toda área no conjunto de Áreas
         for p in estado_x.P_a[a]:                                                         #Para todo projeto em cada área 'a'
             contpe = contpe + 1                                                           #Contador recebe o acréscimo de 1
@@ -126,9 +125,29 @@ def Qproja(estado_x):                                                           
 
 
 
+#07 - QUANTIDADE DE RECURSOS ALOCADOS EM CADA ÁREA 
+
+def QReca(estado_x):                                                                      #Função recebe o Estado como parâmetro
+
+    somap = 0                                                                             #Irá somar o valor gasto por etapa do projeto
+    lsomap = []                                                                           #Lista que irá armazenar o valor dos projetos de uma área 'a'
+    lsomafinal = []                                                                       #Lista que irá armazenar os valores de cada área 'a'
+    for a in estado_x.A:                                                                  #Para toda área
+        for p in estado_x.P_a[a]:                                                         #Para todo projeto na área 'a'
+            for e in estado_x.E:                                                          #Para toda etapa do projeto P[a]
+                somap = somap + p.modos[p.etapa -1][mod].nrn                              #Soma o custo do modo que ele foi executado
+
+            lsomap.append(somap)                                                          #A soma dos custos é adicionada em uma lista de projetos da área 'a'
+
+        lsomafinal.append(sum(lsomap))                                                    #A soma de cada área é adicionada em uma lista de todas as áreas 'a'
+
+    return lsomafinal                                                                     #A função retorna a lista de recursos alocados em cada área 'a'
+
+
+
 #08 - QUANTIDADE DE PROJETOS DE CADA ÁREA POR ETAPA DO FUNIL
 
-def Qprojae(estado_x):                                                                    #Função recebe o Estado como parâmetro
+def QProjae(estado_x):                                                                    #Função recebe o Estado como parâmetro
 
     contpae = 0                                                                           #Contador que irá armazenar a quantidade de projetos em cada área por etapa do funil
     lpaenome = []                                                                         #Lista que irá armazenar os projetos de uma área por etapa do funil
@@ -148,14 +167,34 @@ def Qprojae(estado_x):                                                          
 
 
 
+#09 - QUANTIDADE DE RECURSOS ALOCADOS POR ÁREA EM CADA ETAPA DO FUNIL
+
+def QRecae(estado_x):                                                                      #Função recebe o Estado como parâmetro
+
+    lvalorp = []                                                                           #Lista que irá receber os valores de cada projeto por área e etapa do funil
+    lvalora = []                                                                           #Lista que irá receber os valores por área
+    lvalore = []                                                                           #Lista que irá receber os valores por etapa de cada área
+    for e in estado_x.E:                                                                   #Para todo etapa 'e'
+        for a in estado_x.A:                                                               #Para toda área 'a'
+            for p in estado_x.P_a[a]:                                                      #Para todo projeto na área 'a'
+                lvalorp.append(p.modos[p.etapa -1][mod].nrn)                               #Lista recebe cada recurso alocado na área 'a' e etapa 'e' do projeto 'p'
+
+            lvalora.append(sum(lvalorp))                                                   #Lista recebe o somatório dos recursos alocados para a área 'a'
+
+        lvalore.append(lvalora)                                                            #Lista recebe o valor alocado em cada área por etapa 'e'
+
+    return lvalore                                                                         #A função retorna a lista de recursos alocados
+
+
+
 #10 - QUANTIDADE DE PROJETOS DIVISÍVEIS
 
-def QprojDiv(estado_x):                                                                   #Função recebe o Estado como parâmetro
+def QProjDiv(estado_x):                                                                   #Função recebe o Estado como parâmetro
 
     lpdiv = []                                                                            #Lista vazia que irá armazenar os projetos que são divisíveis
     contpdiv = 0                                                                          #Contador que irá armazenar a quantidade de projetos divisíveis
     for p in estado_x.P:                                                                  #Para todos os projetos no conjunto de projetos 'P'
-        if( p.vdiv == 1):                                                                 #Se, vdiv for igual a 1, significa que o projeto e divisível
+        if( p.vdiv == 1):                                                                 #Se, vdiv for igual a 1, significa que o projeto é divisível
             lpdiv.append(p)                                                               #A lista recebe o projeto em questão
             contpdiv = contpdiv + 1                                                       #Acréscimo de 1 no contador
 	
@@ -169,7 +208,7 @@ def QprojDiv(estado_x):                                                         
 
 #11 - QUANTIDADE DE PROJETOS DIVISÍVEIS EM CADA ÁREA
 
-def QprojDiva(estado_x):                                                                  #Função recebe o Estado como parâmetro
+def QProjDiva(estado_x):                                                                  #Função recebe o Estado como parâmetro
 
     lpdiva = []                                                                           #Lista para armazenar as quantidades de projetos divisíveis por área      
     lpdivanome = []                                                                       #Lista para armazenar os projetos divisíveis por área
@@ -192,7 +231,7 @@ def QprojDiva(estado_x):                                                        
 
 #12 - QUANTIDADE DE PROJETOS DIVISÍVEIS EM CADA ETAPA DO FUNIL
 
-def QprojDive(estado_x):                                                                  #Função recebe o Estado como parâmetro
+def QProjDive(estado_x):                                                                  #Função recebe o Estado como parâmetro
 
     lpdive = []                                                                           #Lista para armazenar as quantidades de projetos divisíveis por etapa
     lpdivenome = []                                                                       #Lista para armazenar os projetos divisíveis por etapa
@@ -211,6 +250,76 @@ def QprojDive(estado_x):                                                        
             print p.nome
 
     return lpdive                                                                         #A função retorna a lista lpdiva com as quantidades de projetos divisíveis por área do funil
+
+
+
+#13 - QUANTIDADE DE PROJETOS NÃO-DIVISÍVEIS
+
+def QProjnDiv(estado_x):                                                                  #Função recebe o Estado como parâmetro
+
+    lpndiv = []                                                                           #Lista vazia que irá armazenar os projetos que não são divisíveis
+    contpndiv = 0                                                                         #Contador que irá armazenar a quantidade de projetos não divisíveis
+    for p in estado_x.P:                                                                  #Para todos os projetos no conjunto de projetos 'P'
+        if( p.vdiv != 1):                                                                 #Se, vdiv for diferente de 1, significa que o projeto não é divisível
+            lpdiv.append(p)                                                               #A lista recebe o projeto em questão
+            contpdiv = contpdiv + 1                                                       #Acréscimo de 1 no contador
+	
+    print('Projetos não Divisíveis: \n')                                                  #Impressão dos projetos não divisíveis
+    for p in self.lpndiv:
+        print p.nome
+
+    return contpndiv                                                                      #A função retorna o contador com a quantidade total de projetos em P não divisíveis
+
+
+
+#14 - TEMPO DE CONGELAMENTO TOTAL DE CADA PROJETO
+
+def TCongP(estado_x):                                                                     #Função recebe o Estado como parâmetro
+
+    lpdivl = []                                                                           #Lista vazia que irá armazenar os projetos divisíveis
+    ltempo = []                                                                           #Lista vazia que irá armazenar os tempos congelados de cada projeto
+    for p in estado_x.Pl:                                                                 #Para todo projeto lançado
+        if(p.vdiv == 1):                                                                  #Se for divisível
+            lpdivl.append(p)                                                              #Lista recebe os projetos 
+
+    for p in self.lpdivl:                                                                 #Para todo projeto divisível
+        print('Tempo de congelamento total de' + str(p.nome) + ': \n')                    #Imprime o nome e seu tempo congelado
+        print p.congatual
+        ltempo.append(p.congatual)                                                        #A lista recebe os tempos de congelamento de cada projeto lançado
+
+    return ltempo                                                                         #A função retorna os tempos congelados de cada projeto
+
+
+
+#15 - TEMPO DE CONGELAMENTO RESIDUAL DE CADA PROJETO
+
+def TCongReP(estado_x):                                                                   #Função recebe o Estado como parâmetro
+
+    laux = []                                                                             #Lista que irá armazenar os projetos divisíveis
+    residual = 0                                                                          #Variável que irá armazenar os tempos residuais
+    lresidual = []                                                                        #Lista que irá armazenar os tempos residuais de cada projeto
+    for p in estado_x.P:                                                                  #Para todo projeto no conjunto de projetos
+        if(p.vdiv == 1):                                                                  #Se o projeto for divisível
+            laux.append(p)                                                                #Lista armazena o projeto
+            residual = p.cmax - p.congatual                                               #Residual recebe a diferença do tempo máximo e o congelamento atual
+            lresidual.append(residual)                                                    #Lista armazena os tempos residuais de cada projeto
+
+    return lresidual                                                                      #A função retorna os tempos residuais de congelamento de cada projeto
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
