@@ -308,10 +308,75 @@ def TCongReP(estado_x):                                                         
 
 
 
+#16 - TEMPO RESIDUAL DE CADA PROJETO NO FUNIL
+
+def TReP(estado_x):                                                                       #Função recebe o Estado como parâmetro
+
+    ltr = []                                                                              #Lista que irá armazenar os tempos residuais 
+    for p in estado_x.P:                                                                  #Para todo projeto no conjunto de projetos 
+        ltr.append(sum(ltempo) - p.Qexec)                                                 #A lista recebe a diferença entre o somatório total de tempos e o a quantidade executada: CRIAR ESSE PARÂMENTRO NO CÓDIGO
+
+    return ltr                                                                            #A função retorna os tempos residuais de cada projeto
 
 
 
+#17 - TEMPO RESIDUAL DE CADA PROJETO POR ETAPA DO FUNIL
 
+def TRePe(estado_x):                                                                      #Função recebe o Estado como parâmetro
+
+    ltr = []                                                                              #Lista que irá armazenar os tempos residuais
+    for e in estado_x.E:                                                                  #Para toda etapa no conjunto de Etapas 
+        for p in estado_x.P[e]:                                                           #Para todo projeto no conjunto de projetos                                                                
+            ltr.append(sum(ltempo) - p.Qexec)                                             #A lista recebe a diferença entre o somatório total de tempos e o a quantidade executada: CRIAR ESSE PARÂMENTRO NO CÓDIGO                                                
+
+    return ltr                                                                            #A função retorna os tempos residuais de cada projeto                                                                           
+
+
+
+#18 - TEMPO RESIDUAL DE CADA PROJETO POR ÁREA
+
+def TRePa(estado_x):                                                                      #Função recebe o Estado como parâmetro
+
+    ltr = []                                                                              #Lista que irá armazenar os tempos residuais
+    for a in estado_x.A:                                                                  #Para toda área no conjunto de Áreas 
+        for p in estado_x.P[a]:                                                           #Para todo projeto no conjunto de projetos                                                                
+            ltr.append(sum(ltempo) - p.Qexec)                                             #A lista recebe a diferença entre o somatório total de tempos e o a quantidade executada: CRIAR ESSE PARÂMENTRO NO CÓDIGO                                                
+
+    return ltr                                                                            #A função retorna os tempos residuais de cada projeto
+
+
+#19 - NECESSIDADE DE RECURSOS DE CADA PROJETO
+
+def NecRecP(estado_x):                                                                    #Função recebe o Estado como parâmetro
+
+    for p in estado_x.P:                                                                  #Para todo projeto no conjunto de projetos 
+        if (estado_x.M.quant > 2):                                                        #Se houver o modo Acelerar, imprime os três modos
+            print('Necessidade de recursos do projeto' + str(p.nome) + 'é de:'+ 
+            p.lnrn[0] +'para Continuar, '+ p.lnrn[1] +'para Melhorar e' + p.lnrn[2] 
+            +'para Acelerar \n')
+        else:                                                                             #Se não, imprime apenas Continuar e Melhorar
+            print('Necessidade de recursos do projeto' + str(p.nome) + 'é de:'+ 
+            p.lnrn[0] +'para Continuar e '+ p.lnrn[1] +'para Melhorar \n')
+
+
+
+#20 - NECESSIDADE DE RECURSOS DE CADA ÁREA
+
+def NecRecPa(estado_x):                                                                   #Função recebe o Estado como parâmetro
+
+    nec0 = 0                                                                              #Variável que irá receber os valores do modo 'Continuar'
+    nec1 = 0                                                                              #Variável que irá receber os valores do modo 'Melhorar'
+    nec2 = 0                                                                              #Variável que irá receber os valores do modo 'Acelerar'
+    lnec = []                                                                             #Lista que irá receber os valores dos modos por área 
+    for a in estado_x.A:                                                                  #Para toda área do conjunto de Áreas
+        for p in estado_x.P[a]:                                                           #Para todo projeto em determinada área 
+            nec0 = nec0 + p.lnrn[0]                                                       #Soma das necessidades de 'Continuar'
+            nec1 = nec1 + p.lnrn[1]                                                       #Soma das necessidades de 'Melhorar'
+            nec2 = nec2 + p.lnrn[2]                                                       #Soma das necessidades de 'Acelerar'
+
+        lnec.append(nec0, nec1, nec2)                                                     #Lista de necessidades de cada modo em cada área
+
+    return lnec                                                                           #A função retorna uma lista contendo as necessidades para cada modo ordenada por área
 
 
 
