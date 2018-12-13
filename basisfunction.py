@@ -361,7 +361,7 @@ def TRePe(estado_x):                                                            
     mediatr2 = 0                                                                          #Recebe a média das listas
     for e in estado_x.E:                                                                  #Para toda etapa no conjunto de Etapas 
         for p in estado_x.P[e]:                                                           #Para todo projeto no conjunto de projetos                                                                
-            ltr.append(sum(ltempo) - p.Qexec)                                             #A lista recebe a diferença entre o somatório total de tempos e o a quantidade executada: CRIAR ESSE PARÂMENTRO NO CÓDIGO                                                
+            ltr.append(sum(estado_x.p.ltempo) - estado_x.p.Qexec)                         #A lista recebe a diferença entre o somatório total de tempos e o a quantidade executada: CRIAR ESSE PARÂMENTRO NO CÓDIGO                                                
 
     mediatr2 = (sum(ltr)/len(ltr))
 
@@ -377,7 +377,7 @@ def TRePa(estado_x):                                                            
     mediatr3 = 0                                                                          #Recebe a média das listas
     for a in estado_x.A:                                                                  #Para toda área no conjunto de Áreas 
         for p in estado_x.P[a]:                                                           #Para todo projeto no conjunto de projetos                                                                
-            ltr.append(sum(ltempo) - p.Qexec)                                             #A lista recebe a diferença entre o somatório total de tempos e o a quantidade executada: CRIAR ESSE PARÂMENTRO NO CÓDIGO                                                
+            ltr.append(sum(estado_x.p.ltempo) - estado_x.p.Qexec)                         #A lista recebe a diferença entre o somatório total de tempos e o a quantidade executada: CRIAR ESSE PARÂMENTRO NO CÓDIGO                                                
 
     mediatr3 = (sum(ltr)/len(ltr))
 
@@ -579,7 +579,7 @@ def RetTotal(estado_x):                                                         
     lretesp = []                                                                          #Lista que recebe os valores médios de retorno
     mediar = 0                                                                            #Variável que recebe a média
     for p in estado_x.Pl:                                                                 #Para todo projeto no conjunto de projetos lançados
-        retesp = (Mx + mn)/2                                                              #Faz-se a média do retorno máximo e mínimo esperado
+        retesp = (estado_x.p.Mx + estado_x.p.mn)/2                                        #Faz-se a média do retorno máximo e mínimo esperado
         lretesp.append(retesp)
 
     mediar = (sum(lretesp)/len(lretesp))
@@ -634,6 +634,154 @@ def DesemProjE(estado_x):                                                       
 
     return mediarde                                                                       #A função retorna a média do desempenho final por etapa do funil
 
+
+
+#34 - VPL TOTAL DA CARTEIRA
+
+def VPLTotal(estado_x):                                                                   #Função recebe o Estado como parâmetro                                                                  
+
+    retesp = 0                                                                            #Variável que recebe o VPL de cada projeto da carteira
+    lretesp = []                                                                          #Lista que recebe os valores de VPL
+    mediavpl = 0                                                                          #Variável que recebe a média
+    for p in estado_x.Pl:                                                                 #Para todo projeto no conjunto de projetos lançados
+        retesp = estado_x.p.vplMax                                                          #Recebe-se o VPL
+        lretesp.append(retesp)
+
+    mediavpl = sum(lretesp)
+
+    return mediavpl                                                                       #A função retorna o somatório do VPL de cada projeto na carteira
+
+
+
+#35 - CUSTO MÍNIMO TOTAL DA CARTEIRA
+
+def CustoMinTotal(estado_x):                                                              #Função recebe o Estado como parâmetro                                                                  
+
+    retesp = 0                                                                            #Variável que recebe o Custo do modo 'Continuar'
+    lretesp = []                                                                          #Lista que recebe os valores dos custos
+    mediacmin = 0                                                                         #Variável que recebe a média
+    for p in estado_x.Pl:                                                                 #Para todo projeto no conjunto de projetos lançados
+        retesp = estado_x.p.lnrn[0]                                                       #Recebe-se o custo do modo 'Continuar' de cada projeto da carteira
+        lretesp.append(retesp)
+
+    mediacmin = sum(lretesp)
+
+    return mediacmin                                                                      #A função retorna o somatório dos custos mínimos da carteira
+
+
+
+#40 - TEMPO ESPERADO ATÉ O PRÓXIMO LANÇAMENTO
+
+def TempoEspProxLan(estado_x):
+
+    aux = 0                                                                               #Variável que irá receber o tempo residual
+    param = 0                                                                             #Variável que irá retornar o menor tempo residual
+    for p in estado_x.P:                                                                  #Para todo projeto no conjunto de projetos
+        aux = sum(estado_x.p.ltempo) - estado_x.p.Qexec                                   #Aux recebe a diferença entre o somatório total de tempos e o a quantidade executada: CRIAR ESSE PARÂMENTRO NO CÓDIGO
+        if(estado_x.P[0]):                                                                #Se for o primeiro projeto, guarda-se o valor
+            param = aux
+        else:
+            if(aux < param):                                                              #Se não for, apenas se for menor que o primeiro, substitui-se o valor
+                param = aux
+
+    return param                                                                          #A função retorna o tempo até o próximo lançamento
+
+
+
+#42 - VPL TOTAL DA CARTEIRA POR ÁREA
+
+def VPLTotalA(estado_x):                                                                  #Função recebe o Estado como parâmetro                                                                  
+
+    retesp = 0                                                                            #Variável que recebe o VPL de cada projeto da carteira
+    lretesp = []                                                                          #Lista que recebe os valores de VPL
+    lmediavpla = []                                                                       #Lista que recebe a média
+    mediavpla = 0                                                                         #Variável que recebe a média final
+    for a in estado_x.A:                                                                  #Para toda área no conjunto de áreas
+        for p in estado_x.Pl:                                                             #Para todo projeto no conjunto de projetos lançados
+            retesp = estado_x.p.vplMax                                                    #Recebe-se o VPL
+            lretesp.append(retesp)
+
+    lmediavpla.append(sum(lretesp))
+    mediavpla = (sum(lmediavpla)/len(lmediavpla))
+
+    return mediavpla                                                                      #A função retorna a média do somatório do VPL de cada projeto na carteira por área
+
+
+
+#43 - VPL TOTAL DA CARTEIRA POR ETAPA DO FUNIL
+
+def VPLTotalE(estado_x):                                                                  #Função recebe o Estado como parâmetro                                                                  
+
+    retesp = 0                                                                            #Variável que recebe o VPL de cada projeto da carteira
+    lretesp = []                                                                          #Lista que recebe os valores de VPL
+    lmediavple = []                                                                       #Variável que recebe a média
+    mediavple = 0                                                                         #Variável que recebe a média final
+    for e in estado_x.E:                                                                  #Para toda área no conjunto de etapas
+        for p in estado_x.P:                                                              #Para todo projeto no conjunto de projetos 
+            retesp = estado_x.p.vplMax                                                    #Recebe-se o VPL
+            lretesp.append(retesp)
+
+    lmediavple.append(sum(lretesp))
+    mediavple = (sum(lmediavple)/len(lmediavple))
+
+    return mediavple                                                                      #A função retorna a média do somatório do VPL de cada projeto na carteira por etapa
+
+
+
+#44 - CUSTO MÍNIMO TOTAL DA CARTEIRA POR ÁREA
+
+def CustoMinTotalA(estado_x):                                                             #Função recebe o Estado como parâmetro                                                                  
+
+    retesp = 0                                                                            #Variável que recebe o Custo do modo 'Continuar'
+    lretesp = []                                                                          #Lista que recebe os valores dos custos
+    mediacmina = 0                                                                        #Variável que recebe a média
+    lmediacmina = []                                                                      #Lista que recebe a média dos custos
+    for a in estado_x.A:                                                                  #Para toda área no conjunto de áreas
+        for p in estado_x.Pl:                                                             #Para todo projeto no conjunto de projetos lançados
+            retesp = estado_x.p.lnrn[0]                                                   #Recebe-se o custo do modo 'Continuar' de cada projeto da carteira
+            lretesp.append(retesp)
+
+    lmediacmina.append(sum(lretesp))
+    mediacmina = (sum(lmediacmina)/len(lmediacmina))
+
+    return mediacmina                                                                     #A função retorna a média dos custos mínimos 
+
+
+
+#45 - CUSTO MÍNIMO TOTAL DA CARTEIRA POR ETAPA DO FUNIL
+
+def CustoMinTotalE(estado_x):                                                             #Função recebe o Estado como parâmetro                                                                  
+
+    retesp = 0                                                                            #Variável que recebe o Custo do modo 'Continuar'
+    lretesp = []                                                                          #Lista que recebe os valores dos custos
+    mediacmine = 0                                                                        #Variável que recebe a média
+    lmediacmine = []                                                                      #Lista que recebe a média dos custos
+    for e in estado_x.E:                                                                  #Para toda etapa 
+        for p in estado_x.P:                                                              #Para todo projeto no conjunto de projetos lançados
+            retesp = estado_x.p.lnrn[0]                                                   #Recebe-se o custo do modo 'Continuar' de cada projeto da carteira
+            lretesp.append(retesp)
+
+    lmediacmine.append(sum(lretesp))
+    mediacmine = (sum(lmediacmine)/len(lmediacmine))
+
+    return mediacmine                                                                     #A função retorna a média dos custos mínimos 
+
+
+
+#47 - CUSTO MÍNIMO DOS PROJETOS CONGELADOS
+
+def CustoMinTotalCong(estado_x):                                                          #Função recebe o Estado como parâmetro                                                                  
+
+    retesp = 0                                                                            #Variável que recebe o Custo do modo 'Continuar'
+    lretesp = []                                                                          #Lista que recebe os valores dos custos
+    mediacminc = 0                                                                        #Variável que recebe a média
+    for p in estado_x.Pc:                                                                 #Para todo projeto no conjunto de projetos congelados
+        retesp = estado_x.p.lnrn[0]                                                       #Recebe-se o custo do modo 'Continuar' de cada projeto da carteira
+        lretesp.append(retesp)
+
+    mediacminc = sum(lretesp)
+
+    return mediacminc                                                                     #A função retorna o somatório dos custos mínimos da carteira dos projetos congelados
 
 
 
