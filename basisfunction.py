@@ -507,11 +507,132 @@ def QProjCong(estado_x):                                                        
 
 
 
+#26 - QUANTIDADE DE PROJETOS CONGELADOS POR ETAPA DO FUNIL
+
+def QProjCongE(estado_x):                                                                 #Função recebe o Estado como parâmetro
+
+    pcong = 0                                                                             #Variável que recebe a quantidade de projetos congelados por etapa do funil
+    lpcong = []                                                                           #Lista que recebe os projetos congelados por etapa do funil
+    mediapg = 0                                                                           #Variável que recebe a média
+    for e in estado_x.E:                                                                  #Para toda etapa do funil
+        pcong = len(estado_x.Pc)
+        lpcong.append(pcong)
+
+    mediapg = (sum(lpcong)/len(lpcong))
+
+    return mediapg                                                                        #A função retorna a média da quantidade de projetos congelados por etapa do funil
 
 
 
+#27 - QUANTIDADE DE PROJETOS CONGELADOS POR ÁREA
+
+def QProjCongA(estado_x):                                                                 #Função recebe o Estado como parâmetro
+
+    pcong = 0                                                                             #Variável que recebe a quantidade de projetos congelados por área
+    lpcong = []                                                                           #Lista que recebe os projetos congelados por área
+    mediapga = 0                                                                          #Variável que recebe a média
+    for a in estado_x.A:                                                                  #Para toda área do funil
+        pcong = len(estado_x.Pc)
+        lpcong.append(pcong)
+
+    mediapga = (sum(lpcong)/len(lpcong))
+
+    return mediapga                                                                       #A função retorna a média da quantidade de projetos congelados por área
 
 
+
+#28 - RETORNO TOTAL FINAL ESPERADO POR PROJETO
+
+def RetTotalProj(estado_x):                                                               #Função recebe o Estado como parâmetro                                                                  
+
+    retesp = 0                                                                            #Variável que recebe a média dos retornos esperados
+    retesp = (estado_x.p.Mx + estado_x.p.mn)/2                                            #Faz-se a média do retorno máximo e mínimo esperado por projeto
+
+
+    return retesp                                                                         #A função retorna a média dos retornos finais esperados
+
+
+
+#29 - RETORNO TOTAL FINAL ESPERADO POR PROJETOS DE UMA ÁREA
+
+def RetTotalA(estado_x):                                                                  #Função recebe o Estado como parâmetro                                                                  
+
+    retesp = 0                                                                            #Variável que recebe a média dos retornos esperados
+    lretesp = []                                                                          #Lista que recebe os valores médios de retorno
+    mediara = 0                                                                           #Variável que recebe a média
+    for p in estado_x.Pl:                                                                 #Para todo projeto no conjunto de projetos lançados
+        for a in estado_x.A:                                                              #Para toda área no conjunto de Áreas
+            retesp = (estado_x.p.Mx + estado_x.p.mn)/2                                    #Faz-se a média do retorno máximo e mínimo esperado
+            lretesp.append(retesp)
+
+    mediara = (sum(lretesp)/len(lretesp))
+
+    return mediara                                                                        #A função retorna a média dos retornos finais esperados
+
+
+
+#30 - RETORNO TOTAL FINAL ESPERADO
+
+def RetTotal(estado_x):                                                                   #Função recebe o Estado como parâmetro                                                                  
+
+    retesp = 0                                                                            #Variável que recebe a média dos retornos esperados
+    lretesp = []                                                                          #Lista que recebe os valores médios de retorno
+    mediar = 0                                                                            #Variável que recebe a média
+    for p in estado_x.Pl:                                                                 #Para todo projeto no conjunto de projetos lançados
+        retesp = (Mx + mn)/2                                                              #Faz-se a média do retorno máximo e mínimo esperado
+        lretesp.append(retesp)
+
+    mediar = (sum(lretesp)/len(lretesp))
+
+    return mediar                                                                         #A função retorna a média dos retornos finais esperados
+
+
+
+#31 - DESEMPENHO ESPERADO NA EXECUÇÃO DE UM PROJETO
+
+def DesemProj(estado_x):                                                                  #Função recebe o Estado como parâmetro                                                                  
+
+    retesp = 0                                                                            #Variável que recebe a média do desempenho esperado
+    retesp = [(estado_x.p.Mx + estado_x.p.mn)/2 - estado_x.lnrn]                          #Faz-se a média do retorno máximo e mínimo esperado por projeto e subtrai do custo de execução
+
+
+    return retesp                                                                         #A função retorna a média do desempenho esperado
+
+
+
+#32 - DESEMPENHO ESPERADO NA EXECUÇÃO DE UM PROJETO DE UMA DETERMINADA ÁREA
+
+def DesemProjA(estado_x):                                                                 #Função recebe o Estado como parâmetro                                                                  
+
+    retesp = 0                                                                            #Variável que recebe a média do desempenho esperado
+    lretesp = []                                                                          #Lista que recebe os valores médios do desempenho
+    mediarda = 0                                                                          #Variável que recebe a média
+    for p in estado_x.Pl:                                                                 #Para todo projeto no conjunto de projetos lançados
+        for a in estado_x.A:                                                              #Para toda área no conjunto de Áreas
+            retesp = [(estado_x.p.Mx + estado_x.p.mn)/2 - estado_x.lnrn]                  #Faz-se a média do retorno máximo e mínimo esperado por projeto e subtrai do custo de execução
+            lretesp.append(retesp)
+
+    mediarda = (sum(lretesp)/len(lretesp))
+
+    return mediarda                                                                       #A função retorna a média do desempenho final por área
+
+
+
+#33 - DESEMPENHO ESPERADO NA EXECUÇÃO DE UM PROJETO POR ETAPA DO FUNIL
+
+def DesemProjE(estado_x):                                                                 #Função recebe o Estado como parâmetro                                                                  
+
+    retesp = 0                                                                            #Variável que recebe a média do desempenho esperado
+    lretesp = []                                                                          #Lista que recebe os valores médios do desempenho
+    mediarde = 0                                                                          #Variável que recebe a média
+    for p in estado_x.Pl:                                                                 #Para todo projeto no conjunto de projetos lançados
+        for e in estado_x.E:                                                              #Para toda área no conjunto de etapas od funil
+            retesp = [(estado_x.p.Mx + estado_x.p.mn)/2 - estado_x.lnrn]                  #Faz-se a média do retorno máximo e mínimo esperado por projeto e subtrai do custo de execução
+            lretesp.append(retesp)
+
+    mediarde = (sum(lretesp)/len(lretesp))
+
+    return mediarde                                                                       #A função retorna a média do desempenho final por etapa do funil
 
 
 
