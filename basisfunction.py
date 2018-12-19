@@ -2,6 +2,7 @@
 from cStringIO import StringIO
 
 
+
 ''' CARACTERÍSTICAS DO ESTADO '''
 
 
@@ -784,5 +785,22 @@ def CustoMinTotalCong(estado_x):                                                
     return mediacminc                                                                     #A função retorna o somatório dos custos mínimos da carteira dos projetos congelados
 
 
+''' Função de escrita de dados '''
 
+def save_cabecalho(estado_x, nome_do_arq):
+
+	listaCabecalho = ['valorSim - custoSim', 'v0','custoSim','valorSim','QProj']
+	with open(nome_do_arq, 'w') as nfile:
+		for l in listaCabecalho:
+			nfile.write('{:s},'.format(l))
+		nfile.write('\n')
+
+def save_data(estado_x, listaCusto, nome_do_arq):
+
+	with open(nome_do_arq, 'a') as nfile:
+		for v in listaCusto:
+			nfile.write('{:.2f},'.format(v))
+		nfile.write('{:.2f},'.format(QProj(estado_x))) # colocar a apartir daqui todas as outras funções 
+#		nfile.write('{},'.format(QProjNovos(estado_x)))
+		nfile.write('\n')
 

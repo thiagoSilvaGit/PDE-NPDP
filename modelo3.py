@@ -4,6 +4,7 @@ import math
 from cStringIO import StringIO
 import numpy as np
 from scipy.stats import norm
+import basisfunction as bf
 
 #import xlwt
 #import xlrd
@@ -848,28 +849,30 @@ class Politica_GulosaVPL:
 
 # Classe Simulador
 class Simulador:
-    def simulacao(self, S, Pol, niter, vmax):
-        vlist = []
-        vlist2 = []
-        vlist3 = []
-        vlist4 = [] 
-        v0 = 0
-        for n in range(niter):
-            print('iteracao ' + str(n) + ': \n')		
-            S.imprime()
-            print('\n\n')
-            d = Pol.solver(S)
-            custoSim = d.valor
-            vlist3.append(custoSim)
-            valorSim = S.transicao(d,vmax)
-            vlist4.append(valorSim)
-            print ('Valor Simulado:' + str(valorSim))
-            print ('custo Simulado:' + str(custoSim))
-            vlist.append(valorSim - custoSim)
-            v0 = 0.995*v0 + 0.005*(valorSim - custoSim)
-            vlist2.append(v0)
-        S.imprime()
-        return [vlist,vlist2,vlist3,vlist4]
+	def simulacao(self, S, Pol, niter, vmax):
+		vlist = []
+		vlist2 = []
+		vlist3 = []
+		vlist4 = [] 
+		v0 = 0
+		bf.save_cabecalho(S,'teste_saida.txt')
+		for n in range(niter):
+			print('iteracao ' + str(n) + ': \n')		
+			S.imprime()
+			print('\n\n')
+			d = Pol.solver(S)
+			custoSim = d.valor
+			vlist3.append(custoSim)
+			valorSim = S.transicao(d,vmax)
+			vlist4.append(valorSim)
+#            print ('Valor Simulado:' + str(valorSim))
+#            print ('custo Simulado:' + str(custoSim))
+			vlist.append(valorSim - custoSim)
+			v0 = 0.995*v0 + 0.005*(valorSim - custoSim)
+			vlist2.append(v0)
+			bf.save_data(S,[valorSim - custoSim,v0,custoSim,valorSim],'teste_saida.txt')
+		S.imprime()
+		return [vlist,vlist2,vlist3,vlist4]
 
 # Instancia gerada manualmente
 
@@ -1043,13 +1046,13 @@ S.transicao(d,2)
 S.imprime()'''
 
 sim = Simulador()
-[rl1,rl2] = sim.simulacao(S,Pol,2000,2)
+[rl1,rl2,rl3,rl4] = sim.simulacao(S,Pol,200,2)
 
-print rl1
-print rl2
+#print rl1
+#print rl2
 
-GraficoLinha(rl1[0:1999])
-GraficoLinha(rl2[0:1999])
+#GraficoLinha(rl1[0:1999])
+#GraficoLinha(rl2[0:1999])
 
 # Instancia gerada atraves do Gerador
 '''
