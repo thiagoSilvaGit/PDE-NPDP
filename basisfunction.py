@@ -41,9 +41,7 @@ def QProjNovos(estado_x):                                                       
     else:                                                                                 #Se não
         for p in estado_x.P:
             contpestagiox = contpestagiox + 1                                             #É feita a contagem de projetos nesse estágio
-            if(estado_x.y[p] > 0):
-                contpcancelado = contpcancelado + 1                                       #Dos projetos que foram cancelados
-            
+
         for p in estado_x.Pl:
             contplancado = contplancado + 1                                               #Dos projetos que foram lançados
 
@@ -69,14 +67,11 @@ def QProje(estado_x):                                                           
     mediaqp = 0                                                                           #Recebe a média das listas
 
     for e in estado_x.E:                                                                  #Para todo estado no conjunto de Estados
-        for p in estado_x.P_e[e]:                                                         #Para todo projeto em cada estado 'e'
+        for p in estado_x.P_e[e-1]:                                                         #Para todo projeto em cada estado 'e'
             contpe = contpe + 1                                                           #Contador recebe o acréscimo de 1
             lpenome.append(p)                                                             #O projeto é adicionado na lista
         lpe.append(contpe)                                                                #A quantidade de projetos no estado 'e' é adicionada a lista de quantidades
         contpe = 0
-        print('Projetos na etapa' + str(p.etapa) + '\n')                                  #Impressão dos projetos na etapa 'e'
-        for p in self.lpenome:
-            print p.nome
 
     mediaqp = (sum(lpe)/len(lpe))
 
@@ -86,11 +81,11 @@ def QProje(estado_x):                                                           
 
 #04 - QUANTIDADE DE RECURSOS ALOCADOS NO FUNIL
 
-def QRecAloc(estado_x):                                                                   #Função recebe o Estado como parâmetro
+def QRecAloc(estado_x, Politica):                                                                   #Função recebe o Estado como parâmetro
 
     qtotal = 0
     for e in estado_x.E:                                                                  #Para todo etapa no conjunto de Etapas do funil
-        qtotal = qtotal + estado_x.tn[e]                                                  #qtotal recebe os valores alocados por etapa
+        qtotal = qtotal + Politica.tn[e]                                                  #qtotal recebe os valores alocados por etapa
 
     return qtotal                                                                         #A função retorna qtotal com a quantidade total de recursos alocados em todas as etapas do funil
 
@@ -120,14 +115,10 @@ def QProja(estado_x):                                                           
     mediaqa = 0                                                                           #Recebe a média das listas
     lpanome = []                                                                          #Lista que irá armazenar o nome dos projetos por área do funil
     for a in estado_x.A:                                                                  #Para toda área no conjunto de Áreas
-        for p in estado_x.P_a[a]:                                                         #Para todo projeto em cada área 'a'
+        for p in estado_x.P_a.index(a):                                                         #Para todo projeto em cada área 'a'
             contpe = contpe + 1                                                           #Contador recebe o acréscimo de 1
-            lpanome.append(p)                                                             #O projeto é adicionado na lista
         lpa.append(contpa)                                                                #A quantidade de projetos na área 'a' é adicionada a lista de quantidades
         contpa = 0
-        print('Projetos na área' + str(p.area) + '\n')                                    #Impressão dos projetos na área 'a'
-        for p in self.lpanome:
-            print p.nome
 
     mediaqa = (sum(lpa)/len(lpa))
 
@@ -170,12 +161,8 @@ def QProjae(estado_x):                                                          
         for a in estado_x.A:                                                              #Para toda área no conjunto de Áreas
             for p in estado_x.P_a[a]:                                                     #Para todo projeto no conjunto de Projetos por Área
                 contpae = contpae + 1                                                     #Contador recebe o acréscimo de mais 1
-                lpaenome.append(p)                                                        #Lista de nome recebe o projeto
             lpae.append(contpae)                                                          #Lista de quantidades recebe o contador
             contpae = 0
-        print('Projetos na área' + str(p.area) + 'da etapa'+ str(p.etapa) + '\n')         #Impressão dos projetos por área em cada etapa do funil
-        for p in self.lpaenome:
-            print p.nome
 
     mediaae = (sum(lpae)/len(lpae))
 
@@ -213,13 +200,9 @@ def QProjDiv(estado_x):                                                         
     lpdiv = []                                                                            #Lista vazia que irá armazenar os projetos que são divisíveis
     contpdiv = 0                                                                          #Contador que irá armazenar a quantidade de projetos divisíveis
     for p in estado_x.P:                                                                  #Para todos os projetos no conjunto de projetos 'P'
-        if( p.vdiv == 1):                                                                 #Se, vdiv for igual a 1, significa que o projeto é divisível
+        if( p.div == 1):                                                                 #Se, vdiv for igual a 1, significa que o projeto é divisível
             lpdiv.append(p)                                                               #A lista recebe o projeto em questão
             contpdiv = contpdiv + 1                                                       #Acréscimo de 1 no contador
-	
-    print('Projetos Divisíveis: \n')                                                      #Impressão dos projetos divisíveis
-    for p in self.lpdiv:
-        print p.nome
 
     return contpdiv                                                                       #A função retorna o contador com a quantidade total de projetos em P capazes de serem divididos
 
@@ -241,9 +224,6 @@ def QProjDiva(estado_x):                                                        
         lpdiva.append(contpdiva)                                                          #A lista de quantidades recebe contpdiva
         contpdiva = 0
 
-        print('Projetos Divisíveis na área'+ str(p.area) +'\n')                           #Impressão dos projetos divisíveis por área
-        for p in self.lpdivanome:
-            print p.nome
 
     mediada = (sum(lpdiva)/len(lpdiva))
 
@@ -260,17 +240,14 @@ def QProjDive(estado_x):                                                        
     contpdive = 0                                                                         #Contador dos projetos divisíveis por etapa
     mediade = 0                                                                           #Recebe a média das listas
     for e in estado_x.E:                                                                  #Para toda etapa do conjunto de Etapas
-        for p in estado_x.P_e[e]:                                                         #Para todo projeto na etapa 'e'
-            if( p.vdiv == 1):                                                             #Se ele for divisível
+        for p in estado_x.P_e[e-1]:                                                         #Para todo projeto na etapa 'e'
+            if( p.div == 1):                                                             #Se ele for divisível
                 lpdivenome.append(p)                                                      #Entra na lista
                 contpdive = contpdive + 1                                                 #Acréscimo de 1 no contador
 
         lpdive.append(contpdive)                                                          #A lista de quantidades recebe contpdive
         contpdive = 0
-	
-        print('Projetos Divisíveis na etapa'+ str(p.etapa)+'\n')                          #Impressão dos projetos divisíveis por etapa 
-        for p in self.lpdivenome:
-            print p.nome
+
 
     mediade = (sum(lpdive)/len(lpdive))
 
@@ -284,14 +261,12 @@ def QProjnDiv(estado_x):                                                        
 
     lpndiv = []                                                                           #Lista vazia que irá armazenar os projetos que não são divisíveis
     contpndiv = 0                                                                         #Contador que irá armazenar a quantidade de projetos não divisíveis
+    lpdiv = []
     for p in estado_x.P:                                                                  #Para todos os projetos no conjunto de projetos 'P'
-        if( p.vdiv != 1):                                                                 #Se, vdiv for diferente de 1, significa que o projeto não é divisível
+        if( p.div != 1):                                                                 #Se, vdiv for diferente de 1, significa que o projeto não é divisível
             lpdiv.append(p)                                                               #A lista recebe o projeto em questão
-            contpdiv = contpdiv + 1                                                       #Acréscimo de 1 no contador
+            contpndiv = contpndiv + 1                                                       #Acréscimo de 1 no contador
 	
-    print('Projetos não Divisíveis: \n')                                                  #Impressão dos projetos não divisíveis
-    for p in self.lpndiv:
-        print p.nome
 
     return contpndiv                                                                      #A função retorna o contador com a quantidade total de projetos em P não divisíveis
 
@@ -305,15 +280,12 @@ def TCongP(estado_x):                                                           
     ltempo = []                                                                           #Lista vazia que irá armazenar os tempos congelados de cada projeto
     mediat = 0                                                                            #Recebe a média das listas
     for p in estado_x.Pl:                                                                 #Para todo projeto lançado
-        if(p.vdiv == 1):                                                                  #Se for divisível
+        if(p.div == 1):                                                                  #Se for divisível
             lpdivl.append(p)                                                              #Lista recebe os projetos 
 
-    for p in self.lpdivl:                                                                 #Para todo projeto divisível
-        print('Tempo de congelamento total de' + str(p.nome) + ': \n')                    #Imprime o nome e seu tempo congelado
-        print p.congatual
         ltempo.append(p.congatual)                                                        #A lista recebe os tempos de congelamento de cada projeto lançado
 
-    mediat = (sum(ltempo)/len(ltempo))
+    mediat = (sum(ltempo))
 
     return mediat                                                                         #A função retorna os tempos congelados de cada projeto
 
@@ -328,12 +300,12 @@ def TCongReP(estado_x):                                                         
     mediare = 0                                                                           #Recebe a média das listas
     lresidual = []                                                                        #Lista que irá armazenar os tempos residuais de cada projeto
     for p in estado_x.P:                                                                  #Para todo projeto no conjunto de projetos
-        if(p.vdiv == 1):                                                                  #Se o projeto for divisível
+        if(p.div == 1):                                                                  #Se o projeto for divisível
             laux.append(p)                                                                #Lista armazena o projeto
             residual = p.cmax - p.congatual                                               #Residual recebe a diferença do tempo máximo e o congelamento atual
             lresidual.append(residual)                                                    #Lista armazena os tempos residuais de cada projeto
 
-    mediare = (sum(lresidual)/len(lresidual))
+    mediare = (sum(lresidual))
 
     return mediare                                                                        #A função retorna os tempos residuais de congelamento de cada projeto
 
@@ -361,7 +333,7 @@ def TRePe(estado_x):                                                            
     ltr = []                                                                              #Lista que irá armazenar os tempos residuais
     mediatr2 = 0                                                                          #Recebe a média das listas
     for e in estado_x.E:                                                                  #Para toda etapa no conjunto de Etapas 
-        for p in estado_x.P[e]:                                                           #Para todo projeto no conjunto de projetos                                                                
+        for p in estado_x.P_e[e-1]:                                                           #Para todo projeto no conjunto de projetos                                                                
             ltr.append(sum(estado_x.p.ltempo) - estado_x.p.Qexec)                         #A lista recebe a diferença entre o somatório total de tempos e o a quantidade executada: CRIAR ESSE PARÂMENTRO NO CÓDIGO                                                
 
     mediatr2 = (sum(ltr)/len(ltr))
@@ -410,7 +382,7 @@ def NecRecPa(estado_x):                                                         
     lnec = []                                                                             #Lista que irá receber os valores dos modos por área 
     median = 0                                                                            #Recebe a média das listas
     for a in estado_x.A:                                                                  #Para toda área do conjunto de Áreas
-        for p in estado_x.P[a]:                                                           #Para todo projeto em determinada área 
+        for p in estado_x.P_a[a]:                                                           #Para todo projeto em determinada área 
             nec0 = nec0 + p.lnrn[0]                                                       #Soma das necessidades de 'Continuar'
             nec1 = nec1 + p.lnrn[1]                                                       #Soma das necessidades de 'Melhorar'
             nec2 = nec2 + p.lnrn[2]                                                       #Soma das necessidades de 'Acelerar'
@@ -432,12 +404,14 @@ def NecRecPe(estado_x):                                                         
     lnec = []                                                                             #Lista que irá receber os valores dos modos por etapa 
     mediane = 0                                                                           #Recebe a média das listas
     for e in estado_x.E:                                                                  #Para toda área do conjunto de Etapas
-        for p in estado_x.P[e]:                                                           #Para todo projeto em determinada etapa
+        for p in estado_x.P_e[e-1]:                                                           #Para todo projeto em determinada etapa
             nec0 = nec0 + p.lnrn[0]                                                       #Soma das necessidades de 'Continuar'
             nec1 = nec1 + p.lnrn[1]                                                       #Soma das necessidades de 'Melhorar'
             nec2 = nec2 + p.lnrn[2]                                                       #Soma das necessidades de 'Acelerar'
 
-        lnec.append(nec0, nec1, nec2)                                                     #Lista de necessidades de cada modo em cada área
+        lnec.append(nec0)
+        lnec.append(nec1)
+        lnec.append(nec2)
 
     mediane = (sum(lnec)/len(lnec))
 
@@ -547,8 +521,9 @@ def QProjCongA(estado_x):                                                       
 def RetTotalProj(estado_x):                                                               #Função recebe o Estado como parâmetro                                                                  
 
     retesp = 0                                                                            #Variável que recebe a média dos retornos esperados
-    retesp = (estado_x.p.Mx + estado_x.p.mn)/2                                            #Faz-se a média do retorno máximo e mínimo esperado por projeto
-
+    for p in estado_x.Pl:
+        retesp = retesp + (p.Mx + p.mn)/2                                                              #Faz-se a média do retorno máximo e mínimo esperado por projeto
+        
 
     return retesp                                                                         #A função retorna a média dos retornos finais esperados
 
@@ -563,10 +538,10 @@ def RetTotalA(estado_x):                                                        
     mediara = 0                                                                           #Variável que recebe a média
     for p in estado_x.Pl:                                                                 #Para todo projeto no conjunto de projetos lançados
         for a in estado_x.A:                                                              #Para toda área no conjunto de Áreas
-            retesp = (estado_x.p.Mx + estado_x.p.mn)/2                                    #Faz-se a média do retorno máximo e mínimo esperado
+            retesp = (p.Mx + p.mn)/2                                    #Faz-se a média do retorno máximo e mínimo esperado
             lretesp.append(retesp)
 
-    mediara = (sum(lretesp)/len(lretesp))
+    mediara = (sum(lretesp))
 
     return mediara                                                                        #A função retorna a média dos retornos finais esperados
 
@@ -580,10 +555,10 @@ def RetTotal(estado_x):                                                         
     lretesp = []                                                                          #Lista que recebe os valores médios de retorno
     mediar = 0                                                                            #Variável que recebe a média
     for p in estado_x.Pl:                                                                 #Para todo projeto no conjunto de projetos lançados
-        retesp = (estado_x.p.Mx + estado_x.p.mn)/2                                        #Faz-se a média do retorno máximo e mínimo esperado
+        retesp = (p.Mx + p.mn)/2                                        #Faz-se a média do retorno máximo e mínimo esperado
         lretesp.append(retesp)
 
-    mediar = (sum(lretesp)/len(lretesp))
+    mediar = sum(lretesp)
 
     return mediar                                                                         #A função retorna a média dos retornos finais esperados
 
@@ -594,7 +569,7 @@ def RetTotal(estado_x):                                                         
 def DesemProj(estado_x):                                                                  #Função recebe o Estado como parâmetro                                                                  
 
     retesp = 0                                                                            #Variável que recebe a média do desempenho esperado
-    retesp = [(estado_x.p.Mx + estado_x.p.mn)/2 - estado_x.lnrn]                          #Faz-se a média do retorno máximo e mínimo esperado por projeto e subtrai do custo de execução
+    retesp = [(p.Mx + p.mn)/2 - estado_x.lnrn]                          #Faz-se a média do retorno máximo e mínimo esperado por projeto e subtrai do custo de execução
 
 
     return retesp                                                                         #A função retorna a média do desempenho esperado
@@ -645,7 +620,7 @@ def VPLTotal(estado_x):                                                         
     lretesp = []                                                                          #Lista que recebe os valores de VPL
     mediavpl = 0                                                                          #Variável que recebe a média
     for p in estado_x.Pl:                                                                 #Para todo projeto no conjunto de projetos lançados
-        retesp = estado_x.p.vplMax                                                          #Recebe-se o VPL
+        retesp = p.vplMax                                                          #Recebe-se o VPL
         lretesp.append(retesp)
 
     mediavpl = sum(lretesp)
@@ -789,7 +764,7 @@ def CustoMinTotalCong(estado_x):                                                
 
 def save_cabecalho(estado_x, nome_do_arq):
 
-	listaCabecalho = ['valorSim - custoSim', 'v0','custoSim','valorSim','QProj']
+	listaCabecalho = ['valorSim - custoSim', 'v0','custoSim','valorSim','QProj', 'QProjNovos', 'QProje', 'QProjDiv', 'QProjDive', 'QProjnDiv', 'TCongP', 'TCongReP', 'OrTotal', 'QProjCong', 'QProjCongE', 'QProjCongA']
 	with open(nome_do_arq, 'w') as nfile:
 		for l in listaCabecalho:
 			nfile.write('{:s},'.format(l))
@@ -797,10 +772,49 @@ def save_cabecalho(estado_x, nome_do_arq):
 
 def save_data(estado_x, listaCusto, nome_do_arq):
 
-	with open(nome_do_arq, 'a') as nfile:
-		for v in listaCusto:
-			nfile.write('{:.2f},'.format(v))
-		nfile.write('{:.2f},'.format(QProj(estado_x))) # colocar a apartir daqui todas as outras funções 
-#		nfile.write('{},'.format(QProjNovos(estado_x)))
-		nfile.write('\n')
+    with open(nome_do_arq, 'a') as nfile:
+        for v in listaCusto:
+            nfile.write('{:.2f},'.format(v))
+        nfile.write('{:.2f},'.format(QProj(estado_x))) # colocar a apartir daqui todas as outras funções
+        nfile.write('{:.2f},'.format(QProjNovos(estado_x)))
+        nfile.write('{:.2f},'.format(QProje(estado_x)))
+#        nfile.write('{:.2f},'.format(QRecAloc(estado_x, Politica)))
+#        nfile.write('{:.2f},'.format(QRecAloce(estado_x)))
+#        nfile.write('{:.2f},'.format(QProja(estado_x)))
+#        nfile.write('{:.2f},'.format(QReca(estado_x)))
+#        nfile.write('{:.2f},'.format(QProjae(estado_x)))
+#        nfile.write('{:.2f},'.format(QRecae(estado_x)))
+        nfile.write('{:.2f},'.format(QProjDiv(estado_x)))
+#        nfile.write('{:.2f},'.format(QProjDiva(estado_x)))
+        nfile.write('{:.2f},'.format(QProjDive(estado_x)))
+        nfile.write('{:.2f},'.format(QProjnDiv(estado_x)))
+        nfile.write('{:.2f},'.format(TCongP(estado_x)))
+        nfile.write('{:.2f},'.format(TCongReP(estado_x)))
+#        nfile.write('{:.2f},'.format(TReP(estado_x)))
+#        nfile.write('{:.2f},'.format(TRePe(estado_x)))
+#        nfile.write('{:.2f},'.format(TRePa(estado_x)))
+#        nfile.write('{:.2f},'.format(NecRecP(estado_x)))
+#        nfile.write('{:.2f},'.format(NecRecPa(estado_x)))
+#        nfile.write('{:.2f},'.format(NecRecPe(estado_x)))
+        nfile.write('{:.2f},'.format(OrTotal(estado_x)))
+#        nfile.write('{:.2f},'.format(QRecMax(estado_x)))
+#        nfile.write('{:.2f},'.format(QModosPe(estado_x)))
+        nfile.write('{:.2f},'.format(QProjCong(estado_x)))
+        nfile.write('{:.2f},'.format(QProjCongE(estado_x)))
+        nfile.write('{:.2f},'.format(QProjCongA(estado_x)))
+#        nfile.write('{:.2f},'.format(RetTotalProj(estado_x)))
+#        nfile.write('{:.2f},'.format(RetTotalA(estado_x)))
+#        nfile.write('{:.2f},'.format(RetTotal(estado_x)))
+#        nfile.write('{:.2f},'.format(DesemProj(estado_x)))	
+#        nfile.write('{:.2f},'.format(DesemProjA(estado_x)))	
+#        nfile.write('{:.2f},'.format(DesemProjE(estado_x)))	
+#        nfile.write('{:.2f},'.format(VPLTotal(estado_x)))	
+#        nfile.write('{:.2f},'.format(CustoMinTotal(estado_x)))	
+#        nfile.write('{:.2f},'.format(TempoEspProxLan(estado_x)))	
+#        nfile.write('{:.2f},'.format(VPLTotalA(estado_x)))	
+#        nfile.write('{:.2f},'.format(VPLTotalE(estado_x)))	
+#        nfile.write('{:.2f},'.format(CustoMinTotalA(estado_x)))	
+#        nfile.write('{:.2f},'.format(CustoMinTotalE(estado_x)))	
+#        nfile.write('{:.2f},'.format(CustoMinTotalCong(estado_x)))			
+        nfile.write('\n')
 
