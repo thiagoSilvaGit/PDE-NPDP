@@ -81,28 +81,28 @@ def QProje(estado_x):                                                           
 
 #04 - QUANTIDADE DE RECURSOS ALOCADOS NO FUNIL
 
-def QRecAloc(estado_x, Politica):                                                                   #Função recebe o Estado como parâmetro
+#def QRecAloc(estado_x, Politica):                                                                   #Função recebe o Estado como parâmetro
 
-    qtotal = 0
-    for e in estado_x.E:                                                                  #Para todo etapa no conjunto de Etapas do funil
-        qtotal = qtotal + Politica.tn[e]                                                  #qtotal recebe os valores alocados por etapa
+#    qtotal = 0
+#    for e in estado_x.E:                                                                  #Para todo etapa no conjunto de Etapas do funil
+#        qtotal = qtotal + Politica.tn[e]                                                  #qtotal recebe os valores alocados por etapa
 
-    return qtotal                                                                         #A função retorna qtotal com a quantidade total de recursos alocados em todas as etapas do funil
+#    return qtotal                                                                         #A função retorna qtotal com a quantidade total de recursos alocados em todas as etapas do funil
 
 
 
 #05 - QUANTIDADE DE RECURSOS ALOCADOS EM CADA ETAPA DO FUNIL
 
-def QRecAloce(estado_x):                                                                  #Função recebe o Estado como parâmetro
+#def QRecAloce(estado_x):                                                                  #Função recebe o Estado como parâmetro
 
-    lqtotale = []                                                                         #Lista que irá armazenar as quantidades alocadas em cada etapa do funil
-    mediaqr = 0                                                                           #Recebe a média das listas
-    for e in estado_x.E:                                                                  #Para cada etapa no conjunto de Etapas do funil
-        lqtotale.append(estado_x.tn[e])                                                   #Lista recebendo os valores
+#    lqtotale = []                                                                         #Lista que irá armazenar as quantidades alocadas em cada etapa do funil
+#    mediaqr = 0                                                                           #Recebe a média das listas
+#    for e in estado_x.E:                                                                  #Para cada etapa no conjunto de Etapas do funil
+#        lqtotale.append(estado_x.tn[e])                                                   #Lista recebendo os valores
 
-    mediaqr = (sum(lqtotale)/len(lqtotale))
+#    mediaqr = (sum(lqtotale)/len(lqtotale))
 
-    return mediaqr                                                                        #A função retorna lqtotal que é a lista com todos os valores alocados por etapa no funil
+#    return mediaqr                                                                        #A função retorna lqtotal que é a lista com todos os valores alocados por etapa no funil
 
 
 
@@ -357,7 +357,7 @@ def TRePa(estado_x):                                                            
     return mediatr3                                                                       #A função retorna os tempos residuais de cada projeto
 
 
-#19 - NECESSIDADE DE RECURSOS DE CADA PROJETO
+#19 - NECESSIDADE DE RECURSOS DE CADA PROJETO ((((((só para um tipo))))))
 
 def NecRecP(estado_x):                                                                    #Função recebe o Estado como parâmetro
 
@@ -372,7 +372,7 @@ def NecRecP(estado_x):                                                          
 
 
 
-#20 - NECESSIDADE DE RECURSOS DE CADA ÁREA
+#20 - NECESSIDADE DE RECURSOS DE CADA ÁREA ((((minimo só pro continuar))))
 
 def NecRecPa(estado_x):                                                                   #Função recebe o Estado como parâmetro
 
@@ -516,7 +516,7 @@ def QProjCongA(estado_x):                                                       
 
 
 
-#28 - RETORNO TOTAL FINAL ESPERADO POR PROJETO
+#28 - RETORNO TOTAL FINAL ESPERADO POR PROJETO (((olhar a .par 0 mx 1 mn - valorLan(self,t) t = sum(p.tempo)))))RET ESP ((((POSSO FAZER MAIS UMA COM TODOS OS PROJETOS))))
 
 def RetTotalProj(estado_x):                                                               #Função recebe o Estado como parâmetro                                                                  
 
@@ -612,7 +612,7 @@ def DesemProjE(estado_x):                                                       
 
 
 
-#34 - VPL TOTAL DA CARTEIRA
+#34 - VPL TOTAL DA CARTEIRA *******nova 28 (dividir por 1 + a taxa ^tres))))) A CADA SOMA DIF 34 e 28
 
 def VPLTotal(estado_x):                                                                   #Função recebe o Estado como parâmetro                                                                  
 
