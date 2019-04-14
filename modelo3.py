@@ -1046,7 +1046,7 @@ S.transicao(d,2)
 S.imprime()'''
 
 sim = Simulador()
-[rl1,rl2,rl3,rl4] = sim.simulacao(S,Pol,200,2)
+[rl1,rl2,rl3,rl4] = sim.simulacao(S,Pol,2000,2)
 
 #print rl1
 #print rl2
