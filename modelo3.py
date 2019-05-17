@@ -1033,7 +1033,7 @@ vbe = 0.1
 vroum = 0.1
 vrodois = 0.1
 lqrn = 70
-lareas = ["A1", "A2"]
+lareas = ["A1", "A2", "A3"]
 letapas = [1, 2]
 
 S = Estado_GCPDNP(P, vfi, vbe, vroum, vrodois, lqrn, lareas, letapas)
