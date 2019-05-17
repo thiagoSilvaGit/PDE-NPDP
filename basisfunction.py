@@ -73,7 +73,7 @@ def QProje(estado_x):                                                           
         lpe.append(contpe)                                                                #A quantidade de projetos no estado 'e' é adicionada a lista de quantidades
         contpe = 0
 
-    mediaqp = (sum(lpe)/len(lpe))
+    mediaqp = (sum(lpe)/len(estado_x.E))
 
     return mediaqp                                                                        #A função retorna a lista de quantidades de projetos por etapa 'e'
 
