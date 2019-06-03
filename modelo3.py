@@ -899,6 +899,7 @@ class ADP_Trainer:
 		d = Pol.solver(S)
 		custoSim = d.valor
 		valorSim = S.transicao(d,vmax)
+		indicadores  = bf.calc_ind(S)
 		v0 = 0.995*v0 + 0.005*(valorSim - custoSim)
 		return new_stat
 

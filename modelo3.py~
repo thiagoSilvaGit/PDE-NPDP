@@ -473,7 +473,12 @@ class GeraIncerteza:
 
 # Classe Politica
 class Politica:
+'''
+	class Politica deve ser capaz de se autoatualizar a partir de dados gerados pela simulação
+'''
     parametros = []
+	def AtualizaPolitica(lpar):
+		return 0 	
     def solver(self,estado_x):
 # Modelo "m"
         m = Model("assignment")
@@ -874,6 +879,30 @@ class Simulador:
 		S.imprime()
 		return [vlist,vlist2,vlist3,vlist4]
 
+class ADP_Trainer:
+
+	''' Classe que que dado uma política, realiza a simulação, ou simulações, e retorna a política atualizada
+		Objetivos: 1) Atualizar políticas
+		Métodos Obrigatórios: 
+				  - train(self, Problema, Politica, niter, lpar):
+				  - def simulacao(self, S, Pol):	
+		Variáveis Obrigatórias:
+	'''
+	def train (self, Problema, Politica, niter, lpar):
+		# 1 - cria o problema e o estado inicial
+		# 2 - Para toda iteração simular, guardar as estatísticas e atualizar o vetor  de parâmetros da política de acordo com as estatísticas coletadas usando o algoritmo adequado
+		# 3 - Retornar a política com parâmetros atualizados
+
+		return Politica
+	def simulacao(self, S, Pol):
+		new_stat = []
+		d = Pol.solver(S)
+		custoSim = d.valor
+		valorSim = S.transicao(d,vmax)
+		v0 = 0.995*v0 + 0.005*(valorSim - custoSim)
+		return new_stat
+
+
 # Instancia gerada manualmente
 
 vprob = 0.5
@@ -1033,7 +1062,7 @@ vbe = 0.1
 vroum = 0.1
 vrodois = 0.1
 lqrn = 70
-lareas = ["A1", "A2"]
+lareas = ["A1", "A2", "A3"]
 letapas = [1, 2]
 
 S = Estado_GCPDNP(P, vfi, vbe, vroum, vrodois, lqrn, lareas, letapas)
@@ -1048,11 +1077,11 @@ S.imprime()'''
 sim = Simulador()
 [rl1,rl2,rl3,rl4] = sim.simulacao(S,Pol,2000,2)
 
-print rl1
-print rl2
+#print rl1
+#print rl2
 
-GraficoLinha(rl1[0:1999])
-GraficoLinha(rl2[0:1999])
+#GraficoLinha(rl1[0:1999])
+#GraficoLinha(rl2[0:1999])
 
 # Instancia gerada atraves do Gerador
 '''
