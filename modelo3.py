@@ -473,7 +473,12 @@ class GeraIncerteza:
 
 # Classe Politica
 class Politica:
+'''
+	class Politica deve ser capaz de se autoatualizar a partir de dados gerados pela simulação
+'''
     parametros = []
+	def AtualizaPolitica(lpar):
+		return 0 	
     def solver(self,estado_x):
 # Modelo "m"
         m = Model("assignment")
@@ -873,6 +878,30 @@ class Simulador:
 			bf.save_data(S,[valorSim - custoSim,v0,custoSim,valorSim],'teste_saida.txt')
 		S.imprime()
 		return [vlist,vlist2,vlist3,vlist4]
+
+class ADP_Trainer:
+
+	''' Classe que que dado uma política, realiza a simulação, ou simulações, e retorna a política atualizada
+		Objetivos: 1) Atualizar políticas
+		Métodos Obrigatórios: 
+				  - train(self, Problema, Politica, niter, lpar):
+				  - def simulacao(self, S, Pol):	
+		Variáveis Obrigatórias:
+	'''
+	def train (self, Problema, Politica, niter, lpar):
+		# 1 - cria o problema e o estado inicial
+		# 2 - Para toda iteração simular, guardar as estatísticas e atualizar o vetor  de parâmetros da política de acordo com as estatísticas coletadas usando o algoritmo adequado
+		# 3 - Retornar a política com parâmetros atualizados
+
+		return Politica
+	def simulacao(self, S, Pol):
+		new_stat = []
+		d = Pol.solver(S)
+		custoSim = d.valor
+		valorSim = S.transicao(d,vmax)
+		v0 = 0.995*v0 + 0.005*(valorSim - custoSim)
+		return new_stat
+
 
 # Instancia gerada manualmente
 
