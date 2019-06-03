@@ -1,0 +1,10 @@
+Correlações acima de 20%
+
+CustoSim, ValorSim, QProj (inversa), QProje (inversa), Qproja (inversa), NecRecPa (inversa), NecRecPe (inversa),
+OrTotal, RetMnTotalProj (inversa), RetMnTotalA (inversa), VPLMnTotal (inversa), VPLMxTotal (inversa), CustoMnTotal
+(inversa), VPLMnTotalA (inversa), VPLMnTotalE (inversa), VPLMxTotalE (inversa).
+
+
+Variáveis que explicam ValorSim-CustoSim individualmente
+
+Todas, menos v0, TCongP, DesemMnP.
