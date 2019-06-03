@@ -663,3 +663,6 @@ def save_data(estado_x, listaCusto, nome_do_arq):
         nfile.write('{:.2f},'.format(CustoMxTotalCong(estado_x)))		
         nfile.write('\n')
 
+def calc_ind(estado_x):
+	return [QProj(estado_x),QProjNovos(estado_x),QProje(estado_x) ...]  
+
