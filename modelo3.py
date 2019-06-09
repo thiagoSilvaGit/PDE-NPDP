@@ -473,12 +473,10 @@ class GeraIncerteza:
 
 # Classe Politica
 class Politica:
-'''
-	class Politica deve ser capaz de se autoatualizar a partir de dados gerados pela simulação
-'''
+
     parametros = []
-	def AtualizaPolitica(lpar):
-		return 0 	
+    def AtualizaPolitica(lpar):
+        return 0 	
     def solver(self,estado_x):
 # Modelo "m"
         m = Model("assignment")
