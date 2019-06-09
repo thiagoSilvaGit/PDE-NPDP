@@ -664,5 +664,5 @@ def save_data(estado_x, listaCusto, nome_do_arq):
         nfile.write('\n')
 
 def calc_ind(estado_x):
-	return [QProj(estado_x),QProjNovos(estado_x),QProje(estado_x) ...]  
+	return [QProj(estado_x),QProjNovos(estado_x),QProje(estado_x), QProja(estado_x), QProjDiv(estado_x), QProjDiva(estado_x), QProjDive(estado_x), QProjnDiv(estado_x), TCongP(estado_x), TCongReP(estado_x), NecRecP(estado_x), NecRecPa(estado_x), NecRecPe(estado_x), OrTotal(estado_x), QRecMax(estado_x), QProjCong(estado_x), QProjCongE(estado_x), QProjCongA(estado_x), RetMnTotalProj(estado_x), RetMxTotalProj(estado_x), RetMnTotalA(estado_x), RetMxTotalA(estado_x), DesemMxProj(estado_x), DesemMnProj(estado_x), VPLMnTotal(estado_x), VPLMxTotal(estado_x), CustoMnTotal(estado_x), CustoMxTotal(estado_x), VPLMnTotalA(estado_x), VPLMxTotalA(estado_x), VPLMnTotalE(estado_x), VPLMxTotalE(estado_x), CustoMnTotalCong(estado_x), CustoMxTotalCong(estado_x)]  
 
