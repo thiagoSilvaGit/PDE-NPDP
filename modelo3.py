@@ -291,12 +291,7 @@ class Estado_GCPDNP:
             print('Etapa '+ str(e) + ':\n') 		
             for p in self.P_e[e]:
                 print p.nome
-		
-
-
-
-
-    # Recebe decisao
+	# Recebe decisao
     def transicao(self,dec,vqMax):
         Incerteza = GeraIncerteza(self,dec,self.estagio,vqMax)
         Incerteza.geracao()
@@ -474,9 +469,12 @@ class GeraIncerteza:
 # Classe Politica
 class Politica:
 
-    parametros = []
-    def AtualizaPolitica(lpar):
-        return 0 	
+	def __init__(self,lbs,lcoef, gam):
+		self.lBasis = lbs 
+		self.B = eye(len(lcoef))
+		self.Theta = array(lcoef)
+		self.gamma = gam 
+
     def solver(self,estado_x):
 # Modelo "m"
         m = Model("assignment")
@@ -661,6 +659,68 @@ class Politica:
 	
         d = Decisao(vy, vf, vw, vtn, obj,Valor)
         return d
+	def retorno(self,EstX,lpar,decisao):
+        return 0
+	def calc_erro_m(self,C,fgf):
+		aux = npla.multi_dot(fgf*self.Theta)
+		return C - aux
+
+	def calc_denm(self,phi,fgf):
+		
+		aux  = np.matmul(np.matmul(fgf,self.B),np.transpose(phi_m))
+		
+		denm = 1.0 + aux # denominador
+		if (denm>0.0)&(denm<0.00001):
+			denm +=0.0001 #to avoid numerical issues; 
+		else: 
+			if (denm<0.0)&(denm >-0.00001): 
+				denm -=0.0001; #to avoid numerical issues
+	
+	def UpdateB_m(self,phi_m, fgf):
+		# B e theta estão na política
+		denm = self.calc_demn(phi_m,fgf)
+		self.B = self.B - (1/denm)*np.matmul(np.matmult(self.B,np.transpose(phi_m)),np.matmul(fgf,self.B))
+
+	def UpdateTheta_m(self,erro,phi,fgf):
+		denm = self.calc_demn(phi,fgf)
+		self.Theta = self.Theta + (1/denm)*np.matmul(np.matmul(error,self.B),np.transpose(phi)) 
+		
+
+	def calc_phi(self, S, lpar):
+		#basis* indicadores
+		phi  = [self.lbs[i](S,lpar) for i in range(len(self.Theta))]
+		a_phi = array(phi)
+		return a_phi
+
+	def calc_phiGammaPhi(self, S,Smp,lpar):
+		phi_m = self.calc_phi(self, S,lpar)
+		phi_mp = self.calc_phi(self, Smp,lpar)
+		phiGammaPhi = phi_m - self.gamma*phi_mp # operação matricial
+		return phiGammaPhi
+
+	def updPol(self,a,Sm,Smp1,lpar):
+		#recursive least squares
+		#step 6d algoritmo 10.10 pag 407
+		custo = self.retorno(Sm,lpar,a)
+		phi_m = self.calc_phi(Sm,lpar)
+		fgf =  self.calc_phiGammaPhi(Sm,Smp,lpar)
+
+		#setp 7b alg 10.10 pag 407 - eq. 10.23 via rls
+		erro = self.calcError_m(custo,fgf)
+		self.UpdateTheta_m(erro,phi_m, fgf)
+		self.UpdateB_m(phi_m, fgf)
+
+	def getStatLabels():
+		thetafb =['Theta_fb'+ i for i in range(len(self.lbs))]
+		return thetafb
+
+	def getStatistics():
+		return self.Theta
+
+
+
+
+
 class Politica_GulosaVPL:
     ''' Política 3: Política Gulosa
 
@@ -877,29 +937,64 @@ class Simulador:
 		S.imprime()
 		return [vlist,vlist2,vlist3,vlist4]
 
-class ADP_Trainer:
+class ADP(tpd.Trainer):
+##@b approxPIA
+#@brief Algoritmo da Figura 10.10 de Power(2011), Dado uma política inicial, encontra uma política "ótima" a partir de uma estratégia de #aprendizado
+#@details
+# --
+# 
+# 
+#@param P objeto instanciado da classe Problema que possua, funções de custo, função de transição e estado
+#@param A política inicial:  objeto instanciado da classe Politica que dado um estado retorna uma ação
+#@param n número de iterações do Policy Iteration Algorithm
+#@param m tamanho da simulção de Monte Carlo para convergência do valor
+#@retval Alinha: objeto instanciado atualizado da classe Politica que dado um estado retorna uma ação
+	def approxPIA(P,A,n,m):
+		lpar = [P.y1,P.y2,P.te, P.ts]
+		Stat = []
+		Alinha = c.deepcopy(A) #step 4: inicializar a política
+		for i in range(n):
+			Sm = Estado(P.P_ini,P.lst_silos) #iniciar o estado inicial (step 2)
+			Am = c.deepcopy(Alinha)
+			for j in range(m):
+				Smp1 = c.deepcopy(Sm) 
+				#step 5: gera a incerteza do cenário 
+				a = Alinha.solver(Smp1,lpar) #gerar a ação com a política atual step 6a
+				custo = Alinha.retorno(Smp1,lpar)
+				Smp1.transicao(a) # gerar novo estado a partir da transição do atual
+				Am.updPol(Am,a,Sm,Smp1,lpar)
+				Stat.append([custo] + Am.getStatistics())
+				del(Sm)
+				Sm = c.deepcopy(Smp1)
+				del(Smp1)
+			del(Alinha)
+			Alinha = c.deepcopy(Am) #step 8: atualizar a política para a iteração i+1
+			del(Am)
+		self.adpStat(['custo'] +Alinha.getStatLabels(),Stat,n,m)
+		return Alinha
 
-	''' Classe que que dado uma política, realiza a simulação, ou simulações, e retorna a política atualizada
-		Objetivos: 1) Atualizar políticas
-		Métodos Obrigatórios: 
-				  - train(self, Problema, Politica, niter, lpar):
-				  - def simulacao(self, S, Pol):	
-		Variáveis Obrigatórias:
-	'''
-	def train (self, Problema, Politica, niter, lpar):
-		# 1 - cria o problema e o estado inicial
-		# 2 - Para toda iteração simular, guardar as estatísticas e atualizar o vetor  de parâmetros da política de acordo com as estatísticas coletadas usando o algoritmo adequado
-		# 3 - Retornar a política com parâmetros atualizados
+	def adpStat(labels,Stats,n, m):
+		self.StatLab = labels
+		self.StatData = [[] for i in range(len(labels))]
+		for i in range(len(labels)):
+			for j in range(n):
+				auxn = []
+				for k in range(m):
+					auxn.append(Stat[j*n+k][i])
+			self.StatData[i].append(auxn)
+	 
 
-		return Politica
-	def simulacao(self, S, Pol):
-		new_stat = []
-		d = Pol.solver(S)
-		custoSim = d.valor
-		valorSim = S.transicao(d,vmax)
-		indicadores  = bf.calc_ind(S)
-		v0 = 0.995*v0 + 0.005*(valorSim - custoSim)
-		return new_stat
+	def graficoStat(self,idStat):
+		n = len(self.StatSata)
+		m = len(self.StatData[0])		    
+		s= range(n*m)
+		matplotlib.pyplot.figure(figsize=(30,30))
+		matplotlib.pyplot.scatter(s,self.Statdata[idStat],label= self.StatLab)
+
+		matplotlib.pyplot.xlabel("Iteração")
+		matplotlib.pyplot.ylabel("Valor")
+		matplotlib.pyplot.show()
+	 
 
 
 # Instancia gerada manualmente
