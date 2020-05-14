@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from cStringIO import StringIO
+#from cStringIO import StringIO
 
 
 
@@ -16,7 +16,7 @@ def QProj(estado_x):                                                            
 
     print ('Projetos no funil: \n')                                                       #Impressão dos projetos no funil
     for p in estado_x.P:
-        print p.nome
+        print(p.nome)
 
     return contp                                                                          #A função retorna o contador com a quantidade total de projetos no funil
 
@@ -177,26 +177,6 @@ def QProjnDiv(estado_x):                                                        
     return contpndiv                                                                      #A função retorna o contador com a quantidade total de projetos em P não divisíveis
 
 
-
-#9 - TEMPO DE CONGELAMENTO TOTAL DE CADA PROJETO
-
-def TCongP(estado_x):                                                                     #Função recebe o Estado como parâmetro
-
-    lpdivl = []                                                                           #Lista vazia que irá armazenar os projetos divisíveis
-    ltempo = []                                                                           #Lista vazia que irá armazenar os tempos congelados de cada projeto
-    mediat = 0                                                                            #Recebe a média das listas
-    for p in estado_x.Pl:                                                                 #Para todo projeto lançado
-        if(p.div == 1):                                                                  #Se for divisível
-            lpdivl.append(p)                                                              #Lista recebe os projetos 
-
-        ltempo.append(p.congatual)                                                        #A lista recebe os tempos de congelamento de cada projeto lançado
-
-    mediat = (sum(ltempo))
-
-    return mediat                                                                         #A função retorna os tempos congelados de cada projeto
-
-
-
 #10 - TEMPO DE CONGELAMENTO RESIDUAL DE CADA PROJETO
 
 def TCongReP(estado_x):                                                                   #Função recebe o Estado como parâmetro
@@ -264,40 +244,6 @@ def NecRecPe(estado_x):                                                         
     
         mediant = (sum(lnect)/len(estado_x.E))
     return mediant
-
-
-
-#14 - ORÇAMENTO TOTAL DISPONÍVEL
-
-def OrTotal(estado_x):                                                                    #Função recebe o Estado como parâmetro
-
-    orc = 0                                                                               #Variável que irá receber o valor do orçamento
-    a = 0
-    for p in estado_x.P:
-        a = a + p.modos[p.etapa-1][0].nrn
-        orc = estado_x.qn_k - a                                                                #Variável recebe o orçamento daquele período
-
-    return orc                                                                            #A função retorna o orçamento ainda disponível
-
-
-
-#15 - QUANTIDADE DE RECURSOS MÁXIMA QUE UM PROJETO PODE ENGLOBAR
-
-def QRecMax(estado_x):                                                                    #Função recebe o Estado como parâmetro
-
-    costmax = 0                                                                           #Variável que recebe o custo máximo de um projeto                                             
-    lcostmax = []                                                                         #Lista dos custos máximos dos projetos
-    mediacm = 0                                                                           #Variável que recebe a média
-    for e in estado_x.E:                                                                  #Para toda etapa do funil
-        for p in estado_x.P:                                                              #Para todos os projetos nas etapas
-            costmax = p.modos[p.etapa-1][0].nrn
-            lcostmax.append(costmax)
-
-    mediacm = (sum(lcostmax)/len(lcostmax))
-
-    return mediacm                                                                        #A função retorna a média dos custos máximos de cada projeto
-
-
 
 
 #16 - QUANTIDADE DE PROJETOS CONGELADOS NO FUNIL
@@ -616,7 +562,7 @@ def CustoMxTotalCong(estado_x):                                                 
 
 def save_cabecalho(estado_x, nome_do_arq):
 
-	listaCabecalho = ['valorSim - custoSim', 'v0','custoSim','valorSim','QProj', 'QProjNovos', 'QProje', 'Qproja', 'QProjDiv', 'QProjDiva', 'QProjDive', 'QProjnDiv', 'TCongP', 'TCongReP', 'NecRecP', 'NecRecPa', 'NecRecPe', 'OrTotal', 'QRecMax', 'QProjCong', 'QProjCongE', 'QProjCongA', 'RetMnTotalProj', 'RetMxTotalProj', 'RetMnTotalA', 'RetMxTotalA', 'DesemMxProj', 'DesemMnProj', 'VPLMnTotal', 'VPLMxTotal', 'CustoMnTotal', 'CustoMxTotal', 'VPLMnTotalA', 'VPLMxTotalA', 'VPLMnTotalE', 'VPLMxTotalE', 'CustoMnTotalCong', 'CustoMxTotalCong']
+	listaCabecalho = ['valorSim - custoSim', 'v0','custoSim','valorSim','QProj', 'QProjNovos', 'QProje', 'Qproja', 'QProjDiv', 'QProjDiva', 'QProjDive', 'QProjnDiv', 'TCongReP', 'NecRecP', 'NecRecPa', 'NecRecPe', 'QProjCong', 'QProjCongE', 'QProjCongA', 'RetMnTotalProj', 'RetMxTotalProj', 'RetMnTotalA', 'RetMxTotalA', 'DesemMxProj', 'DesemMnProj', 'VPLMnTotal', 'VPLMxTotal', 'CustoMnTotal', 'CustoMxTotal', 'VPLMnTotalA', 'VPLMxTotalA', 'VPLMnTotalE', 'VPLMxTotalE', 'CustoMnTotalCong', 'CustoMxTotalCong']
 	with open(nome_do_arq, 'w') as nfile:
 		for l in listaCabecalho:
 			nfile.write('{:s},'.format(l))
@@ -635,13 +581,10 @@ def save_data(estado_x, listaCusto, nome_do_arq):
         nfile.write('{:.2f},'.format(QProjDiva(estado_x)))
         nfile.write('{:.2f},'.format(QProjDive(estado_x)))
         nfile.write('{:.2f},'.format(QProjnDiv(estado_x)))
-        nfile.write('{:.2f},'.format(TCongP(estado_x)))
         nfile.write('{:.2f},'.format(TCongReP(estado_x)))
         nfile.write('{:.2f},'.format(NecRecP(estado_x)))
         nfile.write('{:.2f},'.format(NecRecPa(estado_x)))
         nfile.write('{:.2f},'.format(NecRecPe(estado_x)))
-        nfile.write('{:.2f},'.format(OrTotal(estado_x)))
-        nfile.write('{:.2f},'.format(QRecMax(estado_x)))
         nfile.write('{:.2f},'.format(QProjCong(estado_x)))
         nfile.write('{:.2f},'.format(QProjCongE(estado_x)))
         nfile.write('{:.2f},'.format(QProjCongA(estado_x)))
@@ -664,5 +607,5 @@ def save_data(estado_x, listaCusto, nome_do_arq):
         nfile.write('\n')
 
 def calc_ind(estado_x):
-	return [QProj(estado_x),QProjNovos(estado_x),QProje(estado_x), QProja(estado_x), QProjDiv(estado_x), QProjDiva(estado_x), QProjDive(estado_x), QProjnDiv(estado_x), TCongP(estado_x), TCongReP(estado_x), NecRecP(estado_x), NecRecPa(estado_x), NecRecPe(estado_x), OrTotal(estado_x), QRecMax(estado_x), QProjCong(estado_x), QProjCongE(estado_x), QProjCongA(estado_x), RetMnTotalProj(estado_x), RetMxTotalProj(estado_x), RetMnTotalA(estado_x), RetMxTotalA(estado_x), DesemMxProj(estado_x), DesemMnProj(estado_x), VPLMnTotal(estado_x), VPLMxTotal(estado_x), CustoMnTotal(estado_x), CustoMxTotal(estado_x), VPLMnTotalA(estado_x), VPLMxTotalA(estado_x), VPLMnTotalE(estado_x), VPLMxTotalE(estado_x), CustoMnTotalCong(estado_x), CustoMxTotalCong(estado_x)]  
+	return [QProj(estado_x), QProjNovos(estado_x), QProje(estado_x), QProja(estado_x), QProjDiv(estado_x), QProjDiva(estado_x), QProjDive(estado_x), QProjnDiv(estado_x), TCongReP(estado_x), NecRecP(estado_x), NecRecPa(estado_x), NecRecPe(estado_x), QProjCong(estado_x), QProjCongE(estado_x), QProjCongA(estado_x), RetMnTotalProj(estado_x), RetMxTotalProj(estado_x), RetMnTotalA(estado_x), RetMxTotalA(estado_x), DesemMxProj(estado_x), DesemMnProj(estado_x), VPLMnTotal(estado_x), VPLMxTotal(estado_x), CustoMnTotal(estado_x), VPLMnTotalA(estado_x), VPLMxTotalA(estado_x), VPLMnTotalE(estado_x), VPLMxTotalE(estado_x), CustoMnTotalCong(estado_x), CustoMxTotalCong(estado_x)]  
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from gurobipy import *
 import math
-from cStringIO import StringIO
+# from cStringIO import StringIO
 import numpy as np
 from scipy.stats import norm
 import basisfunction as bf
@@ -88,16 +88,16 @@ class Gerador:
         for ie in range(netapas):
             nt = np.random.randint(1,4)
             ltempo.append(nt) 
-            # Lista de tempos recebendo valor			
+            # Lista de tempos recebendo valor            
             tempo+= nt
         for ie in range(netapas):    
             quant = np.random.randint(1,3)
             imodo = self.geraModo(quant,desvp,tempo,qrnr)
             # As necessidades de recurso sendo atribuidas
-            totalCost += imodo[0].nrn*ltempo[ie]		
+            totalCost += imodo[0].nrn*ltempo[ie]        
             lmodos.append(imodo)
 
-        # Os valores maximo e minimo esperado recebem um valor a partir de uma distribuicao uniforme multiplicada pelo custo total			
+        # Os valores maximo e minimo esperado recebem um valor a partir de uma distribuicao uniforme multiplicada pelo custo total            
         mn =  (np.random.uniform()+1)*totalCost
         Mx = mn + np.random.uniform(2,10)*totalCost
         moda  = tempo -2 + np.random.randint(1,3)
@@ -117,7 +117,7 @@ class Gerador:
         p1 = Projeto(lmodos, lpar, vdiv, ltempo, vcmax, varea,vetapa,vnome,estagio)
         return p1
 
-    # Gerando os modos do modelo		
+    # Gerando os modos do modelo        
     def geraModo(self,quant,desv,tempo,qrnr):
         M=[]
         # Parametros dos modos: Probabilidades e necessidade de recursos
@@ -234,7 +234,7 @@ class Projeto:
         print('Modos: \n')
         for lmod in self.modos:
             for mod in lmod:
-                print mod.nome
+                print(mod.nome)
         print('Parametros: '+ str(self.par) + '\n')
         print('Divisibilidade '+ str(self.div) + '\n')
         print('Tempos '+ str(self.tempo) + '\n')
@@ -272,26 +272,26 @@ class Estado_GCPDNP:
         print('Projeto: \n ')
         for p in self.P:
             #p.imprime()
-            print p.nome
+            print(p.nome)
             print('lista de tempos: '+ str(p.tempo) + '\n')
-            print('Etapa: '+ str(p.etapa) + '\n')			
+            print('Etapa: '+ str(p.etapa) + '\n')            
         print('Pc: \n ')
         for p in self.Pc:
-			print p.nome
+            print(p.nome)
         print('Pl: \n ')
         for p in self.Pl:
-            print p.nome
+            print(p.nome)
         print('P_a: \n ')
         for a in range(len(self.A)):
-            print('Area '+ str(a) + ':\n') 		
+            print('Area '+ str(a) + ':\n')         
             for p in self.P_a[a]:
-                print p.nome
+                print(p.nome)
         print('P_e: \n ')
         for e in range(len(self.E)):
-            print('Etapa '+ str(e) + ':\n') 		
+            print('Etapa '+ str(e) + ':\n')         
             for p in self.P_e[e]:
-                print p.nome
-	# Recebe decisao
+                print(p.nome)
+    # Recebe decisao
     def transicao(self,dec,vqMax):
         Incerteza = GeraIncerteza(self,dec,self.estagio,vqMax)
         Incerteza.geracao()
@@ -299,7 +299,7 @@ class Estado_GCPDNP:
         # Passagem de estagio
         self.estagio = self.estagio+1
         newPe = Incerteza.Pe
-        print 'NOVOS: '+ str(Incerteza.newP)
+        print('NOVOS: '+ str(Incerteza.newP))
         # Adicionando os novos projetos na primeira etapa
         newPe[0] = newPe[0] + Incerteza.newP 
         self.P = []
@@ -311,7 +311,7 @@ class Estado_GCPDNP:
         self.Pl = [p for p in self.P if (p.etapa == self.E[len(self.E)-1]) & (p.tempo[self.E.index(p.etapa)] == 1)]
         return Incerteza.ValorAT
 
-# Classe Decisao 		
+# Classe Decisao         
 class Decisao:
     def __init__(self, vy, vf, vw, vtn, vobj, vvalor):
         # Recebe o valor de y
@@ -339,7 +339,7 @@ class Decisao:
         
   
     
-# Classe GeraIncerteza 		
+# Classe GeraIncerteza         
 class GeraIncerteza:
     def __init__(self, vEstado, vDecisao,vnEstagio,vqMax):
         # X: recebe o valor do estado
@@ -358,10 +358,10 @@ class GeraIncerteza:
         ret = 0
         print('self.Pe[len(self.Pe)-1]' +str(self.Pe[len(self.Pe)-1]))
         for p in self.X.Pl:
-            print ('p.tempo: ' + str(p.tempo[len(self.Pe)-1]))		
+            print ('p.tempo: ' + str(p.tempo[len(self.Pe)-1]))        
             if p.tempo[len(self.Pe)-1] == 0:
                 ret = ret + p.valorLan(self.X.estagio)
-        return ret				
+        return ret                
 # Incerteza 1 - Retorno de mercado. Redefine os parametros M e m (lpar[0] e lpar[1])
     def geraIncertezaHuz1(self,proj):  
 
@@ -401,7 +401,7 @@ class GeraIncerteza:
 
 # Incerteza 5 - Cronograma 
     def geraIncertezaHuz5(self,proj,id_dec):
-        bAtr = 0	
+        bAtr = 0    
         if id_dec == -1: # congelado
             proj.congatual = proj.congatual+1
         else:
@@ -438,11 +438,11 @@ class GeraIncerteza:
                         if(not bAtr):
                             newPe = self.geraIncertezaHuz3(newPe,mod)
                         else:
-                            print('projeto'+str(newPe.nome)+ 'ATRASOU')			
+                            print('projeto'+str(newPe.nome)+ 'ATRASOU')            
                     newPe = self.geraIncertezaHuz1(newPe)
                     newPe = self.geraIncertezaHuz4(newPe)
-                    print newPe.tempo
-                    print newPe.etapa
+                    print(newPe.tempo)
+                    print(newPe.etapa)
                     for modi in newPe.modos[newPe.etapa-1]:
                         idm = newPe.modos[newPe.etapa-1].index(modi)
                         if(modi.deltat>newPe.tempo[newPe.etapa-1]): 
@@ -469,11 +469,11 @@ class GeraIncerteza:
 # Classe Politica
 class Politica:
 
-	def __init__(self,lbs,lcoef, gam):
-		self.lBasis = lbs 
-		self.B = eye(len(lcoef))
-		self.Theta = array(lcoef)
-		self.gamma = gam 
+    def __init__(self,lbs,lcoef, gam):
+        self.lBasis = lbs 
+        self.B = eye(len(lcoef))
+        self.Theta = array(lcoef)
+        self.gamma = gam 
 
     def solver(self,estado_x):
 # Modelo "m"
@@ -550,7 +550,7 @@ class Politica:
 
 # Função Objetivo           
         m.setObjective(quicksum((p.valor(mod,estado_x.estagio) - p.getMinCost())*w[estado_x.P.index(p)][mod] for p in estado_x.P for mod in range(len(p.modos[estado_x.E.index(p.etapa)]))) - quicksum(V[a]*estado_x.roum for a in range(len(estado_x.A)))- quicksum(J[e][idp]*estado_x.rodois for e in range(len(estado_x.E)) for idp in range(len(estado_x.P_e[e]))), GRB.MAXIMIZE)
-	#
+    #
 # Restrições
         
     # Restrição 1: Status dos projetos que não podem ser congelados 
@@ -581,7 +581,7 @@ class Politica:
                 for p in estado_x.P_a[a]:
                     pid = estado_x.P.index(p)
                     for mod in range(len(p.modos[p.etapa -1])):
-                        rest = rest + w[pid][mod]*p.modos[p.etapa -1][mod].nrn			
+                        rest = rest + w[pid][mod]*p.modos[p.etapa -1][mod].nrn            
                 m.addConstr( rest >= Quota[a] - V[a]*estado_x.qn_k)
 
     # Restrição 5b
@@ -615,7 +615,7 @@ class Politica:
             for mod in range(len(estado_x.P[p].modos[ie])):    
                 vlinha.append(w[p][mod].x)
             vw.append(vlinha)
-        print str(vw) + 'VW'
+        print(str(vw) + 'VW')
         vtn = []
         for e in range(len(estado_x.E)):
             vtn.append(tn[e].x)
@@ -633,8 +633,8 @@ class Politica:
         print('RESPOSTA - PL:')
         print('faturamento: ')
         for p in estado_x.Pl:
-            print p.nome
-            print ('etapa: ' + str(p.etapa))
+            print(p.nome)
+            print('etapa: ' + str(p.etapa))
             for mod in range(len(p.modos[estado_x.E.index(p.etapa)])):
                 if(w[estado_x.P.index(p)][mod].x>0.0001):
                     print('mod :' + str(mod))
@@ -643,8 +643,8 @@ class Politica:
                     print ('\n')
         print('Custos: ')
         for p in estado_x.P:
-            print p.nome
-            print ('etapa: ' + str(p.etapa))
+            print(p.nome)
+            print('etapa: ' + str(p.etapa))
             for mod in range(len(p.modos[estado_x.E.index(p.etapa)])):
                 if(w[estado_x.P.index(p)][mod].x>0.0001):
                     print('mod :' + str(mod))
@@ -652,70 +652,70 @@ class Politica:
                     print('custo :' + str(p.modos[p.etapa -1][mod].nrn))
                     print ('\n')
 
-				
+                
         Valor = sum([w[estado_x.P.index(p)][mod].x*p.modos[p.etapa -1][mod].nrn for p in estado_x.P for mod in range(len(p.modos[estado_x.E.index(p.etapa)]))])
         Valor = Valor + sum([V[a].x*estado_x.roum for a in range(len(estado_x.A))])
         Valor = Valor + sum([sum([J[e][idp].x*estado_x.rodois for idp in range(len(estado_x.P_e[e]))]) for e in range(len(estado_x.E))])
-	
+    
         d = Decisao(vy, vf, vw, vtn, obj,Valor)
         return d
-	def retorno(self,EstX,lpar,decisao):
+    def retorno(self,EstX,lpar,decisao):
         return 0
-	def calc_erro_m(self,C,fgf):
-		aux = npla.multi_dot(fgf*self.Theta)
-		return C - aux
+    def calc_erro_m(self,C,fgf):
+        aux = npla.multi_dot(fgf*self.Theta)
+        return C - aux
 
-	def calc_denm(self,phi,fgf):
-		
-		aux  = np.matmul(np.matmul(fgf,self.B),np.transpose(phi_m))
-		
-		denm = 1.0 + aux # denominador
-		if (denm>0.0)&(denm<0.00001):
-			denm +=0.0001 #to avoid numerical issues; 
-		else: 
-			if (denm<0.0)&(denm >-0.00001): 
-				denm -=0.0001; #to avoid numerical issues
-	
-	def UpdateB_m(self,phi_m, fgf):
-		# B e theta estão na política
-		denm = self.calc_demn(phi_m,fgf)
-		self.B = self.B - (1/denm)*np.matmul(np.matmult(self.B,np.transpose(phi_m)),np.matmul(fgf,self.B))
+    def calc_denm(self,phi,fgf):
+        
+        aux  = np.matmul(np.matmul(fgf,self.B),np.transpose(phi_m))
+        
+        denm = 1.0 + aux # denominador
+        if (denm>0.0)&(denm<0.00001):
+            denm +=0.0001 #to avoid numerical issues; 
+        else: 
+            if (denm<0.0)&(denm >-0.00001): 
+                denm -=0.0001; #to avoid numerical issues
+    
+    def UpdateB_m(self,phi_m, fgf):
+        # B e theta estão na política
+        denm = self.calc_demn(phi_m,fgf)
+        self.B = self.B - (1/denm)*np.matmul(np.matmult(self.B,np.transpose(phi_m)),np.matmul(fgf,self.B))
 
-	def UpdateTheta_m(self,erro,phi,fgf):
-		denm = self.calc_demn(phi,fgf)
-		self.Theta = self.Theta + (1/denm)*np.matmul(np.matmul(error,self.B),np.transpose(phi)) 
-		
+    def UpdateTheta_m(self,erro,phi,fgf):
+        denm = self.calc_demn(phi,fgf)
+        self.Theta = self.Theta + (1/denm)*np.matmul(np.matmul(error,self.B),np.transpose(phi)) 
+        
 
-	def calc_phi(self, S, lpar):
-		#basis* indicadores
-		phi  = [self.lbs[i](S,lpar) for i in range(len(self.Theta))]
-		a_phi = array(phi)
-		return a_phi
+    def calc_phi(self, S, lpar):
+        #basis* indicadores
+        phi  = [self.lbs[i](S,lpar) for i in range(len(self.Theta))]
+        a_phi = array(phi)
+        return a_phi
 
-	def calc_phiGammaPhi(self, S,Smp,lpar):
-		phi_m = self.calc_phi(self, S,lpar)
-		phi_mp = self.calc_phi(self, Smp,lpar)
-		phiGammaPhi = phi_m - self.gamma*phi_mp # operação matricial
-		return phiGammaPhi
+    def calc_phiGammaPhi(self, S,Smp,lpar):
+        phi_m = self.calc_phi(self, S,lpar)
+        phi_mp = self.calc_phi(self, Smp,lpar)
+        phiGammaPhi = phi_m - self.gamma*phi_mp # operação matricial
+        return phiGammaPhi
 
-	def updPol(self,a,Sm,Smp1,lpar):
-		#recursive least squares
-		#step 6d algoritmo 10.10 pag 407
-		custo = self.retorno(Sm,lpar,a)
-		phi_m = self.calc_phi(Sm,lpar)
-		fgf =  self.calc_phiGammaPhi(Sm,Smp,lpar)
+    def updPol(self,a,Sm,Smp1,lpar):
+        #recursive least squares
+        #step 6d algoritmo 10.10 pag 407
+        custo = self.retorno(Sm,lpar,a)
+        phi_m = self.calc_phi(Sm,lpar)
+        fgf =  self.calc_phiGammaPhi(Sm,Smp,lpar)
 
-		#setp 7b alg 10.10 pag 407 - eq. 10.23 via rls
-		erro = self.calcError_m(custo,fgf)
-		self.UpdateTheta_m(erro,phi_m, fgf)
-		self.UpdateB_m(phi_m, fgf)
+        #setp 7b alg 10.10 pag 407 - eq. 10.23 via rls
+        erro = self.calcError_m(custo,fgf)
+        self.UpdateTheta_m(erro,phi_m, fgf)
+        self.UpdateB_m(phi_m, fgf)
 
-	def getStatLabels():
-		thetafb =['Theta_fb'+ i for i in range(len(self.lbs))]
-		return thetafb
+    def getStatLabels():
+        thetafb =['Theta_fb'+ i for i in range(len(self.lbs))]
+        return thetafb
 
-	def getStatistics():
-		return self.Theta
+    def getStatistics():
+        return self.Theta
 
 
 
@@ -845,14 +845,14 @@ class Politica_GulosaVPL:
                 for mod in range(len(vw[p])):
                     if(vw[p][mod]>0):
                         print(EstX.P[p].nome +' foi executado com o modo '+ EstX.P[p].modos[EstX.E.index(EstX.P[p].etapa)][mod].nome)
-				
+                
         Valor = sum(vtn) + sum(vioA) + sum(vioE)
         print("Gulosa - vtn: " +str(sum(vtn)))
         print("Gulosa - vioA: " +str(sum(vioA)))
         print("Gulosa - vioE: " +str(sum(vioE)))
         
 
- 	obj=0	
+        obj=0    
         d = Decisao(vy, vf, vw, vtn, obj,Valor)
         return d
 
@@ -912,31 +912,32 @@ class Politica_GulosaVPL:
 
 # Classe Simulador
 class Simulador:
-	def simulacao(self, S, Pol, niter, vmax):
-		vlist = []
-		vlist2 = []
-		vlist3 = []
-		vlist4 = [] 
-		v0 = 0
-		bf.save_cabecalho(S,'teste_saida.txt')
-		for n in range(niter):
-			print('iteracao ' + str(n) + ': \n')		
-			S.imprime()
-			print('\n\n')
-			d = Pol.solver(S)
-			custoSim = d.valor
-			vlist3.append(custoSim)
-			valorSim = S.transicao(d,vmax)
-			vlist4.append(valorSim)
+    def simulacao(self, S, Pol, niter, vmax):
+        vlist = []
+        vlist2 = []
+        vlist3 = []
+        vlist4 = [] 
+        v0 = 0
+        bf.save_cabecalho(S,'teste_saida.txt')
+        for n in range(niter):
+            print('iteracao ' + str(n) + ': \n')        
+            S.imprime()
+            print('\n\n')
+            d = Pol.solver(S)
+            custoSim = d.valor
+            vlist3.append(custoSim)
+            valorSim = S.transicao(d,vmax)
+            vlist4.append(valorSim)
 #            print ('Valor Simulado:' + str(valorSim))
 #            print ('custo Simulado:' + str(custoSim))
-			vlist.append(valorSim - custoSim)
-			v0 = 0.995*v0 + 0.005*(valorSim - custoSim)
-			vlist2.append(v0)
-			bf.save_data(S,[valorSim - custoSim,v0,custoSim,valorSim],'teste_saida.txt')
-		S.imprime()
-		return [vlist,vlist2,vlist3,vlist4]
+            vlist.append(valorSim - custoSim)
+            v0 = 0.995*v0 + 0.005*(valorSim - custoSim)
+            vlist2.append(v0)
+            bf.save_data(S,[valorSim - custoSim,v0,custoSim,valorSim],'teste_saida.txt')
+        S.imprime()
+        return [vlist,vlist2,vlist3,vlist4]
 
+#class ADP(tpd.Trainer):
 class ADP(tpd.Trainer):
 ##@b approxPIA
 #@brief Algoritmo da Figura 10.10 de Power(2011), Dado uma política inicial, encontra uma política "ótima" a partir de uma estratégia de #aprendizado
@@ -949,52 +950,52 @@ class ADP(tpd.Trainer):
 #@param n número de iterações do Policy Iteration Algorithm
 #@param m tamanho da simulção de Monte Carlo para convergência do valor
 #@retval Alinha: objeto instanciado atualizado da classe Politica que dado um estado retorna uma ação
-	def approxPIA(P,A,n,m):
-		lpar = [P.y1,P.y2,P.te, P.ts]
-		Stat = []
-		Alinha = c.deepcopy(A) #step 4: inicializar a política
-		for i in range(n):
-			Sm = Estado(P.P_ini,P.lst_silos) #iniciar o estado inicial (step 2)
-			Am = c.deepcopy(Alinha)
-			for j in range(m):
-				Smp1 = c.deepcopy(Sm) 
-				#step 5: gera a incerteza do cenário 
-				a = Alinha.solver(Smp1,lpar) #gerar a ação com a política atual step 6a
-				custo = Alinha.retorno(Smp1,lpar)
-				Smp1.transicao(a) # gerar novo estado a partir da transição do atual
-				Am.updPol(Am,a,Sm,Smp1,lpar)
-				Stat.append([custo] + Am.getStatistics())
-				del(Sm)
-				Sm = c.deepcopy(Smp1)
-				del(Smp1)
-			del(Alinha)
-			Alinha = c.deepcopy(Am) #step 8: atualizar a política para a iteração i+1
-			del(Am)
-		self.adpStat(['custo'] +Alinha.getStatLabels(),Stat,n,m)
-		return Alinha
+    def approxPIA(P,A,n,m):
+        lpar = [P.y1,P.y2,P.te, P.ts]
+        Stat = []
+        Alinha = c.deepcopy(A) #step 4: inicializar a política
+        for i in range(n):
+            Sm = Estado(P.P_ini,P.lst_silos) #iniciar o estado inicial (step 2)
+            Am = c.deepcopy(Alinha)
+            for j in range(m):
+                Smp1 = c.deepcopy(Sm) 
+                #step 5: gera a incerteza do cenário 
+                a = Alinha.solver(Smp1,lpar) #gerar a ação com a política atual step 6a
+                custo = Alinha.retorno(Smp1,lpar)
+                Smp1.transicao(a) # gerar novo estado a partir da transição do atual
+                Am.updPol(Am,a,Sm,Smp1,lpar)
+                Stat.append([custo] + Am.getStatistics())
+                del(Sm)
+                Sm = c.deepcopy(Smp1)
+                del(Smp1)
+            del(Alinha)
+            Alinha = c.deepcopy(Am) #step 8: atualizar a política para a iteração i+1
+            del(Am)
+        self.adpStat(['custo'] +Alinha.getStatLabels(),Stat,n,m)
+        return Alinha
 
-	def adpStat(labels,Stats,n, m):
-		self.StatLab = labels
-		self.StatData = [[] for i in range(len(labels))]
-		for i in range(len(labels)):
-			for j in range(n):
-				auxn = []
-				for k in range(m):
-					auxn.append(Stat[j*n+k][i])
-			self.StatData[i].append(auxn)
-	 
+    def adpStat(labels,Stats,n, m):
+        self.StatLab = labels
+        self.StatData = [[] for i in range(len(labels))]
+        for i in range(len(labels)):
+            for j in range(n):
+                auxn = []
+                for k in range(m):
+                    auxn.append(Stat[j*n+k][i])
+            self.StatData[i].append(auxn)
+     
 
-	def graficoStat(self,idStat):
-		n = len(self.StatSata)
-		m = len(self.StatData[0])		    
-		s= range(n*m)
-		matplotlib.pyplot.figure(figsize=(30,30))
-		matplotlib.pyplot.scatter(s,self.Statdata[idStat],label= self.StatLab)
+    def graficoStat(self,idStat):
+        n = len(self.StatSata)
+        m = len(self.StatData[0])            
+        s= range(n*m)
+        matplotlib.pyplot.figure(figsize=(30,30))
+        matplotlib.pyplot.scatter(s,self.Statdata[idStat],label= self.StatLab)
 
-		matplotlib.pyplot.xlabel("Iteração")
-		matplotlib.pyplot.ylabel("Valor")
-		matplotlib.pyplot.show()
-	 
+        matplotlib.pyplot.xlabel("Iteração")
+        matplotlib.pyplot.ylabel("Valor")
+        matplotlib.pyplot.show()
+     
 
 
 # Instancia gerada manualmente
