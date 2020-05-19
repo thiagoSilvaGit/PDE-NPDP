@@ -11,12 +11,8 @@
 def QProj(estado_x):                                                                      #Função recebe o Estado como parâmetro
 
     contp = 0                                                                             #Contador que irá armazenar a quantidade de projetos total no funil
-    for p in estado_x.P:                                                                  #Para todos os projetos no conjunto de projetos 'P'   
-        contp = contp + 1                                                                 #Acréscimo de 1 no contador
-
-    print ('Projetos no funil: \n')                                                       #Impressão dos projetos no funil
-    for p in estado_x.P:
-        print(p.nome)
+    for p in estado_x.P:                                                                  #Para todos os projetos no conjunto de projetos 'P' 
+        contp = contp + 1
 
     return contp                                                                          #A função retorna o contador com a quantidade total de projetos no funil
 
@@ -57,7 +53,26 @@ def QProjNovos(estado_x):                                                       
 
 
 
-#03 - QUANTIDADE DE PROJETOS POR ETAPA DO FUNIL
+#03 - QUANTIDADE DE PROJETOS POR ÁREA
+
+def QProja(estado_x):                                                                     #Função recebe o Estado como parâmetro
+
+    contpa = 0                                                                            #Contador que irá armazenar a quantidade de projetos por área do funil
+    lpa = []                                                                              #Lista que irá armazenar as quantidades de projetos por área do funil
+    mediaqa = 0                                                                           #Recebe a média das listas
+    lpanome = []                                                                          #Lista que irá armazenar o nome dos projetos por área do funil
+    for a in range(len(estado_x.A)):                                                      #Para toda área no conjunto de Áreas
+        for p in estado_x.P_a[a]:
+            contpa = contpa + 1                                                           #Contador recebe o acréscimo de 1
+        lpa.append(contpa)                                                                #A quantidade de projetos na área 'a' é adicionada a lista de quantidades
+        contpa = 0
+
+    mediaqa = (sum(lpa)/len(estado_x.A))
+
+    return mediaqa                                                                        #A função retorna a lista de quantidades de projetos por área 'a'
+
+
+#04 - QUANTIDADE DE PROJETOS POR ETAPA
 
 def QProje(estado_x):                                                                     #Função recebe o Estado como parâmetro
 
@@ -76,26 +91,6 @@ def QProje(estado_x):                                                           
     mediaqp = (sum(lpe)/len(estado_x.E))
 
     return mediaqp                                                                        #A função retorna a lista de quantidades de projetos por etapa 'e'
-
-
-
-#04 - QUANTIDADE DE PROJETOS POR ÁREA DO FUNIL
-
-def QProja(estado_x):                                                                     #Função recebe o Estado como parâmetro
-
-    contpa = 0                                                                            #Contador que irá armazenar a quantidade de projetos por área do funil
-    lpa = []                                                                              #Lista que irá armazenar as quantidades de projetos por área do funil
-    mediaqa = 0                                                                           #Recebe a média das listas
-    lpanome = []                                                                          #Lista que irá armazenar o nome dos projetos por área do funil
-    for a in range(len(estado_x.A)):                                                      #Para toda área no conjunto de Áreas
-        for p in estado_x.P_a[a]:
-            contpa = contpa + 1                                                           #Contador recebe o acréscimo de 1
-        lpa.append(contpa)                                                                #A quantidade de projetos na área 'a' é adicionada a lista de quantidades
-        contpa = 0
-
-    mediaqa = (sum(lpa)/len(estado_x.A))
-
-    return mediaqa                                                                        #A função retorna a lista de quantidades de projetos por área 'a'
 
 
 
@@ -137,7 +132,7 @@ def QProjDiva(estado_x):                                                        
 
 
 
-#07 - QUANTIDADE DE PROJETOS DIVISÍVEIS EM CADA ETAPA DO FUNIL
+#07 - QUANTIDADE DE PROJETOS DIVISÍVEIS EM CADA ETAPA
 
 def QProjDive(estado_x):                                                                  #Função recebe o Estado como parâmetro
 
@@ -177,7 +172,41 @@ def QProjnDiv(estado_x):                                                        
     return contpndiv                                                                      #A função retorna o contador com a quantidade total de projetos em P não divisíveis
 
 
-#10 - TEMPO DE CONGELAMENTO RESIDUAL DE CADA PROJETO
+#09 - QUANTIDADE DE PROJETOS CONGELADOS NO FUNIL
+
+def QProjCong(estado_x):                                                                  #Função recebe o Estado como parâmetro
+
+    pcong = 0                                                                             #Variável que recebe a quantidade de projetos congelados
+    pcong = len(estado_x.Pc)
+
+    return pcong                                                                          #A função retorna os projetos congelados no funil
+
+
+#10 - QUANTIDADE DE PROJETOS CONGELADOS POR ÁREA
+
+def QProjCongA(estado_x):                                                                 #Função recebe o Estado como parâmetro
+
+    pcong = 0                                                                             #Variável que recebe a quantidade de projetos congelados
+    pcong = len(estado_x.Pc)
+
+    mediapg = (pcong/len(estado_x.A))
+
+    return mediapg                                                                        #A função retorna a média da quantidade de projetos congelados por area do funil
+
+
+#11 - QUANTIDADE DE PROJETOS CONGELADOS POR ETAPA
+
+def QProjCongE(estado_x):                                                                 #Função recebe o Estado como parâmetro
+
+    pcong = 0                                                                             #Variável que recebe a quantidade de projetos congelados
+    pcong = len(estado_x.Pc)
+
+    mediapg = (pcong/len(estado_x.E))
+
+    return mediapg                                                                        #A função retorna a média da quantidade de projetos congelados por etapa do funil
+
+
+#12 - TEMPO DE CONGELAMENTO RESIDUAL DOS PROJETOS
 
 def TCongReP(estado_x):                                                                   #Função recebe o Estado como parâmetro
 
@@ -197,7 +226,7 @@ def TCongReP(estado_x):                                                         
 
 
 
-#11 - NECESSIDADE DE RECURSOS DE CADA PROJETO
+#13 - NECESSIDADE DE RECURSOS MÉDIA DE CADA PROJETO
 
 def NecRecP(estado_x):                                                                    #Função recebe o Estado como parâmetro
 
@@ -214,7 +243,7 @@ def NecRecP(estado_x):                                                          
 
 
 
-#12 - NECESSIDADE DE RECURSOS DE CADA ÁREA 
+#14 - NECESSIDADE DE RECURSOS DE CADA ÁREA 
 
 def NecRecPa(estado_x):                                                                   #Função recebe o Estado como parâmetro
 
@@ -230,7 +259,7 @@ def NecRecPa(estado_x):                                                         
     return mediant
 
 
-#13 - NECESSIDADE DE RECURSOS DE CADA ETAPA DO FUNIL
+#15 - NECESSIDADE DE RECURSOS DE CADA ETAPA 
 
 def NecRecPe(estado_x):                                                                   #Função recebe o Estado como parâmetro
 
@@ -246,49 +275,29 @@ def NecRecPe(estado_x):                                                         
     return mediant
 
 
-#16 - QUANTIDADE DE PROJETOS CONGELADOS NO FUNIL
+#16 - NECESSIDADE MÉDIA DE RECURSOS DOS PROJETOS CONGELADOS
 
-def QProjCong(estado_x):                                                                  #Função recebe o Estado como parâmetro
+def NecRecPCong(estado_x):                                                           #Função recebe o Estado como parâmetro                                                                                                                                
 
-    pcong = 0                                                                             #Variável que recebe a quantidade de projetos congelados
-    pcong = len(estado_x.Pc)
+    a = 0
+    lnectc = []
+    mediantc = 0
+    for p in estado_x.Pc:                                                                  #Para todo projeto no conjunto de projetos congelados
+        a = a + p.modos[p.etapa-1][0].nrn
+        lnectc.append(a)
+    
+    mediantc = (sum(lnectc)/1 + len(lnectc))
 
-    return pcong                                                                          #A função retorna os projetos congelados no funil
-
-
-
-#17 - QUANTIDADE DE PROJETOS CONGELADOS POR ETAPA DO FUNIL
-
-def QProjCongE(estado_x):                                                                 #Função recebe o Estado como parâmetro
-
-    pcong = 0                                                                             #Variável que recebe a quantidade de projetos congelados
-    pcong = len(estado_x.Pc)
-
-    mediapg = (pcong/len(estado_x.E))
-
-    return mediapg                                                                        #A função retorna a média da quantidade de projetos congelados por etapa do funil
+    return mediantc
 
 
 
-#18 - QUANTIDADE DE PROJETOS CONGELADOS POR ÁREA
-
-def QProjCongA(estado_x):                                                                 #Função recebe o Estado como parâmetro
-
-    pcong = 0                                                                             #Variável que recebe a quantidade de projetos congelados
-    pcong = len(estado_x.Pc)
-
-    mediapg = (pcong/len(estado_x.A))
-
-    return mediapg                                                                        #A função retorna a média da quantidade de projetos congelados por area do funil
-
-
-
-#19 - RETORNO TOTAL FINAL MÍNIMO ESPERADO POR PROJETO 
+#17 - RETORNO FINAL MÍNIMO ESPERADO
 
 def RetMnTotalProj(estado_x):                                                               #Função recebe o Estado como parâmetro                                                                  
 
     retesp1 = 0                                                                            #Variável que recebe os retornos esperados
-    for p in estado_x.Pl:
+    for p in estado_x.P:
         retesp1 = retesp1 + p.par[1]                                                        
         
 
@@ -296,12 +305,12 @@ def RetMnTotalProj(estado_x):                                                   
 
 
 
-#20 - RETORNO TOTAL FINAL MÁXIMO ESPERADO POR PROJETO 
+#18 - RETORNO TOTAL FINAL MÁXIMO ESPERADO
 
 def RetMxTotalProj(estado_x):                                                               #Função recebe o Estado como parâmetro                                                                  
 
     retesp2 = 0                                                                            #Variável que recebe os retornos esperados
-    for p in estado_x.Pl:
+    for p in estado_x.P:
         retesp2 = retesp2 + p.par[0]                                                        
         
 
@@ -309,14 +318,14 @@ def RetMxTotalProj(estado_x):                                                   
 
 
 
-#21 - RETORNO TOTAL MÍNIMO FINAL ESPERADO POR PROJETOS DE UMA ÁREA
+#19 - RETORNO FINAL MÍNIMO ESPERADO POR ÁREA
 
 def RetMnTotalA(estado_x):                                                                  #Função recebe o Estado como parâmetro                                                                  
 
     retesp = 0                                                                            #Variável que recebe a média dos retornos esperados
     lretesp = []                                                                          #Lista que recebe os valores médios de retorno
     mediara = 0                                                                           #Variável que recebe a média
-    for p in estado_x.Pl:                                                                 #Para todo projeto no conjunto de projetos lançados
+    for p in estado_x.P:                                                                 #Para todo projeto no conjunto de projetos lançados
         for a in range(len(estado_x.A)):                                                              #Para toda área no conjunto de Áreas
             retesp = p.par[1]                                                          #Faz-se a média do retorno máximo e mínimo esperado
             lretesp.append(retesp)
@@ -327,14 +336,14 @@ def RetMnTotalA(estado_x):                                                      
 
 
 
-#22 - RETORNO TOTAL MÁXIMO FINAL ESPERADO POR PROJETOS DE UMA ÁREA
+#20 - RETORNO FINAL MÁXIMO ESPERADO POR ÁREA
 
 def RetMxTotalA(estado_x):                                                                  #Função recebe o Estado como parâmetro                                                                  
 
     retesp = 0                                                                            #Variável que recebe a média dos retornos esperados
     lretesp = []                                                                          #Lista que recebe os valores médios de retorno
     mediara = 0                                                                           #Variável que recebe a média
-    for p in estado_x.Pl:                                                                 #Para todo projeto no conjunto de projetos lançados
+    for p in estado_x.P:                                                                 #Para todo projeto no conjunto de projetos lançados
         for a in range(len(estado_x.A)):                                                              #Para toda área no conjunto de Áreas
             retesp = p.par[0]                                                          #Faz-se a média do retorno máximo e mínimo esperado
             lretesp.append(retesp)
@@ -345,7 +354,7 @@ def RetMxTotalA(estado_x):                                                      
 
 
 
-#23 - DESEMPENHO MÁXIMO ESPERADO NA EXECUÇÃO DE UM PROJETO
+#21 - DESEMPENHO MÁXIMO MÉDIO ESPERADO NA EXECUÇÃO DOS PROJETOS
 
 def DesemMxProj(estado_x):                                                                  #Função recebe o Estado como parâmetro                                                                  
 
@@ -362,7 +371,7 @@ def DesemMxProj(estado_x):                                                      
 
 
 
-#24 - DESEMPENHO MÍNIMO ESPERADO NA EXECUÇÃO DE UM PROJETO
+#22 - DESEMPENHO MÍNIMO ESPERADO NA EXECUÇÃO DE UM PROJETO
 
 def DesemMnProj(estado_x):                                                                  #Função recebe o Estado como parâmetro                                                                  
 
@@ -379,14 +388,14 @@ def DesemMnProj(estado_x):                                                      
 
 
 
-#25 - VPL MÍNIMO TOTAL DA CARTEIRA
+#23 - VPL MÍNIMO TOTAL DA CARTEIRA
 
 def VPLMnTotal(estado_x):                                                                 #Função recebe o Estado como parâmetro                                                                  
 
     retesp = 0                                                                            #Variável que recebe o VPL de cada projeto da carteira
     lretesp = []                                                                          #Lista que recebe os valores de VPL
     mediavpl = 0                                                                          #Variável que recebe a média
-    for p in estado_x.P:                                                                  #Para todo projeto no conjunto de projetos lançados
+    for p in estado_x.Pl:                                                                  #Para todo projeto no conjunto de projetos lançados
         retesp = (p.par[1]/(1+sum(p.tempo)))                                              #Recebe-se o VPL
         lretesp.append(retesp)
 
@@ -396,14 +405,14 @@ def VPLMnTotal(estado_x):                                                       
 
 
 
-#26 - VPL MÁXIMO TOTAL DA CARTEIRA
+#24 - VPL MÁXIMO TOTAL DA CARTEIRA
 
 def VPLMxTotal(estado_x):                                                                 #Função recebe o Estado como parâmetro                                                                  
 
     retesp = 0                                                                            #Variável que recebe o VPL de cada projeto da carteira
     lretesp = []                                                                          #Lista que recebe os valores de VPL
     mediavpl = 0                                                                          #Variável que recebe a média
-    for p in estado_x.P:                                                                  #Para todo projeto no conjunto de projetos lançados
+    for p in estado_x.Pl:                                                                  #Para todo projeto no conjunto de projetos lançados
         retesp = (p.par[0]/(1+sum(p.tempo)))                                              #Recebe-se o VPL
         lretesp.append(retesp)
 
@@ -413,41 +422,7 @@ def VPLMxTotal(estado_x):                                                       
 
 
 
-#27 - CUSTO MÍNIMO TOTAL DA CARTEIRA
-
-def CustoMnTotal(estado_x):                                                               #Função recebe o Estado como parâmetro                                                                  
-
-    retesp = 0                                                                            
-    lretesp = []                                                                          
-    mediacmin = 0                                                                         
-    for p in estado_x.Pl:                                                                 
-        retesp = (p.par[1]/(1+ sum(p.tempo)))           
-        lretesp.append(retesp)
-
-    mediacmin = sum(lretesp)
-
-    return mediacmin                                                                      #A função retorna custos mínimos da carteira
-
-
-
-#28 - CUSTO MÁXIMO TOTAL DA CARTEIRA
-
-def CustoMxTotal(estado_x):                                                               #Função recebe o Estado como parâmetro                                                                  
-
-    retesp = 0                                                                            
-    lretesp = []                                                                          
-    mediacmin = 0                                                                         
-    for p in estado_x.Pl:                                                                 
-        retesp = (p.par[0]/(1+ sum(p.tempo)))           
-        lretesp.append(retesp)
-
-    mediacmin = sum(lretesp)
-
-    return mediacmin                                                                      #A função retorna custos mínimos da carteira
-
-
-
-#29 - VPL TOTAL MÍNIMO DA CARTEIRA POR ÁREA
+#25 - VPL MÉDIO MÍNIMO POR ÁREA
 
 def VPLMnTotalA(estado_x):                                                                  #Função recebe o Estado como parâmetro                                                                  
 
@@ -456,7 +431,7 @@ def VPLMnTotalA(estado_x):                                                      
     lmediavpla = []                                                                       #Lista que recebe a média
     mediavpla = 0                                                                         #Variável que recebe a média final
     for a in range(len(estado_x.A)):                                                                  #Para toda área no conjunto de áreas
-        for p in estado_x.Pl:                                                             #Para todo projeto no conjunto de projetos lançados
+        for p in estado_x.P:                                                             #Para todo projeto no conjunto de projetos lançados
             retesp = (p.par[1]/(1+sum(p.tempo)))                                                    #Recebe-se o VPL
             lretesp.append(retesp)
 
@@ -466,7 +441,7 @@ def VPLMnTotalA(estado_x):                                                      
     return mediavpla                                                                      #A função retorna a média do somatório do VPL de cada projeto na carteira por área
 
 
-#30 - VPL TOTAL MÁXIMO DA CARTEIRA POR ÁREA
+#26 - VPL MÉDIO MÁXIMO POR ÁREA
 
 def VPLMxTotalA(estado_x):                                                                  #Função recebe o Estado como parâmetro                                                                  
 
@@ -475,7 +450,7 @@ def VPLMxTotalA(estado_x):                                                      
     lmediavpla = []                                                                       #Lista que recebe a média
     mediavpla = 0                                                                         #Variável que recebe a média final
     for a in range(len(estado_x.A)):                                                                  #Para toda área no conjunto de áreas
-        for p in estado_x.Pl:                                                             #Para todo projeto no conjunto de projetos lançados
+        for p in estado_x.P:                                                             #Para todo projeto no conjunto de projetos lançados
             retesp = (p.par[0]/(1+sum(p.tempo)))                                                    #Recebe-se o VPL
             lretesp.append(retesp)
 
@@ -485,84 +460,13 @@ def VPLMxTotalA(estado_x):                                                      
     return mediavpla                                                                      #A função retorna a média do somatório do VPL de cada projeto na carteira por área
 
 
-#31 - VPL TOTAL MÍNIMO DA CARTEIRA POR ETAPA DO FUNIL
-
-def VPLMnTotalE(estado_x):                                                                  #Função recebe o Estado como parâmetro                                                                  
-
-    retesp = 0                                                                            #Variável que recebe o VPL de cada projeto da carteira
-    lretesp = []                                                                          #Lista que recebe os valores de VPL
-    lmediavple = []                                                                       #Variável que recebe a média
-    mediavple = 0                                                                         #Variável que recebe a média final
-    for e in estado_x.E:                                                                  #Para toda área no conjunto de etapas
-        for p in estado_x.P:                                                              #Para todo projeto no conjunto de projetos 
-            retesp = (p.par[1]/(1+sum(p.tempo)))                                                    #Recebe-se o VPL
-            lretesp.append(retesp)
-
-    lmediavple.append(sum(lretesp))
-    mediavple = (sum(lmediavple)/len(estado_x.E))
-
-    return mediavple                                                                      #A função retorna a média do somatório do VPL de cada projeto na carteira por etapa
-
-
-
-#32 - VPL TOTAL MÁXIMO DA CARTEIRA POR ETAPA DO FUNIL
-
-def VPLMxTotalE(estado_x):                                                                  #Função recebe o Estado como parâmetro                                                                  
-
-    retesp = 0                                                                            #Variável que recebe o VPL de cada projeto da carteira
-    lretesp = []                                                                          #Lista que recebe os valores de VPL
-    lmediavple = []                                                                       #Variável que recebe a média
-    mediavple = 0                                                                         #Variável que recebe a média final
-    for e in estado_x.E:                                                                  #Para toda área no conjunto de etapas
-        for p in estado_x.P:                                                              #Para todo projeto no conjunto de projetos 
-            retesp = (p.par[0]/(1+sum(p.tempo)))                                                    #Recebe-se o VPL
-            lretesp.append(retesp)
-
-    lmediavple.append(sum(lretesp))
-    mediavple = (sum(lmediavple)/len(estado_x.E))
-
-    return mediavple                                                                      #A função retorna a média do somatório do VPL de cada projeto na carteira por etapa
-
-
-
-#33 - CUSTO MÍNIMO DOS PROJETOS CONGELADOS
-
-def CustoMnTotalCong(estado_x):                                                           #Função recebe o Estado como parâmetro                                                                                                                                
-
-    retesp = 0                                                                            
-    lretesp = []                                                                          
-    mediacmin = 0                                                                         
-    for p in estado_x.Pc:                                                                 
-        retesp = (p.par[1]/(1+ sum(p.tempo)))           
-        lretesp.append(retesp)
-
-    mediacmin = sum(lretesp)
-
-    return mediacmin
-
-
-
-#34 - CUSTO MÁXIMO DOS PROJETOS CONGELADOS
-
-def CustoMxTotalCong(estado_x):                                                           #Função recebe o Estado como parâmetro                                                                                                                                
-
-    retesp = 0                                                                            
-    lretesp = []                                                                          
-    mediacmin = 0                                                                         
-    for p in estado_x.Pc:                                                                 
-        retesp = (p.par[0]/(1+ sum(p.tempo)))           
-        lretesp.append(retesp)
-
-    mediacmin = sum(lretesp)
-
-    return mediacmin	
 
 
 ''' Função de escrita de dados '''
 
 def save_cabecalho(estado_x, nome_do_arq):
 
-	listaCabecalho = ['valorSim - custoSim', 'v0','custoSim','valorSim','QProj', 'QProjNovos', 'QProje', 'Qproja', 'QProjDiv', 'QProjDiva', 'QProjDive', 'QProjnDiv', 'TCongReP', 'NecRecP', 'NecRecPa', 'NecRecPe', 'QProjCong', 'QProjCongE', 'QProjCongA', 'RetMnTotalProj', 'RetMxTotalProj', 'RetMnTotalA', 'RetMxTotalA', 'DesemMxProj', 'DesemMnProj', 'VPLMnTotal', 'VPLMxTotal', 'CustoMnTotal', 'CustoMxTotal', 'VPLMnTotalA', 'VPLMxTotalA', 'VPLMnTotalE', 'VPLMxTotalE', 'CustoMnTotalCong', 'CustoMxTotalCong']
+	listaCabecalho = ['valorSim - custoSim', 'v0','custoSim','valorSim','QProj', 'QProjNovos', 'QProja', 'Qproje', 'QProjDiv', 'QProjDiva', 'QProjDive', 'QProjnDiv', 'QProjCong', 'QProjCongA', 'QProjCongE', 'TCongReP', 'NecRecP', 'NecRecPa', 'NecRecPe', 'NecRecPCong', 'RetMnTotalProj', 'RetMxTotalProj', 'RetMnTotalA', 'RetMxTotalA', 'DesemMxProj', 'DesemMnProj', 'VPLMnTotal', 'VPLMxTotal', 'VPLMnTotalA', 'VPLMxTotalA']
 	with open(nome_do_arq, 'w') as nfile:
 		for l in listaCabecalho:
 			nfile.write('{:s},'.format(l))
@@ -575,19 +479,20 @@ def save_data(estado_x, listaCusto, nome_do_arq):
             nfile.write('{:.2f},'.format(v))
         nfile.write('{:.2f},'.format(QProj(estado_x))) # colocar a apartir daqui todas as outras funções
         nfile.write('{:.2f},'.format(QProjNovos(estado_x)))
-        nfile.write('{:.2f},'.format(QProje(estado_x)))
         nfile.write('{:.2f},'.format(QProja(estado_x)))
+        nfile.write('{:.2f},'.format(QProje(estado_x)))
         nfile.write('{:.2f},'.format(QProjDiv(estado_x)))
         nfile.write('{:.2f},'.format(QProjDiva(estado_x)))
         nfile.write('{:.2f},'.format(QProjDive(estado_x)))
         nfile.write('{:.2f},'.format(QProjnDiv(estado_x)))
+        nfile.write('{:.2f},'.format(QProjCong(estado_x)))
+        nfile.write('{:.2f},'.format(QProjCongA(estado_x)))
+        nfile.write('{:.2f},'.format(QProjCongE(estado_x)))
         nfile.write('{:.2f},'.format(TCongReP(estado_x)))
         nfile.write('{:.2f},'.format(NecRecP(estado_x)))
         nfile.write('{:.2f},'.format(NecRecPa(estado_x)))
         nfile.write('{:.2f},'.format(NecRecPe(estado_x)))
-        nfile.write('{:.2f},'.format(QProjCong(estado_x)))
-        nfile.write('{:.2f},'.format(QProjCongE(estado_x)))
-        nfile.write('{:.2f},'.format(QProjCongA(estado_x)))
+        nfile.write('{:.2f},'.format(NecRecPCong(estado_x)))
         nfile.write('{:.2f},'.format(RetMnTotalProj(estado_x)))
         nfile.write('{:.2f},'.format(RetMxTotalProj(estado_x)))
         nfile.write('{:.2f},'.format(RetMnTotalA(estado_x)))
@@ -596,16 +501,10 @@ def save_data(estado_x, listaCusto, nome_do_arq):
         nfile.write('{:.2f},'.format(DesemMnProj(estado_x)))		
         nfile.write('{:.2f},'.format(VPLMnTotal(estado_x)))
         nfile.write('{:.2f},'.format(VPLMxTotal(estado_x)))			
-        nfile.write('{:.2f},'.format(CustoMnTotal(estado_x)))
-        nfile.write('{:.2f},'.format(CustoMxTotal(estado_x)))		
         nfile.write('{:.2f},'.format(VPLMnTotalA(estado_x)))
-        nfile.write('{:.2f},'.format(VPLMxTotalA(estado_x)))	
-        nfile.write('{:.2f},'.format(VPLMnTotalE(estado_x)))
-        nfile.write('{:.2f},'.format(VPLMxTotalE(estado_x)))	
-        nfile.write('{:.2f},'.format(CustoMnTotalCong(estado_x)))
-        nfile.write('{:.2f},'.format(CustoMxTotalCong(estado_x)))		
+        nfile.write('{:.2f},'.format(VPLMxTotalA(estado_x)))		
         nfile.write('\n')
 
 def calc_ind(estado_x):
-	return [QProj(estado_x), QProjNovos(estado_x), QProje(estado_x), QProja(estado_x), QProjDiv(estado_x), QProjDiva(estado_x), QProjDive(estado_x), QProjnDiv(estado_x), TCongReP(estado_x), NecRecP(estado_x), NecRecPa(estado_x), NecRecPe(estado_x), QProjCong(estado_x), QProjCongE(estado_x), QProjCongA(estado_x), RetMnTotalProj(estado_x), RetMxTotalProj(estado_x), RetMnTotalA(estado_x), RetMxTotalA(estado_x), DesemMxProj(estado_x), DesemMnProj(estado_x), VPLMnTotal(estado_x), VPLMxTotal(estado_x), CustoMnTotal(estado_x), VPLMnTotalA(estado_x), VPLMxTotalA(estado_x), VPLMnTotalE(estado_x), VPLMxTotalE(estado_x), CustoMnTotalCong(estado_x), CustoMxTotalCong(estado_x)]  
+	return [QProj(estado_x), QProjNovos(estado_x), QProja(estado_x), QProje(estado_x), QProjDiv(estado_x), QProjDiva(estado_x), QProjDive(estado_x), QProjnDiv(estado_x), QProjCong(estado_x), QProjCongA(estado_x), QProjCongE(estado_x), TCongReP(estado_x), NecRecP(estado_x), NecRecPa(estado_x), NecRecPe(estado_x), NecRecPCong(estado_x), RetMnTotalProj(estado_x), RetMxTotalProj(estado_x), RetMnTotalA(estado_x), RetMxTotalA(estado_x), DesemMxProj(estado_x), DesemMnProj(estado_x), VPLMnTotal(estado_x), VPLMxTotal(estado_x), VPLMnTotalA(estado_x), VPLMxTotalA(estado_x)]  
 
