@@ -558,14 +558,27 @@ class Politica:
 					if pa.modos[pa.etapa-1][mod].nrn < cmodmin:
 						cmodmin = pa.modos[pa.etapa-1][mod].nrn
 				cmina = cmina+ cmodmin
-			cmin.append(cmina)	  
+			cmin.append(cmina)
+
+	# Criar uma variável para cada basi function
+		vbasis = []
+		for b in range(len(self.lBasis)):
+			vbasis.append(m.addVar(vtype=GRB.CONTINUOUS, name="vbasis[{}]".format(b)))
 
 
-# Função Objetivo		   
-		m.setObjective(quicksum((p.valor(mod,estado_x.estagio) - p.getMinCost())*w[estado_x.P.index(p)][mod] for p in estado_x.P for mod in range(len(p.modos[estado_x.E.index(p.etapa)]))) - quicksum(V[a]*estado_x.roum for a in range(len(estado_x.A)))- quicksum(J[e][idp]*estado_x.rodois for e in range(len(estado_x.E)) for idp in range(len(estado_x.P_e[e]))), GRB.MAXIMIZE)
-	#
+# Função Objetivo
+		exp = quicksum((p.valor(mod,estado_x.estagio) - p.getMinCost())*w[estado_x.P.index(p)][mod] for p in estado_x.P for mod in range(len(p.modos[estado_x.E.index(p.etapa)]))) # O que é isso?
+		exp = exp - quicksum(V[a]*estado_x.roum for a in range(len(estado_x.A))) # O que é isso?
+		exp = exp - quicksum(J[e][idp]*estado_x.rodois for e in range(len(estado_x.E)) for idp in range(len(estado_x.P_e[e]))) # O que é isso?
+		exp = exp + quicksum(self.Theta[i]*vbasis[i] for i in range(len(self.lBasis))) # Parcela referente às Basis Functions
+		m.setObjective(exp, GRB.MAXIMIZE)
+
 # Restrições
-		
+
+	#Restrição 0: Basis Functions
+		for b in range(len(self.lBasis)):
+			m.addConstr(vbasis[b] - lBasis[b].RestrQProj(estado_x, [w,f,y,tn,V,J,mn,Quota,cmin]) == 0)
+
 	# Restrição 1: Status dos projetos que não podem ser congelados 
 		PmPc = [p for p in estado_x.P if p not in estado_x.Pc]
 		for p in range(len(PmPc)):

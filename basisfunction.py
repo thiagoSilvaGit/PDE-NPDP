@@ -3,6 +3,26 @@
 
 
 
+
+
+class QTPF(Object):
+    def QProj(estado_x):  # Função recebe o Estado como parâmetro
+
+        contp = 0  # Contador que irá armazenar a quantidade de projetos total no funil
+        for p in estado_x.P:  # Para todos os projetos no conjunto de projetos 'P'
+            contp = contp + 1
+
+        return contp  # A função retorna o contador com a quantidade total de projetos no funil
+    def RestrQProj(self, estado_x, lvar):
+        w = lvar[0]
+        f = lvar[1]
+        y = lvar[2]
+        exp = quicksum(quicksum(w[p][mod] for mod in range(len(estado_x.P[p].modos[p.etapa - 1])) ) for p in range(len(estado_x.P)) if estado_x.P[p] not in estado_x.Pl) #termo 1 e 4
+        exp = exp + quicksum( f[estado_x.P.index(estado_x.Pc[p])] for p in range(len(estado_x.Pc))) #termo 2
+        exp = exp - quicksum(y[p] for p in range(len(estado_x.P)) )
+
+        return exp
+
 ''' CARACTERÍSTICAS DO ESTADO '''
 
 
