@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<!-- root element -->
+<xs:element name="NPDP_instGen">
+	<xs:complexType>
+		<xs:sequence>
+            <xs:element name="Caminho" type="xs:string"/>
+            <xs:element name="Problema" type="Tproblema"/>
+			<xs:element name="Silo" type="Tsilo" minOccurs="1" maxOccurs="unbounded"/>            
+        </xs:sequence>
+        <xs:attribute name="ArqName" type="xs:string" use="required"/>
+	</xs:complexType>
+</xs:element>
+
+
+<!-- Tproblema -->
+
+<xs:complexType name="Tproblema">
+    <xs:sequence>
+        <xs:element name="nA" type="xs:integer"/>
+        <xs:element name="nE" type="xs:integer"/>
+        <xs:element name="maxCheg" type="xs:integer"/>
+        <xs:element name="vfi" type="xs:float"/>
+        <xs:element name="vbe" type="xs:float"/>
+        <xs:element name="ro1" type="xs:float"/>
+        <xs:element name="ro2" type="xs:float"/>
+        <xs:element name="qRec" type="xs:float"/>
+        <xs:element name="Projeto" type="TProjeto"  minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+</xs:complexType>
+
+<!-- TProjeto -->
+
+<xs:complexType name="TProjeto">
+    <xs:sequence>
+        <xs:element name="nome" type="xs:string"/>
+        <xs:element name="Modo" type="TModo" minOccurs="1" maxOccurs="unbounded"/>
+        <xs:element name="Mx" type="xs:float"/>
+        <xs:element name="mn" type="xs:float"/>
+        <xs:element name="a" type="xs:float"/>
+        <xs:element name="pk" type="xs:float"/>
+        <xs:element name="mu" type="xs:float"/>
+        <xs:element name="desvp" type="xs:float"/>
+        <xs:element name="div" type="xs:integer"/>
+        <xs:element name="tempo" type="xs:integer" minOccurs="1" maxOccurs="unbounded"/>
+        <xs:element name="cmax" type="xs:integer"/>
+        <xs:element name="area" type="xs:integer"/>
+        <xs:element name="etapa" type="xs:integer"/>
+        <xs:element name="tCheg" type="xs:integer"/>
+
+    </xs:sequence>
+</xs:complexType>
+
+
+<!-- TModo -->
+
+<xs:complexType name="TModo">
+    <xs:sequence>
+        <xs:element name="nome" type="xs:string"/>
+        <xs:element name="prob" type="xs:float"/>
+        <xs:element name="probAtr" type="xs:float"/>
+        <xs:element name="deltap" type="xs:float"/>
+        <xs:element name="nrn" type="xs:float"/>
+        <xs:element name="deltat" type="xs:float"/>
+    </xs:sequence>
+</xs:complexType>
+
+
+
+</xs:schema>
+
+

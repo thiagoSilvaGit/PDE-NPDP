@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<!-- root element -->
+<xs:element name="Configuracoes"> 
+	<xs:complexType>
+		<xs:sequence>
+            <xs:element name="Caminho" type='xs:string'/>
+            <xs:element name="Instancia" type='xs:string'/>
+            <xs:element name="Gamma" type='xs:float'/>
+            <xs:element name="Lambda" type='xs:string'/>    
+            <xs:element name="N" type='xs:integer'/> 
+            <xs:element name="M" type='xs:integer'/> 
+            <xs:element name="it_sim" type='xs:integer'/>
+ 			<xs:element name="BF" type="TBasis" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="ArqName" type="xs:string" use="required"/>
+	</xs:complexType>
+</xs:element>
+
+
+<!-- TBasis -->
+
+<xs:complexType name="TBasis">
+    <xs:sequence>
+        <xs:element name="Nome" type='xs:string'/>
+        <xs:element name="Coeficiente" type="xs:float"/>
+    </xs:sequence>
+</xs:complexType>
+
+
+</xs:schema>
+
+

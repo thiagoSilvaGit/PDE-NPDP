@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<!-- root element -->
+<xs:element name="Parametros">
+	<xs:complexType>
+		<xs:sequence>
+            <xs:element name="NProj" type='xs:integer'/>
+            <xs:element name="nA" type='xs:integer'/>
+            <xs:element name="nE" type='xs:integer'/>
+            <xs:element name="pRec1" type='xs:float'/>
+            <xs:element name="pRec2" type='xs:float'/>
+            <xs:element name="vfi" type='xs:float'/>
+            <xs:element name="vbe" type='xs:integer'/>
+ 			<xs:element name="fileName" type="xs:string"/>
+        </xs:sequence>
+        <xs:attribute name="ArqName" type="xs:string" use="required"/>
+	</xs:complexType>
+</xs:element>
+
+
+
+</xs:schema>
