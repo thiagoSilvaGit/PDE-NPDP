@@ -1,0 +1,11 @@
+Graficos:
+
+- Custo 
+- Erro
+- Teta 1 (basis 1: CustoMiope)
+- Teta 2 (basis 1: JotaPassos)
+- Teta 3 (basis 1: JotaDesvios)
+- Teta 4 (basis 1: JotaPassosup)
+- Teta 5 (basis 1: JotaZigue)
+- Teta 6 (basis 1: JotaCiclo)
+- Niveis dos silos 

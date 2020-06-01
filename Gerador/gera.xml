@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <Parametros ArqName = "Par">
+        <nProj>6</nProj>
+        <nA>3</nA>
+        <nE>3</nE>
+        <pRec1>50.0</pRec1>
+        <pRec2>200.0</pRec2>
+        <vro1>0.1</vro1>
+        <vro2>0.1</vro2>
+        <maxCheg>2</maxCheg>
+        <vfi>0.5</vfi>
+        <vbe>0.1</vbe>
+        <fileName>teste_ins</fileName>
+        <caminho> </caminho>
+   </Parametros>

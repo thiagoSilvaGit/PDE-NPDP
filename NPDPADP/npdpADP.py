@@ -4,7 +4,7 @@ import math
 # from cStringIO import StringIO
 import numpy as np
 from scipy.stats import norm
-import basisfunction as bf
+import NPDPADP.basisfunction as bf
 
 #import xlwt
 #import xlrd
@@ -45,7 +45,7 @@ def switch_stpsze(argument):
 
 class Problema:
 	# Classe com os parametros que definem a instancia do problema
-	def __init__(self, vqCheg,lProj, vfi, vbe, vroum, vrodois, lqrn, lareas, letapas,vmax,c):
+	def __init__(self, vqCheg,lProj, vfi, vbe, vroum, vrodois, lqrn, lareas, letapas,c):
 		self.qCheg = vqCheg # Quantidade maxima de chegadas por periodo
 		self.P = lProj
 		self.vfi = vfi
@@ -57,7 +57,6 @@ class Problema:
 		self.letapas = letapas
 		self.S = Estado_GCPDNP(lProj, vfi, vbe, vroum, vrodois, lqrn, lareas, letapas)
 		self.Simul = Simulador()
-		self.vmax = vmax
 		self.caminho = c
 	def definePol(self,A):
 		self.Pol = A
@@ -1073,7 +1072,7 @@ class ADP:
 				matplotlib.pyplot.clf()
 				matplotlib.pyplot.plot(s, y1, label=self.StatLab[idStat])
 				matplotlib.pyplot.plot(s, y2, label=self.StatLab[idStat+ k])
-				matplotlib.pyplot.title('Coeficientes da função ' +self.StatLab[idStat]+' ao Longo do Tempo ")
+				matplotlib.pyplot.title('Coeficientes da função ' +self.StatLab[idStat]+' ao Longo do Tempo ')
 				matplotlib.pyplot.savefig(local+' função '+self.StatLab[idStat]+'.png')
 
 
@@ -1238,7 +1237,7 @@ def teste():
 	lareas = ["A1", "A2", "A3"]
 	letapas = [1, 2]
 
-	Prob = Problema(2,P, vfi, vbe, vroum, vrodois, lqrn, lareas, letapas)
+	Prob = Problema(2,P, vfi, vbe, vroum, vrodois, lqrn, lareas, letapas,'')
 	return Prob
 '''
 	S.imprime()

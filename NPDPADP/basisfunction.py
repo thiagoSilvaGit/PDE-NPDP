@@ -2,8 +2,18 @@
 #from cStringIO import StringIO
 
 
+def switch_bf(argument):
+    switcher = {
+        'QTPF': QTPF,
+        'NTRP': NTRP
+    }
 
-class BF(Object):
+    obj = switcher.get(argument, lambda *args: "Invalid Basis Function")
+    return obj()
+
+
+
+class BF:
     def Calc_phi(self,estado_x):
         return 0
     def Restr(self, estado_x,lvar):

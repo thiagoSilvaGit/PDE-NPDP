@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuracoes ArqName = "conf">
+    <Caminho>Teste_teste/</Caminho>
+    <Instancia>Teste_teste/Instancia/16_60_1_teste.xml</Instancia>
+    <Gamma>0.99</Gamma>
+    <Lambda>cte1</Lambda>
+    <N>5</N>
+    <M>100</M>
+    <it_sim>100</it_sim>
+    <BF>
+       <Nome>QTPF</Nome>
+       <Coeficiente>0.0</Coeficiente>
+    </BF>
+    <BF>
+       <Nome>NTRP</Nome>
+       <Coeficiente>0.0</Coeficiente>
+    </BF>
+</Configuracoes>
+

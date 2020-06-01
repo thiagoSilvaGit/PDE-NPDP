@@ -5,14 +5,18 @@
 <xs:element name="Parametros">
 	<xs:complexType>
 		<xs:sequence>
-            <xs:element name="NProj" type='xs:integer'/>
+            <xs:element name="nProj" type='xs:integer'/>
             <xs:element name="nA" type='xs:integer'/>
             <xs:element name="nE" type='xs:integer'/>
             <xs:element name="pRec1" type='xs:float'/>
             <xs:element name="pRec2" type='xs:float'/>
+            <xs:element name="vro1" type='xs:float'/>
+            <xs:element name="vro2" type='xs:float'/>
+            <xs:element name="maxCheg" type='xs:integer'/>
             <xs:element name="vfi" type='xs:float'/>
-            <xs:element name="vbe" type='xs:integer'/>
+            <xs:element name="vbe" type='xs:float'/>
  			<xs:element name="fileName" type="xs:string"/>
+ 			<xs:element name="caminho" type="xs:string"/>
         </xs:sequence>
         <xs:attribute name="ArqName" type="xs:string" use="required"/>
 	</xs:complexType>

@@ -35,7 +35,7 @@
 <xs:complexType name="TProjeto">
     <xs:sequence>
         <xs:element name="nome" type="xs:string"/>
-        <xs:element name="Modo" type="TModo" minOccurs="1" maxOccurs="unbounded"/>
+        <xs:element name="Modos" type="TModos" minOccurs="1" maxOccurs="unbounded"/>
         <xs:element name="Mx" type="xs:float"/>
         <xs:element name="mn" type="xs:float"/>
         <xs:element name="a" type="xs:float"/>
@@ -52,6 +52,13 @@
     </xs:sequence>
 </xs:complexType>
 
+<!-- TModos -->
+
+<xs:complexType name="TModos">
+    <xs:sequence>
+        <xs:element name="Modo" type="TModo" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+</xs:complexType>
 
 <!-- TModo -->
 
