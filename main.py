@@ -14,6 +14,7 @@ import matplotlib.pyplot
 #import time
 import NPDPADP.npdpADP as nadp
 import NPDPADP.basisfunction as bf
+import time
 
 
 
@@ -47,44 +48,28 @@ if __name__ == "__main__":
 
 
 ##alterar a classe problema para receber um arquivo de instância no construtor
-	Prob = nadp.teste()
+
+	Prob = nadp.Problema(arqv)
 	Prob.S.imprime()
-
-'''
-
-
-	Prob = tadp.Problema(0,0,0,0,0,caminho) #cria Prob como um objeto da classe Problema 
-	Prob.Leitura(arqv) #leitura do arquivo da instância
-
-	t=time.time() 
-
-	estado = tadp.Estado(Prob.lst_silos,Prob.P_ini) #cria objeto da classe Estado
-	for i in range(len(estado.silos)):
-		pprint (estado.silos[i].nvl) #imprime o nível (volume inicial) de cada silo
-
-	Poli=tadp.politica(lbs,lcoef,gama,lamb,caminho) #cria Poli como um objeto da classe política
+	Poli = nadp.Politica(lbs,lcoef,gama,caminho)
 	Poli.setLog(1)
-	s = tadp.simuladorTripper(caminho) #cria s como um objeto da classe simuladorTripper 
-	lpar = [Prob.y1 , Prob.y2, Prob.te, Prob.ts] #lista de parâmetros do problema
-	pda = tadp.ADP(caminho) #criando instância da classe ADP
+	pda = nadp.ADP(caminho)
 	pda.setLog(1)
+	t = time.time()
 	apia = pda.approxPIA(Prob,Poli,n,m) #chama a função approxPIA
+
 
 	pda.graficoStat(0) # é interessate adicionar os labels 
 	pda.graficoStat(1)
-	pda.graficoStat(2)
-	pda.graficoStat(3)
-	pda.graficoStat(4)
-	pda.graficoStat(5)
-	pda.graficoStat(6)
-	pda.graficoStat(7)
+	for k in range(len(lbs)):
+		pda.graficoStat(2+k)
+
 
 	print("\n APIA: {}".format(apia.Theta))
 
-	t = time.time()
-	s.simulacao(estado, apia, lpar, it1, t)
-	s.graficoTripper(estado,it1)
-	s.simulacao2(estado, Poli, lpar, it2)
+	total = time.time() - t
+	print("\n Tempo de treinameto: {}".format(total))
+
+ 
 
 
-'''

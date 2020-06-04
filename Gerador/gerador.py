@@ -28,21 +28,26 @@ class Gerador:
 			self.caminho = str(geraDict['caminho'])
 
 		else:
-			if (len(args) > 9) and (len(args) < 13):
+			if (len(args)==4):
 				self.nAreas = int(args[0])
 				self.nEtapas = int(args[1])
-				self.nProj = int(args[2])
-				self.vqCheg = int(args[3])
-				self.lrec = [float(args[4]),float(args[5])]
-				self.lro = [float(args[6]), float(args[7])]
-				self.vfi = float(args[8])
-				self.vbe = float(args[9])
-				if len(args) == 12:
-					self.instFile = str(args[10])
-					self.caminho = str(args[11])
-			else:
-				print('Gerador(): Erro na passagem de parametros')
-				sys.exit(1)
+				self.lrec = [float(args[2]),float(args[3])]				
+			else:	
+				if (len(args) > 9) and (len(args) < 13):
+					self.nAreas = int(args[0])
+					self.nEtapas = int(args[1])
+					self.nProj = int(args[2])
+					self.vqCheg = int(args[3])
+					self.lrec = [float(args[4]),float(args[5])]
+					self.lro = [float(args[6]), float(args[7])]
+					self.vfi = float(args[8])
+					self.vbe = float(args[9])
+					if len(args) == 12:
+						self.instFile = str(args[10])
+						self.caminho = str(args[11])
+				else:
+					print('Gerador(): Erro na passagem de parametros')
+					sys.exit(1)
 
 	def geraInst(self, w):
 		lareas = self.geraAreas()
@@ -62,10 +67,10 @@ class Gerador:
 
 	def writeIns(self,linst):
 		#lProj, vfi, vbe, vroum, vrodois,
-		arq = open( self.caminho + self.instFile + '.xml', 'w')
+		arq = open(self.instFile + '.xml', 'w')
 		texto = []
 		texto.append('<?xml version="1.0" encoding="UTF-8"?>\n')
-		texto.append('<NPDP_instGen Arq_name = "'+ self.instFile + '.xml">\n')
+		texto.append('<NPDP_instGen ArqName = "'+ self.instFile + '.xml">\n')
 
 		texto.append('\t<Caminho>'+ self.caminho + '</Caminho>\n')
 		texto.append('\t<Problema>\n')
@@ -131,12 +136,7 @@ class Gerador:
 
 	def geraAreas(self):
 		# Gerando areas
-		A = []
-		# Nomeando a area
-		for a in range(self.nAreas):
-			anome = 'A' + str(a + 1)
-			A.append(anome)
-		return A
+		return range(self.nAreas)
 
 	# Gerando os recursos do modelo: 200 multiplicando uma funcao aleatoria uniforme e adicionando 50
 	def geraRecNRen(self):
@@ -144,7 +144,7 @@ class Gerador:
 
 	# Gerando as etapas do modelo
 	def geraEtapas(self):
-		return range(self.nEtapas)
+		return [i+1 for i in range(self.nEtapas)]
 
 	# Gerando os projetos do modelo
 	def geraProjeto(self, pid, Etapas, Areas, qrnr, estagio):
@@ -217,14 +217,14 @@ class Gerador:
 			prob = np.random.uniform(prob1, 1.0)
 			vdelta1 = np.random.uniform(1, 2) * vdelta
 			vdeltat = 1
-			lnrn1 = np.random.uniform(1, 3) * lnrn
+			lnrn1 = (1+np.random.uniform(0, 2)) * lnrn
 			vmean = np.random.uniform
 			m2 = nadp.Modo(prob, prob2, vdelta1, lnrn, vdeltat, "Melhorar")
 			M.append(m2)
 		# Se forem tres, cria-se o 'acelerar'
 		if (quant > 2):
 			prob2 = np.random.uniform(0.0, prob2)
-			lnrn1 = np.random.uniform(1, 3) * lnrn
+			lnrn1 = (1+np.random.uniform(0, 2)) * lnrn
 			vdeltat1 = 2
 			m3 = nadp.Modo(prob1, prob2, vdelta1 * (tempo / (tempo - (vdeltat1 - vdeltat))), lnrn1, vdeltat1, "Acelerar")
 			M.append(m3)

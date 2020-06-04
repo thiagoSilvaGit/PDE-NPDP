@@ -7,7 +7,6 @@
 		<xs:sequence>
             <xs:element name="Caminho" type="xs:string"/>
             <xs:element name="Problema" type="Tproblema"/>
-			<xs:element name="Silo" type="Tsilo" minOccurs="1" maxOccurs="unbounded"/>            
         </xs:sequence>
         <xs:attribute name="ArqName" type="xs:string" use="required"/>
 	</xs:complexType>

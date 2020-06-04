@@ -1,10 +1,18 @@
-# -*- coding: utf-8 -*-
+#coding: utf-8
+import sys
+sys.path.append('../')
+from Leitor.leitorXML import *
 from gurobipy import *
 import math
 # from cStringIO import StringIO
 import numpy as np
 from scipy.stats import norm
 import NPDPADP.basisfunction as bf
+import numpy.linalg as npla
+from numpy import array, zeros, sqrt, shape, eye
+import copy as c
+import Gerador.gerador as G
+import matplotlib.pyplot
 
 #import xlwt
 #import xlrd
@@ -28,12 +36,12 @@ def stpsze_cte1(it):
 	return 1
 
 def switch_stpsze(argument):
-    switcher = {
-        'ln50up100': stpsze_ln50up100,
-        'ln100dn80': stpsze_ln100dn80,
-        'cte1': stpsze_cte1
-    }
-    return switcher.get(argument, lambda *args: "Invalid Lambda")
+	switcher = {
+		'ln50up100': stpsze_ln50up100,
+		'ln100dn80': stpsze_ln100dn80,
+		'cte1': stpsze_cte1
+	}
+	return switcher.get(argument, lambda *args: "Invalid Lambda")
 
 
 # Modelo
@@ -43,25 +51,112 @@ def switch_stpsze(argument):
 
 # Classe Problema
 
+
 class Problema:
 	# Classe com os parametros que definem a instancia do problema
-	def __init__(self, vqCheg,lProj, vfi, vbe, vroum, vrodois, lqrn, lareas, letapas,c):
-		self.qCheg = vqCheg # Quantidade maxima de chegadas por periodo
-		self.P = lProj
-		self.vfi = vfi
-		self.vbe = vbe
-		self.vro1 = vroum
-		self.vro2 = vrodois
-		self.lqrn = lqrn
-		self.lareas = lareas
-		self.letapas = letapas
-		self.S = Estado_GCPDNP(lProj, vfi, vbe, vroum, vrodois, lqrn, lareas, letapas)
+	def __init__(self, *args, **kwargs):
+		#(self, vqCheg,lProj, vfi, vbe, vroum, vrodois, lqrn, lareas, letapas,c):
+		if len(args) ==1:
+			geraDict = LerXML(args[0])
+			self.instFile = str(geraDict['@ArqName'])
+			self.caminho = str(geraDict['Caminho'])
+
+			prob = geraDict['Problema']
+			self.lareas = range(int(prob['nA']))
+			self.letapas = [i+1 for i in range(int(prob['nE']))]
+			self.vqCheg = int(prob['maxCheg'])
+			self.vfi = float(prob['vfi'])
+			self.vbe = float(prob['vbe'])
+			self.vro1 = float(prob['ro1'])
+			self.vro2 = float(prob['ro2'])
+			self.lqrn = float(prob['qRec'])
+			
+			projetos = prob['Projeto']
+			self.P = []
+			for p in projetos:
+				self.P.append(self.lerProj(p))
+
+
+		else:
+			if (len(args) == 10):
+				self.qCheg = vqCheg # Quantidade maxima de chegadas por periodo
+				self.P = lProj
+				self.vfi = vfi
+				self.vbe = vbe
+				self.vro1 = vroum
+				self.vro2 = vrodois
+				self.lqrn = lqrn
+				self.lareas = lareas
+				self.letapas = letapas
+				self.caminho = c
+
+			else:
+				print('Gerador(): Erro na passagem de parametros')
+				sys.exit(1)
+
+
+
+		self.S = Estado_GCPDNP(self.P, self.vfi, self.vbe, self.vro1, self.vro2, self.lqrn, self.lareas, self.letapas)
 		self.Simul = Simulador()
-		self.caminho = c
+
 	def definePol(self,A):
 		self.Pol = A
- 
- 
+	def lerProj(self,dicP):
+
+		vnome = dicP['nome']
+		Modos = dicP['Modos']
+		Mx = float(dicP['Mx'])
+		mn = float(dicP['mn'])
+		a = float(dicP['a'])
+		pk = float(dicP['pk'])
+		mu = float(dicP['mu'])
+		desvp = float(dicP['pk'])
+		lpar = [Mx,mn,a,pk,mu,desvp]
+
+		vdiv = int(dicP['div'])
+		tCheg = int(dicP['tCheg'])
+		varea = int(dicP['area'])
+		vetapa = int(dicP['etapa'])
+		cmax = int(dicP['cmax'])
+
+		tempo = dicP['tempo']
+		ltempo = []
+		for t in tempo:
+			ltempo.append(float(t))
+
+		print(Modos)
+		lmodo = []
+		for m in Modos:
+			print('\n\tmodo0: {} '.format(m['Modo']))
+			lmodo.append(self.lerModo(m['Modo']))
+
+		p3 = Projeto(lmodo, lpar, vdiv, ltempo, cmax, varea,vetapa, vnome,tCheg)
+		return p3
+		 
+	def lerModo(self,dicM):
+		print('\n\tdicM: {}'.format(dicM))
+		mE = []	
+		for m in dicM:
+			print('\n\tmodo1: {}'.format(m))
+			vnome = m['nome']
+			vprob = float(m['prob'])
+			vprobat =  float(m['probAtr'])
+			vdelta =  float(m['deltap'])				   
+			lnrn =  float(m['nrn'])
+			vdeltat=  float(m['deltat'])
+			mE.append(Modo(vprob,vprobat, vdelta, lnrn, vdeltat, vnome))
+		return mE
+  
+'''
+
+		<xs:element name="nome" type="xs:string"/>
+		<xs:element name="prob" type="xs:float"/>
+		<xs:element name="probAtr" type="xs:float"/>
+		<xs:element name="deltap" type="xs:float"/>
+		<xs:element name="nrn" type="xs:float"/>
+		<xs:element name="deltat" type="xs:float"/>
+'''
+
 
 # Classe Modo
 class Modo:
@@ -214,7 +309,7 @@ class Estado_GCPDNP:
 	def transicao(self,dec,vqMax):
 		Incerteza = GeraIncerteza(self,dec,self.estagio,vqMax)
 		Incerteza.geracao()
-		self.Vt = Incerteza.CalcValor() - dec.valor
+		self.Vt = Incerteza.CalcValor() - dec.valor # dec.valor é um custo registrado como positivo
 		# Passagem de estagio
 		self.estagio = self.estagio + 1
 		newPe = Incerteza.Pe
@@ -243,7 +338,7 @@ class Decisao:
 		self.tn = vtn
 		# Recebe o valor da funcao objetivo
 		self.obj = vobj
-		self.valor = vvalor
+		self.valor = vvalor #custo!!
 		# Os valores sao colocados de forma a decidir qual projeto continua, e cancelado ou congelado
 		self.Abandonados = [p for p in range(len(self.y)) if self.y[p] == 1]
 		self.Congelados = [p for p in range(len(self.f)) if self.f[p] == 1]
@@ -265,8 +360,8 @@ class GeraIncerteza:
 		self.X = vEstado
 		# U: recebe a decisao corrente
 		self.U = vDecisao
-		self.Gen = Gerador(0,0)
-		self.qnk = 0
+		self.Gen = G.Gerador(0,0,0,0)
+		self.qnk = vEstado.qn_k
 		self.Pe = []
 		self.newP = []
 		self.t = vnEstagio
@@ -481,7 +576,8 @@ class Politica:
 
 
 # Função Objetivo
-		exp = quicksum((p.valor(mod,estado_x.estagio) - p.getMinCost())*w[estado_x.P.index(p)][mod] for p in estado_x.P for mod in range(len(p.modos[estado_x.E.index(p.etapa)]))) # O que é isso?
+		# a realização da incerteza vai gerar o retorno dos projetos lançados em t+1, em t não é definido pelas decisões
+		exp = - quicksum(tn[e] for e in range(len(estado_x.E)))
 		exp = exp - quicksum(V[a]*estado_x.roum for a in range(len(estado_x.A))) # O que é isso?
 		exp = exp - quicksum(J[e][idp]*estado_x.rodois for e in range(len(estado_x.E)) for idp in range(len(estado_x.P_e[e]))) # O que é isso?
 		exp = exp + quicksum(self.Theta[i]*vbasis[i] for i in range(len(self.lBasis))) # Parcela referente às Basis Functions
@@ -491,7 +587,7 @@ class Politica:
 
 	#Restrição 0: Basis Functions
 		for b in range(len(self.lBasis)):
-			m.addConstr(vbasis[b] - lBasis[b].Restr(estado_x, [w,f,y,tn,V,J,mn,Quota,cmin]) == 0)
+			m.addConstr(vbasis[b] - self.lBasis[b].Restr(estado_x, [w,f,y,tn,V,J,mn,Quota,cmin]) == 0)
 
 	# Restrição 1: Status dos projetos que não podem ser congelados 
 		PmPc = [p for p in estado_x.P if p not in estado_x.Pc]
@@ -593,7 +689,7 @@ class Politica:
 					print ('\n')
 
 				
-		Valor = sum([w[estado_x.P.index(p)][mod].x*p.modos[p.etapa -1][mod].nrn for p in estado_x.P for mod in range(len(p.modos[estado_x.E.index(p.etapa)]))])
+		Valor = sum([tn[e].x for e in range(len(estado_x.E))])
 		Valor = Valor + sum([V[a].x*estado_x.roum for a in range(len(estado_x.A))])
 		Valor = Valor + sum([sum([J[e][idp].x*estado_x.rodois for idp in range(len(estado_x.P_e[e]))]) for e in range(len(estado_x.E))])
 	
@@ -645,7 +741,7 @@ class Politica:
 		#print('\tmult: {}, shape {}\n'.format(mult, mult.shape))
 		texto.append('\tmult: {}, shape {}\n'.format(mult, mult.shape))
 		self.B = self.B - float((1/denm))*mult #atualiza B pela formula
-		texto.append('\tapós atualizar B: {}\n'.format(self.B))
+		texto.append('\tapos atualizar B: {}\n'.format(self.B))
 		if self.log:
 			arquivo = self.caminho + 'Log/' + 'saida_B.txt'
 			arq = open(arquivo, 'a')
@@ -675,7 +771,7 @@ class Politica:
 		texto.append('\tm2: {}\n'.format(m2))
 		newTh = np.matrix(self.Theta) + np.transpose(m2)
 		self.Theta = array(newTh)[0]  #atualiza theta pela formula
-		texto.append('\tapós atualizar Theta: {}\n'.format(self.Theta))
+		texto.append('\tapos atualizar Theta: {}\n'.format(self.Theta))
 		if self.log:
 			arquivo = self.caminho + 'Log/' + 'saida_Theta.txt'
 			arq = open(arquivo, 'a')
@@ -731,9 +827,9 @@ class Politica:
 		erro = self.calc_erro_m(custo,fgf) #calcula o erro
 		texto.append('\terro: {}\n'.format(erro))
 		self.UpdateTheta_m(erro,phi_m, fgf) #atualiza teta
-		texto.append('\tapós atualizar Theta: {}\n'.format(self.Theta))
+		texto.append('\tapos atualizar Theta: {}\n'.format(self.Theta))
 		self.UpdateB_m(phi_m, fgf) #atualiza B
-		texto.append('\tapós atualizar B: {}\n'.format(self.B))
+		texto.append('\tapos atualizar B: {}\n'.format(self.B))
 		if self.log:
 			arquivo = self.caminho + 'Log/' + 'saida_updpol.txt'
 			arq = open(arquivo, 'a')
@@ -945,13 +1041,11 @@ class Politica_GulosaVPL:
 
 # Classe Simulador
 class Simulador:
-	def simulacao(self, S, Pol, niter, vmax):
+	def simulacao(self, S, Pol, niter, vmax,caminho):
 		vlist = []
 		vlist2 = []
 		vlist3 = []
-		vlist4 = [] 
-		v0 = 0
-		bf.save_cabecalho(S,'teste_saida.txt')
+		bf.save_cabecalho(S,caminho+'Log/teste_saida.txt')
 		for n in range(niter):
 			print('iteracao ' + str(n) + ': \n')		
 			S.imprime()
@@ -960,15 +1054,13 @@ class Simulador:
 			custoSim = d.valor
 			vlist3.append(custoSim)
 			valorSim = S.transicao(d,vmax)
-			vlist4.append(valorSim)
+			vlist2.append(valorSim+custoSim)
 #			print ('Valor Simulado:' + str(valorSim))
 #			print ('custo Simulado:' + str(custoSim))
-			vlist.append(valorSim - custoSim)
-			v0 = 0.995*v0 + 0.005*(valorSim - custoSim)
-			vlist2.append(v0)
-			bf.save_data(S,[valorSim - custoSim,v0,custoSim,valorSim],'teste_saida.txt')
+			vlist.append(valorSim)
+			bf.save_data(S,[valorSim,valorSim + custoSim,custoSim],caminho+'Log/teste_saida.txt')
 		S.imprime()
-		return [vlist,vlist2,vlist3,vlist4]
+		return [vlist,vlist2,vlist3]
 
 
 #class ADP(tpd.Trainer):
@@ -992,13 +1084,13 @@ class ADP:
 #@retval Alinha: objeto instanciado atualizado da classe Politica que dado um estado retorna uma ação
 	def approxPIA(self,Prob,A,n,m):
 		texto=[]
-		lpar = [prob.qCheg,Prob.vfi,Prob.vbe,Prob.vro1, Prob.vro2,Prob.lqrn,Prob.lareas,Prob.letapas]
+		lpar = [Prob.vqCheg,Prob.vfi,Prob.vbe,Prob.vro1, Prob.vro2,Prob.lqrn,Prob.lareas,Prob.letapas]
 		Stat = []
 		Alinha = c.deepcopy(A) #step 4: inicializar a política
 		Sm = c.deepcopy(Prob.S)
 		for i in range(n):
 			texto.append("\n\n#######################################################################\n")
-			texto.append("\tFunção approxPIA(self,P,A,n,m) iteração {}\n".format(i))
+			texto.append("\tFuncao approxPIA(self,P,A,n,m) iteracao {}\n".format(i))
 			texto.append("\tTheta(Alinha): {}\n".format(Alinha.Theta))
 			Am = c.deepcopy(Alinha)
 			Am.resetB()
@@ -1006,14 +1098,14 @@ class ADP:
 			for j in range(m):
 				Am.it= m*i +j
 				Am.itp = Am.itp + 1
-				texto.append("\t\titeração i={},j={}\n".format(i,j))
+				texto.append("\t\titeracao i={},j={}\n".format(i,j))
 				texto.append("\t\tTheta(Am): {}\n".format(Am.Theta))
 				Smp1 = c.deepcopy(Sm) 
 				a = Alinha.solver(Smp1) #gerar a ação com a política atual step 6a
-				custo = Smp1.transicao(a,Prob.vmax) # gerar novo estado a partir da transição do atual
-				erro = Am.updPol(Am,a,Sm,Smp1,lpar)
+				custo = Smp1.transicao(a,Prob.vqCheg) # gerar novo estado a partir da transição do atual
+				erro = Am.updPol(a,Sm,Smp1,lpar)
 				#step 5: gera a incerteza do cenário
-				texto.append("\t\tapós atualizar Theta(Am): {}\n".format(Am.Theta))
+				texto.append("\t\tapos atualizar Theta(Am): {}\n".format(Am.Theta))
 				Stat.append([custo] +[erro] + list(Am.getStatistics()) + list(Alinha.getStatistics())) #Am.getStatistics() retorna teta #tirar o indice [1] do custo - adiciona à Stat o custo e o teta atualizado
 				del(Sm)
 				Sm = c.deepcopy(Smp1)
@@ -1022,7 +1114,7 @@ class ADP:
 			Alinha = c.deepcopy(Am) #step 8: atualizar a política para a iteração i+1
 			texto.append("\tTheta(Alinha): {}\n".format(Alinha.Theta))
 			del(Am)
-		self.adpStat(['custo'] +Alinha.getStatLabels(),Stat,n,m)
+		self.adpStat(['custo'] + ['erro'] + Alinha.getStatLabels() + ['{}_curr'.format(i) for i in Alinha.getStatLabels()],Stat,n,m)
 		if self.log:
 			arquivo = self.caminho + 'Log/' + 'saida.txt'
 			with open(arquivo, 'w', newline='') as arq:
@@ -1044,7 +1136,10 @@ class ADP:
 				self.StatData[i].append(auxn)
 
 	def graficoStat(self,idStat):
-		k = int((len(self.StatData) -1)/2)
+		print(len(self.StatData))
+		
+		k = int((len(self.StatData) -2)/2)
+		print(k)
 		n = len(self.StatData[idStat])
 		m = len(self.StatData[idStat][0])
 		s= range(n*m)
