@@ -5,7 +5,8 @@ from gurobipy import *
 def switch_bf(argument):
 	switcher = {
 		'QTPF': QTPF,
-		'NTRP': NTRP
+		'NTRP': NTRP,
+		'QPD': QPD
 	}
 
 	obj = switcher.get(argument, lambda *args: "Invalid Basis Function")
@@ -21,7 +22,7 @@ class BF:
 
 class QTPF(BF):
 	def Calc_phi(self,estado_x):
-		return QProj(estado_x)
+		return self.QProj(estado_x)
 
 	def QProj(self,estado_x):  # Função recebe o Estado como parâmetro
 		return len(estado_x.P)  # A função retorna o contador com a quantidade total de projetos no funil
@@ -38,7 +39,7 @@ class NTRP(BF):
 	# CONTABILIZA A SOMA DO CUSTO TOTAL MÍNIMO NECESSÁRIO PARA LANÇAR CADA PROJETO
 
 	def Calc_phi(self, estado_x):
-		return  NecRecP(estado_x)
+		return  self.NTRP(estado_x)
 
 	def NTRP(self,estado_x):  # Função recebe o Estado como parâmetro
 		return sum([p.getMinCost() for p in estado_x.P])
@@ -51,6 +52,28 @@ class NTRP(BF):
 		return exp
 
 ''' CARACTERÍSTICAS DO ESTADO '''
+
+class QPD(BF):
+	# CONTABILIZA Contagem de projetos divisíveis
+	def Calc_phi(self, estado_x):
+		return  self.QPD(estado_x)
+
+	def QPD(self,estado_x):
+
+		contpdiv = 0				#Contador que irá armazenar a quantidade de projetos divisíveis
+		for p in estado_x.P:			#Para todos os projetos no conjunto de projetos 'P'
+			if( p.div == 1):			#Se, vdiv for igual a 1, significa que o projeto é divisível
+				contpdiv = contpdiv + 1		#Acréscimo de 1 no contador
+
+		return contpdiv					#A função retorna o contador com a quantidade total de projetos em P capazes de serem divididos
+
+
+	def Restr(self, estado_x, lvar):
+		w = lvar[0]
+		f = lvar[1]
+		exp = quicksum(quicksum(w[estado_x.P.index(p)][mod] for mod in range(len(p.modos[p.etapa - 1]))) for p in estado_x.P if (p not in estado_x.Pl) and (p.div==1)) #termo 1 e 4
+		exp = exp + quicksum( f[estado_x.P.index(p)] for p in estado_x.Pc) #termo 2
+		return exp
 
 
 #01 - QUANTIDADE TOTAL DE PROJETOS NO FUNIL

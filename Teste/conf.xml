@@ -15,5 +15,9 @@
        <Nome>NTRP</Nome>
        <Coeficiente>1.0</Coeficiente>
     </BF>
+    <BF>
+       <Nome>QPD</Nome>
+       <Coeficiente>1.0</Coeficiente>
+    </BF>
 </Configuracoes>
 
