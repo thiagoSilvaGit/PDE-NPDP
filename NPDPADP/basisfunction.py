@@ -27,9 +27,9 @@ class BF:
 class QTPF(BF):
     # CONTABILIZA Contagem de projetos no funil
     def Calc_phi(self,estado_x):
-        return self.QProj(estado_x)
+        return self.QTPF(estado_x)
 
-    def QProj(self,estado_x):  # Função recebe o Estado como parâmetro
+    def QTPF(self,estado_x):  # Função recebe o Estado como parâmetro
         return len(estado_x.P)  # A função retorna o contador com a quantidade total de projetos no funil
     def Restr(self, estado_x, lvar):
         w = lvar[0]
@@ -105,7 +105,7 @@ class QPND(BF):
 class QPC(BF):
     # CONTABILIZA Contagem de projetos congelados no funil
     def Calc_phi(self,estado_x):
-        return self.QProj(estado_x)
+        return self.QPC(estado_x)
 
     def QPC(self,estado_x):  # Função recebe o Estado como parâmetro
         return len(estado_x.Pc)  # A função retorna o contador com a quantidade total de projetos congelados no funil
@@ -119,7 +119,7 @@ class QPC(BF):
 class RFMN(BF):
     # Calcula o somatório do retorno mínimo esperado dos projetos no funil
     def Calc_phi(self,estado_x):
-        return self.QProj(estado_x)
+        return self.RFMN(estado_x)
 
     def RFMN(self,estado_x):  # Função recebe o Estado como parâmetro
         retesp1 = 0                                                                            #Variável que recebe os retornos esperados
@@ -138,7 +138,7 @@ class RFMN(BF):
 class RFMX(BF):
     # Calcula o somatório do retorno máximo esperado dos projetos no funil
     def Calc_phi(self,estado_x):
-        return self.QProj(estado_x)
+        return self.RFMX(estado_x)
 
     def RFMX(self,estado_x):  # Função recebe o Estado como parâmetro
         retesp1 = 0                                                                            #Variável que recebe os retornos esperados
