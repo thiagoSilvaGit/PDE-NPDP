@@ -9,6 +9,7 @@ def switch_bf(argument):
         'QPD': QPD,
         'QPND': QPND,
         'QPC': QPC,
+        'TRC': TRC,
         'RFMN': RFMN,
         'RFMX': RFMX
     }
@@ -113,6 +114,27 @@ class QPC(BF):
         w = lvar[0]
         f = lvar[1]
         exp = quicksum( f[estado_x.P.index(p)] for p in estado_x.Pc) 
+        return exp
+
+class TRC(BF):
+    # Calcula o somatório do tempo de congelamento residual dos projetos
+    def Calc_phi(self,estado_x):
+        return self.TRC(estado_x)
+
+    def TRC(self, estado_x):                                                              #Função recebe o Estado como parâmetro
+
+        aux = 0                                                                           #Variável que irá armazenar os tempos residuais
+        for p in estado_x.P:                                                              #Para todo projeto no conjunto de projetos
+            if(p.div == 1):                                                               #Se o projeto for divisível
+                aux = aux + p.cmax - p.congatual                                          #Aux recebe a diferença do tempo máximo e o congelamento atual
+
+        return aux                                                                        #A função retorna o somatório os tempos residuais de congelamento de cada projeto     
+
+    def Restr(self, estado_x, lvar):
+        w = lvar[0]
+        f = lvar[1]
+        exp = quicksum(quicksum(w[estado_x.P.index(p)][mod] for mod in range(len(p.modos[p.etapa - 1]))) for p in estado_x.P if (p not in estado_x.Pl)) #termo 1 e 4
+        exp = exp + quicksum( f[estado_x.P.index(p)] for p in estado_x.Pc) #termo 2
         return exp
 
 

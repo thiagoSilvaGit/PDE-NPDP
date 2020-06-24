@@ -28,6 +28,10 @@
        <Coeficiente>1.0</Coeficiente>
     </BF>
     <BF>
+       <Nome>TRC</Nome>
+       <Coeficiente>1.0</Coeficiente>
+    </BF>
+    <BF>
        <Nome>RFMN</Nome>
        <Coeficiente>1.0</Coeficiente>
     </BF>
