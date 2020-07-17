@@ -64,6 +64,7 @@ class Problema:
 			prob = geraDict['Problema']
 			self.lareas = range(int(prob['nA']))
 			self.letapas = [i+1 for i in range(int(prob['nE']))]
+			self.tx = 0.01
 			self.vqCheg = int(prob['maxCheg'])
 			self.vfi = float(prob['vfi'])
 			self.vbe = float(prob['vbe'])
@@ -219,11 +220,31 @@ class Projeto:
 					if(cmodmin>self.modos[e][m].nrn):
 						cmodmin = self.modos[e][m].nrn
 			cmin = cmin + cmodmin*self.tempo[e] #assume que não haverá atraso
-		return cmin 
+		return cmin
+	def CalcTimeEsp(self):
+		eTime = 0
+		for e in range(self.etapa-1, len(self.tempo)):
+			resTime = proj.tempo[e] #número de períodos que faltam para conlcuir a etapa
+			eTime = eTime + (1/(1-proj.modos[e][modoinit].probAtr))*resTime # tempo esperado para concluir o período considerando o atraso
+		return eTime
 	def valorLan(self,t):
 		v1 =  (self.par[0] - self.par[1])*np.exp(-((t-self.tCheg)/self.par[2])**self.par[3])*(1 - norm.pdf(self.performance, self.par[4],self.par[5])) + self.par[1]
-		print ('VALOR LAN :'+str(v1))
+		#print ('VALOR LAN :'+str(v1))
 		return v1
+	def vplLan_esp(self,tlan,tx):
+		#tlan neste caso significa em quantos períodos a partir do estágio atual o projeto será lançado
+		v1 = self.valorLan(self,tlan)*np.exp(-tlan*tx)		#print ('VALOR LAN :'+str(v1))
+		return v1
+	def valorLan_mn(self,tlan,tx):
+		#t neste caso significa em quantos períodos a partir do estágio atual o projeto será lançado
+		v1 =  self.par[1]*np.exp(-tlan*tx)
+		#print ('VALOR LAN :'+str(v1))
+		return v1
+	def valorLan_mx(self,tlan,tx):
+		#t neste caso significa em quantos períodos a partir do estágio atual o projeto será lançado
+		v1 =  self.par[0]*np.exp(-tlan*tx)
+		return v1
+
 	def valorLanPerf(self,t,perf):
 		v1 =  (self.par[0] - self.par[1])*np.exp(-((t-self.tCheg)/self.par[2])**self.par[3])*(1 - norm.pdf(perf, self.par[4],self.par[5])) + self.par[1]
 		print ('VALOR LAN :'+str(v1))

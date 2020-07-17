@@ -36,7 +36,7 @@ class QTPF(BF):
         w = lvar[0]
         f = lvar[1]
         exp = quicksum(quicksum(w[estado_x.P.index(p)][mod] for mod in range(len(p.modos[p.etapa - 1]))) for p in estado_x.P if p not in estado_x.Pl) #termo 1 e 4
-        exp = exp + quicksum( f[estado_x.P.index(p)] for p in estado_x.Pc) #termo 2
+        exp = exp + quicksum( f[estado_x.P.index(p)] for p in estado_x.P) #termo 2
         return exp
 
 
@@ -54,7 +54,7 @@ class NTRP(BF):
         w = lvar[0]
         f = lvar[1]
         exp = quicksum(quicksum(w[estado_x.P.index(p)][mod]*p.getMinCost() for mod in range(len(p.modos[p.etapa - 1]))) for p in estado_x.P if p not in estado_x.Pl)  # termo 1 e 4
-        exp = exp + quicksum(f[estado_x.P.index(p)]*p.getMinCost() for p in estado_x.Pc)  # termo 2
+        exp = exp + quicksum(f[estado_x.P.index(p)]*p.getMinCost() for p in estado_x.P)  # termo 2
         return exp
 
 
@@ -77,7 +77,7 @@ class QPD(BF):
         w = lvar[0]
         f = lvar[1]
         exp = quicksum(quicksum(w[estado_x.P.index(p)][mod] for mod in range(len(p.modos[p.etapa - 1]))) for p in estado_x.P if (p not in estado_x.Pl) and (p.div==1)) #termo 1 e 4
-        exp = exp + quicksum( f[estado_x.P.index(p)] for p in estado_x.Pc) #termo 2
+        exp = exp + quicksum( f[estado_x.P.index(p)] for p in estado_x.P) #termo 2
         return exp
 
 
@@ -99,7 +99,7 @@ class QPND(BF):
         w = lvar[0]
         f = lvar[1]
         exp = quicksum(quicksum(w[estado_x.P.index(p)][mod] for mod in range(len(p.modos[p.etapa - 1]))) for p in estado_x.P if (p not in estado_x.Pl) and (p.div!=1)) #termo 1 e 4
-        exp = exp + quicksum( f[estado_x.P.index(p)] for p in estado_x.Pc) #termo 2
+        exp = exp + quicksum( f[estado_x.P.index(p)] for p in estado_x.P) #termo 2
         return exp
 
 
@@ -113,7 +113,7 @@ class QPC(BF):
     def Restr(self, estado_x, lvar):
         w = lvar[0]
         f = lvar[1]
-        exp = quicksum( f[estado_x.P.index(p)] for p in estado_x.Pc) 
+        exp = quicksum( f[estado_x.P.index(p)] for p in estado_x.P)
         return exp
 
 class TRC(BF):
@@ -133,8 +133,8 @@ class TRC(BF):
     def Restr(self, estado_x, lvar):
         w = lvar[0]
         f = lvar[1]
-        exp = quicksum(quicksum(w[estado_x.P.index(p)][mod] for mod in range(len(p.modos[p.etapa - 1]))) for p in estado_x.P if (p not in estado_x.Pl)) #termo 1 e 4
-        exp = exp + quicksum( f[estado_x.P.index(p)] for p in estado_x.Pc) #termo 2
+        exp = quicksum(quicksum((p.cmax - p.congatual)*w[estado_x.P.index(p)][mod] for mod in range(len(p.modos[p.etapa - 1]))) for p in estado_x.P if (p not in estado_x.Pl)) #termo 1 e 4
+        exp = exp + quicksum((p.cmax - p.congatual-1)*f[estado_x.P.index(p)] for p in estado_x.P) #termo 2
         return exp
 
 
@@ -152,8 +152,8 @@ class RFMN(BF):
     def Restr(self, estado_x, lvar):
         w = lvar[0]
         f = lvar[1]
-        exp = quicksum(quicksum(w[estado_x.P.index(p)][mod] for mod in range(len(p.modos[p.etapa - 1]))) for p in estado_x.P if (p not in estado_x.Pl)) #termo 1 e 4
-        exp = exp + quicksum( f[estado_x.P.index(p)] for p in estado_x.Pc) #termo 2
+        exp = quicksum(quicksum(p.par[1]*w[estado_x.P.index(p)][mod] for mod in range(len(p.modos[p.etapa - 1]))) for p in estado_x.P if (p not in estado_x.Pl)) #termo 1 e 4
+        exp = exp + quicksum( p.par[1]*f[estado_x.P.index(p)] for p in estado_x.P) #termo 2
         return exp
 
 
@@ -165,14 +165,14 @@ class RFMX(BF):
     def RFMX(self,estado_x):  # Função recebe o Estado como parâmetro
         retesp1 = 0                                                                            #Variável que recebe os retornos esperados
         for p in estado_x.P:
-            retesp1 = retesp1 + p.par[0]       
+            retesp1 = retesp1 + p.par[0]
         return retesp1                                                                         #A função retorna a soma dos retornos máximo esperados
 
     def Restr(self, estado_x, lvar):
         w = lvar[0]
         f = lvar[1]
-        exp = quicksum(quicksum(w[estado_x.P.index(p)][mod] for mod in range(len(p.modos[p.etapa - 1]))) for p in estado_x.P if (p not in estado_x.Pl)) #termo 1 e 4
-        exp = exp + quicksum( f[estado_x.P.index(p)] for p in estado_x.Pc) #termo 2
+        exp = quicksum(quicksum(p.par[0]*w[estado_x.P.index(p)][mod] for mod in range(len(p.modos[p.etapa - 1]))) for p in estado_x.P if (p not in estado_x.Pl)) #termo 1 e 4
+        exp = exp + quicksum(p.par[0]*f[estado_x.P.index(p)] for p in estado_x.P) #termo 2
         return exp
 
 
