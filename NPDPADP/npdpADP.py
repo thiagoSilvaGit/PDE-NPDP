@@ -328,6 +328,7 @@ class Estado_GCPDNP:
 	# Recebe decisao
 
 	def transicao(self,dec,vqMax):
+		dec.imprime()
 		Incerteza = GeraIncerteza(self,dec,self.estagio,vqMax)
 		Incerteza.geracao()
 		self.Vt = Incerteza.CalcValor() - dec.valor # dec.valor é um custo registrado como positivo
@@ -344,6 +345,7 @@ class Estado_GCPDNP:
 		self.P_a = [[p for p in self.P if p.area == a] for a in self.A]
 		self.Pc = [p for p in self.P if (p.div) & (p.congatual < p.cmax)]
 		self.Pl = [p for p in self.P if (p.etapa == self.E[len(self.E)-1]) & (p.tempo[self.E.index(p.etapa)] == 1)]
+		self.imprime()
 		return self.Vt #custo do estado t calculado durante a transição para t+1
 
 # Classe Decisao		 
@@ -367,10 +369,10 @@ class Decisao:
 		self.ExecModo =  [self.w[p].index(1) for p in self.Executados]
 
 	def imprime(self):
-		print('Abandonados: ' + str(self.Abandonados)+ '\n')
-		print('Congelados: '+ str(self.Congelados) + '\n')
-		print('Executados: '+ str(self.Executados) + '\n')
-		print('Modos: '+ str(self.ExecModo) + '\n')
+		print('id Abandonados: ' + str(self.Abandonados)+ '\n')
+		print('id Congelados: '+ str(self.Congelados) + '\n')
+		print('id Executados: '+ str(self.Executados) + '\n')
+		print('id Modos: '+ str(self.ExecModo) + '\n')
 		
   
 	
@@ -462,18 +464,27 @@ class GeraIncerteza:
 			nextPe = []
 			for p in self.X.P_e[e-1]:
 				pid = self.X.P.index(p)
+				print('pid: {}'.format(pid))
+				print('Exec: {}'.format(self.U.Executados))
+				print('Aband: {}'.format(self.U.Abandonados))
+				print('Congelados: {}'.format(self.U.Congelados))
+
 				if (pid not in self.U.Abandonados):
-					if (pid in self.U.Congelados):  
-						newPe = p
-						[newPe,bAtr] = self.geraIncertezaHuz5(newPe,-1)
-					else:
-						modid = self.U.Executados.index(pid)   
+					if (pid in self.U.Executados):
+						modid = self.U.Executados.index(pid)
 						mod = self.U.ExecModo[modid]
-						[newPe,bAtr] = self.geraIncertezaHuz5(p,mod)
-						if(not bAtr):
-							newPe = self.geraIncertezaHuz3(newPe,mod)
+						[newPe, bAtr] = self.geraIncertezaHuz5(p, mod)
+						if (not bAtr):
+							newPe = self.geraIncertezaHuz3(newPe, mod)
 						else:
-							print('projeto'+str(newPe.nome)+ 'ATRASOU')			
+							print('projeto' + str(newPe.nome) + 'ATRASOU')
+					else:
+						if (p in self.X.Pc):
+							pidc = self.X.Pc.index(p)
+							if (pidc in self.U.Congelados):
+								newPe = p
+								[newPe,bAtr] = self.geraIncertezaHuz5(newPe,-1)
+
 					newPe = self.geraIncertezaHuz1(newPe)
 					newPe = self.geraIncertezaHuz4(newPe)
 					print(newPe.tempo)
@@ -531,8 +542,8 @@ class Politica:
 
 	# Variável f_p: Projeto congelado 
 		f = []
-		for p in range(len(estado_x.P)):
-			f.append(m.addVar(vtype = GRB.BINARY, name = "f[{}]". format(estado_x.P[p].nome)))
+		for p in estado_x.Pc:
+			f.append(m.addVar(vtype = GRB.BINARY, name = "f[{}]". format(p.nome)))
 		m.update()	
 
 	# Variável w_mp: Projeto continuado de determinado modo
@@ -612,14 +623,15 @@ class Politica:
 
 	# Restrição 1: Status dos projetos que não podem ser congelados 
 		PmPc = [p for p in estado_x.P if p not in estado_x.Pc]
-		for p in range(len(PmPc)):
-			ip = estado_x.P.index(PmPc[p])
-			m.addConstr(y[ip] + quicksum(w[ip][mod] for mod in range(len(PmPc[p].modos[estado_x.E.index(PmPc[p].etapa)]))) == 1)  
+		for p in PmPc:
+			ip = estado_x.P.index(p)
+			m.addConstr(y[ip] + quicksum(w[ip][mod] for mod in range(len(p.modos[estado_x.E.index(p.etapa)]))) == 1)
 		
 	# Restrição 2: Status dos projetos que podem ser congelados 
-		for p in range(len(estado_x.Pc)):
-			ip = estado_x.P.index(estado_x.Pc[p])		
-			m.addConstr(y[ip] + f[ip] +quicksum(w[ip][mod] for mod in range(len(estado_x.Pc[p].modos[estado_x.E.index(estado_x.Pc[p].etapa)]))) == 1)		
+		for p in estado_x.Pc:
+			ip = estado_x.P.index(p)
+			ipc = estado_x.Pc.index(p)
+			m.addConstr(y[ip] + f[ipc] +quicksum(w[ip][mod] for mod in range(len(p.modos[estado_x.E.index(p.etapa)]))) == 1)
 		
 	# Restrição 3: O somatório das necessidades de recursos dos projetos ativos deve ser igual a quantidade disponível por etapa
 		for e in range(len(estado_x.E)):
@@ -662,7 +674,7 @@ class Politica:
 			vy.append(y[p].x)
 		
 		vf = []
-		for p in range(len(estado_x.P)):
+		for p in range(len(estado_x.Pc)):
 			vf.append(f[p].x)
 
 		vw = []
@@ -681,12 +693,14 @@ class Politica:
 		for p in range(len(estado_x.P)):
 			if (y[p].x>0):
 				print(estado_x.P[p].nome +' foi cancelado')
-			elif (f[p].x>0):
-				print(estado_x.P[p].nome +' foi congelado')
 			else:
 				for mod in range(len(w[p])):
 					if(w[p][mod].x>0):
 						print(estado_x.P[p].nome +' foi executado com o modo '+ estado_x.P[p].modos[estado_x.E.index(estado_x.P[p].etapa)][mod].nome)
+		for p in range(len(estado_x.Pc)):
+			if (f[p].x>0):
+				print(estado_x.Pc[p].nome +' foi congelado')
+
 		print('RESPOSTA - PL:')
 		print('faturamento: ')
 		for p in estado_x.Pl:
