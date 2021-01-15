@@ -11,7 +11,12 @@ def switch_bf(argument):
         'QPC': QPC,
         'TRC': TRC,
         'RFMN': RFMN,
-        'RFMX': RFMX
+        'RFMX': RFMX,
+        'NMRPC': NMRPC,
+        'VPLLAN': VPLLAN,
+        'VPLE': VPLE,
+        'RFE': RFE
+
     }
 
     obj = switcher.get(argument, lambda *args: "Invalid Basis Function")
@@ -24,6 +29,111 @@ class BF:
         return 0
     def Restr(self, estado_x,lvar):
         return 0
+class RFE(BF):
+    #Retorno final esperado
+    #Contabiliza o Somatório dos projetos no funil, levando em conta o retorno esperado com o desempenho atual
+    def Calc_phi(self, estado_x):
+        return self.RFE(estado_x)
+
+    def RFE(self, estado_x):  # Função recebe o Estado como parâmetro
+        vplesp = 0                                                                            #Variável que recebe os retornos esperados
+        for p in estado_x.P:
+            etime  = p.CalcTimeEsp()
+            vlan = p.vplLan_esp(estado_x.estagio + etime, estado_x.tx)
+            vplesp = vplesp + vlan
+        return vplesp
+
+
+    def Restr(self, estado_x, lvar):
+        w = lvar[0]
+        f = lvar[1]
+        exp =0
+        for p in estado_x.P:
+            etime = p.CalcTimeEsp()
+            for mod in range(len(p.modos[p.etapa - 1])):
+                etime2 = etime  -  p.modos[p.etapa - 1][mod].deltat
+                vlan = p.vplLan_esp(estado_x.estagio + etime2, estado_x.tx,p.modos[p.etapa - 1][mod].deltap)
+                exp = exp + vlan*w[estado_x.P.index(p)][mod]
+                if p in estado_x.Pc:
+                    vlan = p.vplLan_esp(estado_x.estagio + etime, estado_x.tx)
+                    exp = exp + vlan*f[estado_x.Pc.index(p)]
+        return exp
+
+class VPLE(BF):
+    # VPL total esperado da carteira
+    # Contabiliza o Somatório do VPL individual de cada projeto lançado considerando o desempenho atual
+    def Calc_phi(self, estado_x):
+        return self.VPLE(estado_x)
+
+    def VPLE(self, estado_x):  # Função recebe o Estado como parâmetro
+        vplesp = 0                                                                            #Variável que recebe os retornos esperados
+        for p in estado_x.P:
+            etime  = p.CalcTimeEsp()
+            vlan = p.vplLan_esp(estado_x.estagio + etime, estado_x.tx)
+            vplesp = vplesp + vlan - p.getMinCostToGo(p.etapa-1)
+        return vplesp
+
+
+    def Restr(self, estado_x, lvar):
+        w = lvar[0]
+        f = lvar[1]
+        exp =0
+        for p in estado_x.P:
+            etime = p.CalcTimeEsp()
+            for mod in range(len(p.modos[p.etapa - 1])):
+                etime2 = etime  -  p.modos[p.etapa - 1][mod].deltat
+                ctg = p.modos[p.etapa - 1][mod].nrn + p.getMinCostToGo(p.etapa-1, p.modos[p.etapa - 1][mod].deltat)
+                vlan = p.vplLan_esp(estado_x.estagio + etime2, estado_x.tx,p.modos[p.etapa - 1][mod].deltap)
+                vpl = vlan - ctg
+                exp = exp + vpl*w[estado_x.P.index(p)][mod]
+                if p in estado_x.Pc:
+                    ctg = p.getMinCostToGo(p.etapa-1)
+                    vlan = p.vplLan_esp(estado_x.estagio + etime, estado_x.tx)
+                    vpl = vlan - ctg
+                    exp = exp + vpl*f[estado_x.Pc.index(p)]
+        return exp
+
+
+class VPLLAN(BF):
+    # VPL  de lançamento
+    # Contabiliza o Somatório do VPL individual de cada projeto lançado
+    def Calc_phi(self, estado_x):
+        return self.VPLLAN(estado_x)
+
+    def VPLLAN(self, estado_x):  # Função recebe o Estado como parâmetro
+        vplesp = 0                                                                            #Variável que recebe os retornos esperados
+        for p in estado_x.Pl:
+            vplesp = vplesp + p.valorLan(estado_x.estagio+1) - p.getMinCostToGo(p.etapa-1,p.tempo[p.etapa-1]-1)
+        return vplesp
+
+
+    def Restr(self, estado_x, lvar):
+        w = lvar[0]
+        pPL1 = [p for p in estado_x.P if (p.etapa == len(p.tempo)) & (p.tempo[p.etapa-1]==2)]
+        pPL2 = [p for p in estado_x.P if (p.etapa == len(p.tempo)-1) & (p.tempo[p.etapa-2]==1) & ( p.tempo[p.etapa-1]== 1)]
+        pPL = pPL1 + pPL2
+        exp = 0
+        for p in pPL:
+            ctg = p.getMinCostToGo(p.etapa-1, p.tempo[len(p.tempo) - 1] - 1)
+            exp = exp +  quicksum((p.valorLan(estado_x.estagio+2) - p.modos[p.etapa - 1][mod].nrn - ctg)*w[estado_x.P.index(p)][mod] for mod in range(len(p.modos[p.etapa - 1])))
+        return exp
+
+
+class NMRPC(BF):
+    # A MÉDIA SERIA NÃO LINEAR NA RESTRIÇÃO, MODIFIQUEI PARA O VALOR TOTAL
+    #Necessidade média de recurso dos projetos congelados
+    #Contabiliza o Somatório dos custos de todos os modos executados até os projetos terem sido congelados
+    def Calc_phi(self, estado_x):
+        return self.NMRPC(estado_x)
+
+    def NMRPC(self, estado_x):  # Função recebe o Estado como parâmetro
+        return sum([p.getMinCost() for p in estado_x.Pc])
+
+    def Restr(self, estado_x, lvar):
+        f = lvar[1]
+        exp = quicksum(f[estado_x.Pc.index(p)]*p.getMinCost() for p in estado_x.Pc)
+        return exp
+
 
 class QTPF(BF):
     # CONTABILIZA Contagem de projetos no funil

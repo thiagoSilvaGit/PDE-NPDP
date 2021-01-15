@@ -97,7 +97,7 @@ class Problema:
 
 
 
-		self.S = Estado_GCPDNP(self.P, self.vfi, self.vbe, self.vro1, self.vro2, self.lqrn, self.lareas, self.letapas)
+		self.S = Estado_GCPDNP(self.P, self.vfi, self.vbe, self.vro1, self.vro2, self.lqrn, self.lareas, self.letapas,self.tx)
 		self.Simul = Simulador()
 
 	def definePol(self,A):
@@ -209,6 +209,29 @@ class Projeto:
 		self.etapa= vetapa
 		# instante de tempo para chegadas
 		self.tCheg = estagio
+
+	def getMinCostToGo(self,idetapa,deltat = 0):
+		idetp = idetapa
+		tRes = self.tempo[idetp] - deltat
+		if tRes <=0:
+			idetp = idetp +1
+			tRes = 0
+
+		cmin = 0
+		for e in range(idetp, len(self.modos)):
+			if e > idetp:
+				tRes = self.tempo[e]  # assume que não haverá atraso
+			cmodmin=0
+			for m in range(len(self.modos[e])):
+				if(m==0):
+					cmodmin = self.modos[e][0].nrn
+				else:
+					if(cmodmin>self.modos[e][m].nrn):
+						cmodmin = self.modos[e][m].nrn
+
+			cmin = cmin + cmodmin*tRes
+		return cmin
+
 	def getMinCost(self):
 		cmin = 0
 		for e in range(len(self.modos)):
@@ -224,16 +247,16 @@ class Projeto:
 	def CalcTimeEsp(self):
 		eTime = 0
 		for e in range(self.etapa-1, len(self.tempo)):
-			resTime = proj.tempo[e] #número de períodos que faltam para conlcuir a etapa
-			eTime = eTime + (1/(1-proj.modos[e][modoinit].probAtr))*resTime # tempo esperado para concluir o período considerando o atraso
+			resTime = self.tempo[e] #número de períodos que faltam para conlcuir a etapa
+			eTime = eTime + (1/(1-self.modos[e][0].probAtr))*resTime # tempo esperado para concluir o período considerando o atraso
 		return eTime
-	def valorLan(self,t):
-		v1 =  (self.par[0] - self.par[1])*np.exp(-((t-self.tCheg)/self.par[2])**self.par[3])*(1 - norm.pdf(self.performance, self.par[4],self.par[5])) + self.par[1]
+	def valorLan(self,t,dp=0):
+		v1 =  (self.par[0] - self.par[1])*np.exp(-((t-self.tCheg)/self.par[2])**self.par[3])*(1 - norm.pdf(self.performance+dp, self.par[4],self.par[5])) + self.par[1]
 		#print ('VALOR LAN :'+str(v1))
 		return v1
-	def vplLan_esp(self,tlan,tx):
+	def vplLan_esp(self,tlan,tx,dp=0):
 		#tlan neste caso significa em quantos períodos a partir do estágio atual o projeto será lançado
-		v1 = self.valorLan(self,tlan)*np.exp(-tlan*tx)		#print ('VALOR LAN :'+str(v1))
+		v1 = self.valorLan(tlan,dp)*np.exp(-tlan*tx)		#print ('VALOR LAN :'+str(v1))
 		return v1
 	def valorLan_mn(self,tlan,tx):
 		#t neste caso significa em quantos períodos a partir do estágio atual o projeto será lançado
@@ -275,7 +298,7 @@ class Estado_GCPDNP:
 	# Estagio inicial = 0
 	estagio = 0
 	# Estado inical recebe as areas, etapas, o valor das constantes das restricoes, a quantidade de recursos disponivel e os projetos
-	def __init__(self, lprojeto, vfi, vbe,vroum,vrodois, vqrn, lareas, letapas):
+	def __init__(self, lprojeto, vfi, vbe,vroum,vrodois, vqrn, lareas, letapas,tx):
 		self.A = lareas
 		self.E = letapas
 		self.P = lprojeto
@@ -290,6 +313,7 @@ class Estado_GCPDNP:
 		self.Pl = [p for p in self.P if (p.etapa == self.E[len(self.E)-1]) & (p.tempo[self.E.index(p.etapa)] == 1)]
 		self.tCheg = 0
 		self.Vt = 0
+		self.tx = tx
 		
 	def imprime(self):
 		print('Estado \n')
