@@ -21,8 +21,25 @@
   <component name="ChangeListManager">
     <list default="true" id="f0c0eeff-bdeb-43b4-86c7-cf8ca7f40148" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NPDPADP/basisfunction.py" beforeDir="false" afterPath="$PROJECT_DIR$/NPDPADP/basisfunction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NPDPADP/npdpADP.py" beforeDir="false" afterPath="$PROJECT_DIR$/NPDPADP/npdpADP.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb0.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb1.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb10.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb11.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb11.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb2.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb3.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb4.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb5.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb6.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb6.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb7.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb7.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb8.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb8.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb9.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb9.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Graficos/Custo.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/Custo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Graficos/Erro.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/Erro.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Log/saida.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Log/saida.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Log/saida_B.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Log/saida_B.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Log/saida_Theta.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Log/saida_Theta.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teste/Log/saida_updpol.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Log/saida_updpol.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/conf.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +57,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../IRCPSCMP" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -68,20 +85,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="526" y="195" width="428" height="486" key="FileChooserDialogImpl" timestamp="1593981138809">
-      <screen x="0" y="0" width="1366" height="736" />
-    </state>
-    <state x="526" y="195" width="428" height="486" key="FileChooserDialogImpl/0.0.1366.736@0.0.1366.736" timestamp="1593981138809" />
-    <state x="739" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590878187451" />
-    <state x="461" y="165" key="SettingsEditor" timestamp="1590878194530">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1590878194530" />
-    <state x="977" y="229" width="672" height="678" key="search.everywhere.popup" timestamp="1590945301480">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="977" y="229" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1590945301480" />
   </component>
 </project>

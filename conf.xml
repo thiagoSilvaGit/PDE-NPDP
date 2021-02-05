@@ -4,9 +4,9 @@
     <Instancia>Teste/Instancia/teste_ins.xml</Instancia>
     <Gamma>0.99</Gamma>
     <Lambda>cte1</Lambda>
-    <N>3</N>
-    <M>5</M>
-    <it_sim>10</it_sim>
+    <N>10</N>
+    <M>100</M>
+    <it_sim>100</it_sim>
     <BF>
        <Nome>QTPF</Nome>
        <Coeficiente>1.0</Coeficiente>
