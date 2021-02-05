@@ -27,7 +27,8 @@ if __name__ == "__main__":
 		print('É necessário passar o endereço do arquivo de configuração de testes como referência')
 		sys.exit(1)
 
-
+	numpy.random.seed(1000)
+	
 	lamb = nadp.switch_stpsze(dict_conf['Lambda'])
 	gama = dict_conf['Gamma']
 	caminho = dict_conf['Caminho']
