@@ -352,14 +352,22 @@ class Estado_GCPDNP:
 	# Recebe decisao
 
 	def transicao(self,dec,vqMax):
+		print('#################################### TRANSICAO')
+		for pi in self.P:
+			print(f'{pi.nome}:{pi.etapa}')
 		dec.imprime()
 		Incerteza = GeraIncerteza(self,dec,self.estagio,vqMax)
 		Incerteza.geracao()
+		for pi in self.P:
+			print(f'{pi.nome}:{pi.etapa}')
 		self.Vt = Incerteza.CalcValor() - dec.valor # dec.valor é um custo registrado como positivo
 		# Passagem de estagio
 		self.estagio = self.estagio + 1
 		newPe = Incerteza.Pe
-		print('NOVOS: '+ str(Incerteza.newP))
+		print('NOVOS: ')
+		for np in Incerteza.newP:
+			print(f'{np.nome}: {np.etapa}, {np.tempo}')
+
 		# Adicionando os novos projetos na primeira etapa
 		newPe[0] = newPe[0] + Incerteza.newP 
 		self.P = []
@@ -417,9 +425,9 @@ class GeraIncerteza:
 # Calcula retorno gerado pelo lançamento após a realizacao da incerteza
 	def CalcValor(self):
 		ret = 0
-		print('self.Pe[len(self.Pe)-1]' +str(self.Pe[len(self.Pe)-1]))
+		#print('self.Pe[len(self.Pe)-1]' +str(self.Pe[len(self.Pe)-1]))
 		for p in self.X.Pl:
-			print ('p.tempo: ' + str(p.tempo[len(self.Pe)-1]))		
+			#print ('p.tempo: ' + str(p.tempo[len(self.Pe)-1]))
 			if p.tempo[len(self.Pe)-1] == 0:
 				ret = ret + p.valorLan(self.X.estagio)
 		return ret				
@@ -488,31 +496,36 @@ class GeraIncerteza:
 			nextPe = []
 			for p in self.X.P_e[e-1]:
 				pid = self.X.P.index(p)
-				print('pid: {}'.format(pid))
-				print('Exec: {}'.format(self.U.Executados))
-				print('Aband: {}'.format(self.U.Abandonados))
-				print('Congelados: {}'.format(self.U.Congelados))
+				print('Etapa {} -  nome: {}, pid: {}'.format(e,p.nome,pid))
+				#print('Exec: {}'.format(self.U.Executados))
+				#print('Aband: {}'.format(self.U.Abandonados))
+				#print('Congelados: {}'.format(self.U.Congelados))
 
 				if (pid not in self.U.Abandonados):
 					if (pid in self.U.Executados):
 						modid = self.U.Executados.index(pid)
 						mod = self.U.ExecModo[modid]
+						print(f'projeto {p.nome} Executado com o modo {mod}')
 						[newPe, bAtr] = self.geraIncertezaHuz5(p, mod)
 						if (not bAtr):
 							newPe = self.geraIncertezaHuz3(newPe, mod)
 						else:
-							print('projeto' + str(newPe.nome) + 'ATRASOU')
+							print('projeto' + str(newPe.nome) + ' ATRASOU')
 					else:
 						if (p in self.X.Pc):
 							pidc = self.X.Pc.index(p)
 							if (pidc in self.U.Congelados):
+								print(f'projeto {p.nome} congelado')
 								newPe = p
 								[newPe,bAtr] = self.geraIncertezaHuz5(newPe,-1)
+							else:
+								print('projeto ' + str(p.nome) + ' NÃO ALOCADO')
+						else:
+							print('projeto ' + str(p.nome) + ' NÃO ALOCADO not in pc')
 
 					newPe = self.geraIncertezaHuz1(newPe)
 					newPe = self.geraIncertezaHuz4(newPe)
-					print(newPe.tempo)
-					print(newPe.etapa)
+					print(f'tempo:{newPe.tempo},etapa{newPe.etapa}')
 					for modi in newPe.modos[newPe.etapa-1]:
 						idm = newPe.modos[newPe.etapa-1].index(modi)
 						if(modi.deltat>newPe.tempo[newPe.etapa-1]): 
@@ -520,8 +533,13 @@ class GeraIncerteza:
 					if(newPe.tempo[newPe.etapa-1]>0): #ainda nao terminou nesta etapa
 						nPe.append(newPe)
 					else: # terminou, adicionar no proximo conjunto
-						newPe.etapa = newPe.etapa +1
+						newPe.etapa = newPe.etapa + 1
 						nextPe.append(newPe)
+				else:
+					if pid in self.U.Abandonados:
+						print('projeto' + str(p.nome) + ' ABANDONADO')
+					else:
+						print('projeto' + str(p.nome) + ' NÃO ALOCADO')
 			self.Pe.append(nPe)
 
 	def incertezaCheg(self):
@@ -668,7 +686,7 @@ class Politica:
 
 	# Restrição 5a: Uma área nao poderá capturar todo o recurso disponível
 		for a in range(len(estado_x.A)):
-			print('a s: '+ str(a) + '\n')
+			#print('a s: '+ str(a) + '\n')
 			if len(estado_x.P_a[a]) > 0:
 				rest=0
 				for p in estado_x.P_a[a]:
@@ -695,35 +713,35 @@ class Politica:
 		
 		vy = []
 		for p in range(len(estado_x.P)):
-			vy.append(y[p].x)
+			vy.append(int(round(y[p].x,2)))
 		
 		vf = []
 		for p in range(len(estado_x.Pc)):
-			vf.append(f[p].x)
+			vf.append(int(round(f[p].x)))
 
 		vw = []
 		for p in range(len(estado_x.P)):
 			vlinha = []
 			ie = estado_x.E.index(estado_x.P[p].etapa)
 			for mod in range(len(estado_x.P[p].modos[ie])):	
-				vlinha.append(w[p][mod].x)
+				vlinha.append(int(round(w[p][mod].x)))
 			vw.append(vlinha)
-		print(str(vw) + 'VW')
+		#print(str(vw) + 'VW')
 		vtn = []
 		for e in range(len(estado_x.E)):
 			vtn.append(tn[e].x)
 
 		print('SOLUCAO:\n')
 		for p in range(len(estado_x.P)):
-			if (y[p].x>0):
-				print(estado_x.P[p].nome +' foi cancelado')
+			if (int(round(y[p].x))>0):
+				print(estado_x.P[p].nome +' foi cancelado'+ f' y = {y[p].x}')
 			else:
 				for mod in range(len(w[p])):
-					if(w[p][mod].x>0):
-						print(estado_x.P[p].nome +' foi executado com o modo '+ estado_x.P[p].modos[estado_x.E.index(estado_x.P[p].etapa)][mod].nome)
+					if(int(round(w[p][mod].x))>0):
+						print(estado_x.P[p].nome +' foi executado com o modo '+ estado_x.P[p].modos[estado_x.E.index(estado_x.P[p].etapa)][mod].nome + f' w = {w[p][mod].x}')
 		for p in range(len(estado_x.Pc)):
-			if (f[p].x>0):
-				print(estado_x.Pc[p].nome +' foi congelado')
+			if (int(round(f[p].x))>0):
+				print(estado_x.Pc[p].nome +' foi congelado' + f' f = {f[p].x}')
 
 		print('RESPOSTA - PL:')
 		print('faturamento: ')
@@ -908,41 +926,12 @@ class Politica:
 
 
 
-
+'''
 class Politica_GulosaVPL:
-	''' Política 3: Política Gulosa
-
-		1. Para todo o projeto, calcular o VPL esperado médio (sem considerar atraso) das seguintes situações:
-
-			a. Continuar sempre os projetos;
-			b. Melhorar depois continuar sempre os projetos;
-			c. Acelerar depois continuar sempre os projetos.
-		2. Selecionar o melhor VPL ($VPL_{max}$);
-
-			a. Se $VPL_{max} \leq 0$, cancela o projeto;
-
-			   Senão:
-				   i. Ranquear os projetos por VPL e fazer todos que caibam no orçamento;
-				   ii. Congelar os que sobraram e, se não puder congelar, cancelar.
-				   
-	'''
 	def __init__(self, ParPol):
-		'''
-		   Construtor
-		   \par ParPol - lista com parâmetros para a politica
-					   - [0]: Taxa de desconto 
-		   DEVE SER SOBRESCRITO
-		'''  
 		self.txDesc = ParPol[0]
 	
 	def solver(self,EstX):
-		'''
-		   Metodo de solucao
-		   \par EstX - instancia da classe estado
-		   \return - deve retornar uma instancia da classe decisao
-  
-		   DEVE SER SOBRESCRITO
-		'''
 		vy = [0 for i in range(len(EstX.P))]
 		vf = [0 for i in range(len(EstX.P))]
 		vtn = [0 for i in range(len(EstX.E))]
@@ -1097,7 +1086,7 @@ class Politica_GulosaVPL:
 					vplMax = vp - eCusto
 			
 		return (vplMax,modoMax)
-
+'''
 # Classe Simulador
 class Simulador:
 	def simulacao(self, S, Pol, niter, vmax,caminho):

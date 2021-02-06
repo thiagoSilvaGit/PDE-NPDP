@@ -3,7 +3,7 @@
 import sys
 import math
 #import random
-#import numpy
+import numpy
 #import copy as c
 #from numpy.random import standard_normal, normal
 #from numpy import array, zeros, sqrt, shape
@@ -44,8 +44,8 @@ if __name__ == "__main__":
 		lbs.append(bf.switch_bf(b['Nome']))
 		lcoef.append(b['Coeficiente'])
 
-	print(lbs)
-	print(lcoef)
+	#print(lbs)
+	#print(lcoef)
 
 
 ##alterar a classe problema para receber um arquivo de instância no construtor
