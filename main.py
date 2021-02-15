@@ -56,6 +56,7 @@ if __name__ == "__main__":
 	Poli.setLog(1)
 	pda = nadp.ADP(caminho)
 	pda.setLog(1)
+	pda.setPrintStat(1)
 	t = time.time()
 	apia = pda.approxPIA(Prob,Poli,n,m) #chama a função approxPIA
 

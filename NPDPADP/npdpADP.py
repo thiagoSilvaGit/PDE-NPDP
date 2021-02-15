@@ -13,7 +13,7 @@ from numpy import array, zeros, sqrt, shape, eye
 import copy as c
 import Gerador.gerador as G
 import matplotlib.pyplot
-
+import pandas as pd
 #import xlwt
 #import xlrd
 #import datetime
@@ -1116,7 +1116,10 @@ class ADP:
 	def __init__(self, c):
 		self.caminho = c
 		self.log = 0
+		self.PStat = 0
 
+	def setPrintStat(self, b):
+		self.PStat = b
 	def setLog(self, b):
 		self.log = b
 ##@b approxPIA
@@ -1182,6 +1185,10 @@ class ADP:
 					#print('i:{}\t j:{}\t k:{}\t j*n+k: {}, Stats[j*m+k]:{}'.format(i,j,k,j*m+k,Stats[j*m+k]))
 					auxn.append(Stats[j*m+k][i])
 				self.StatData[i].append(auxn)
+		if self.PStat:
+			local = self.caminho + 'Log/'
+			df = pd.DataFrame(Stats)
+			df.to_csv(local + 'adp_stat.csv', header=labels)
 
 	def graficoStat(self,idStat):
 		print(len(self.StatData))
