@@ -5,7 +5,7 @@
     <Gamma>0.99</Gamma>
     <Lambda>cte1</Lambda>
     <N>10</N>
-    <M>100</M>
+    <M>200</M>
     <it_sim>100</it_sim>
     <BF>
        <Nome>QTPF</Nome>
