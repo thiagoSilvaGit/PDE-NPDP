@@ -1137,6 +1137,7 @@ class ADP:
 		texto=[]
 		lpar = [Prob.vqCheg,Prob.vfi,Prob.vbe,Prob.vro1, Prob.vro2,Prob.lqrn,Prob.lareas,Prob.letapas]
 		Stat = []
+		Stat_basis = []
 		Alinha = c.deepcopy(A) #step 4: inicializar a política
 		Sm = c.deepcopy(Prob.S)
 		for i in range(n):
@@ -1158,6 +1159,7 @@ class ADP:
 				#step 5: gera a incerteza do cenário
 				texto.append("\t\tapos atualizar Theta(Am): {}\n".format(Am.Theta))
 				Stat.append([custo] +[erro] + list(Am.getStatistics()) + list(Alinha.getStatistics())) #Am.getStatistics() retorna teta #tirar o indice [1] do custo - adiciona à Stat o custo e o teta atualizado
+				Stat_basis.append([custo] +[erro] + list(Am.calc_phi(Sm, lpar)))
 				del(Sm)
 				Sm = c.deepcopy(Smp1)
 				del(Smp1)
@@ -1166,13 +1168,20 @@ class ADP:
 			texto.append("\tTheta(Alinha): {}\n".format(Alinha.Theta))
 			del(Am)
 		self.adpStat(['custo'] + ['erro'] + Alinha.getStatLabels() + ['{}_curr'.format(i) for i in Alinha.getStatLabels()],Stat,n,m)
+		lab = ['custo'] + ['erro'] + Alinha.getStatLabels()
+		self.adpStatBasis(lab,Stat_basis)
 		if self.log:
 			arquivo = self.caminho + 'Log/' + 'saida.txt'
 			with open(arquivo, 'w', newline='') as arq:
 				arq.writelines(texto)
 		del(texto)
 		return Alinha
-			
+
+	def adpStatBasis(self,labels,Stats):
+		local = self.caminho + 'Log/'
+		df = pd.DataFrame(Stats)
+		df.to_csv(local + 'adp_stat_basis.csv', header=labels)
+
 	def adpStat(self,labels,Stats,n, m):
 		self.StatLab = labels
 		self.StatData = [[] for i in range(len(labels))] #uma lista vazia para cada label
