@@ -1089,26 +1089,28 @@ class Politica_GulosaVPL:
 '''
 # Classe Simulador
 class Simulador:
-	def simulacao(self, S, Pol, niter, vmax,caminho):
-		vlist = []
-		vlist2 = []
-		vlist3 = []
-		bf.save_cabecalho(S,caminho+'Log/teste_saida.txt')
+	def simulacao(self, Prob, Pol, niter, caminho):
+		stat_basis = []
+		lpar = [Prob.vqCheg, Prob.vfi, Prob.vbe, Prob.vro1, Prob.vro2, Prob.lqrn, Prob.lareas, Prob.letapas]
+		S = c.deepcopy(Prob.S)
 		for n in range(niter):
-			print('iteracao ' + str(n) + ': \n')		
-			S.imprime()
-			print('\n\n')
-			d = Pol.solver(S)
-			custoSim = d.valor
-			vlist3.append(custoSim)
-			valorSim = S.transicao(d,vmax)
-			vlist2.append(valorSim+custoSim)
-#			print ('Valor Simulado:' + str(valorSim))
-#			print ('custo Simulado:' + str(custoSim))
-			vlist.append(valorSim)
-			bf.save_data(S,[valorSim,valorSim + custoSim,custoSim],caminho+'Log/teste_saida.txt')
-		S.imprime()
-		return [vlist,vlist2,vlist3]
+			# print('iteracao ' + str(n) + ': \n')
+			# S.imprime()
+			# print('\n\n')
+			Sm1 = c.deepcopy(S)
+			a = Pol.solver(S)
+			custo = S.transicao(a, Prob.vqCheg)
+			fgf = Pol.calc_phiGammaPhi(Sm1, S, lpar)
+			erro = Pol.calc_erro_m(custo, fgf)
+			stat_basis.append([custo] + [erro] + list(Pol.calc_phi(S, lpar)))
+			del (Sm1)
+		lab = ['custo'] + ['erro'] + Pol.getStatLabels()
+		self.writeStatBasis(lab, stat_basis, caminho)
+
+	def writeStatBasis(self, labels, Stats, caminho):
+		local = caminho + 'Log/'
+		df = pd.DataFrame(Stats)
+		df.to_csv(local + 'sim_stat_basis.csv', header=labels)
 
 
 #class ADP(tpd.Trainer):
