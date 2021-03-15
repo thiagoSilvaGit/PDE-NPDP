@@ -72,6 +72,5 @@ if __name__ == "__main__":
 	total = time.time() - t
 	print("\n Tempo de treinameto: {}".format(total))
 
- 
-
-
+	sim = nadp.Simulador()
+	sim.simulacao(Prob, apia, it1,caminho)
