@@ -18527,7 +18527,7 @@ p55.0
  -4.74496232e+02  1.44335325e+01  2.41706397e+00 -3.65039349e-01
   2.26960345e+00  7.51298799e-02  8.77312270e-01 -8.66294386e-01]
 
- Tempo de treinameto: 9.481906414031982
+ Tempo de treinameto: 9.090084791183472
 Gurobi Optimizer version 9.1.0 build v9.1.0rc0 (linux64)
 Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
 Optimize a model with 36 rows, 49 columns and 213 nonzeros
@@ -18552,7 +18552,7 @@ Root relaxation: objective 1.163082e+03, 5 iterations, 0.00 seconds
 
 *    0     0               0    1163.0815395 1163.08154  0.00%     -    0s
 
-Explored 0 nodes (5 simplex iterations) in 0.01 seconds
+Explored 0 nodes (5 simplex iterations) in 0.00 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 1163.08 133.341 -0.2 
@@ -18803,7 +18803,7 @@ Root relaxation: objective 1.807379e+03, 5 iterations, 0.00 seconds
 H    0     0                    1807.2925699 1807.37879  0.00%     -    0s
      0     0 1807.37879    0    1 1807.29257 1807.37879  0.00%     -    0s
 
-Explored 1 nodes (5 simplex iterations) in 0.01 seconds
+Explored 1 nodes (5 simplex iterations) in 0.00 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 1807.29 566.663 -0 
@@ -19363,7 +19363,7 @@ Root relaxation: objective 3.306089e+03, 10 iterations, 0.00 seconds
 H    0     0                    3306.0571801 3306.08857  0.00%     -    0s
      0     0 3306.08857    0    1 3306.05718 3306.08857  0.00%     -    0s
 
-Explored 1 nodes (10 simplex iterations) in 0.01 seconds
+Explored 1 nodes (10 simplex iterations) in 0.00 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 3306.06 154.212 -0.2 
@@ -19702,7 +19702,7 @@ Root relaxation: objective 2.914378e+03, 11 iterations, 0.00 seconds
      0     0 2914.37775    0    3   -0.00000 2914.37775      -     -    0s
 H    0     0                    2914.1596122 2914.37775  0.01%     -    0s
 
-Explored 1 nodes (11 simplex iterations) in 0.01 seconds
+Explored 1 nodes (11 simplex iterations) in 0.00 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 2914.16 -0 -0.1 
@@ -20063,7 +20063,7 @@ Root relaxation: objective 2.592857e+03, 6 iterations, 0.00 seconds
 H    0     0                    2592.7398840 2592.85665  0.00%     -    0s
      0     0 2592.85665    0    2 2592.73988 2592.85665  0.00%     -    0s
 
-Explored 1 nodes (6 simplex iterations) in 0.01 seconds
+Explored 1 nodes (6 simplex iterations) in 0.00 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 2592.74 407.605 -0.1 
@@ -20405,7 +20405,7 @@ Root relaxation: objective 2.198868e+03, 10 iterations, 0.00 seconds
      0     0 2198.86794    0    1  316.66394 2198.86794   594%     -    0s
 H    0     0                    2198.7972199 2198.86794  0.00%     -    0s
 
-Explored 1 nodes (10 simplex iterations) in 0.01 seconds
+Explored 1 nodes (10 simplex iterations) in 0.00 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 2198.8 316.664 -0.1 
@@ -20748,7 +20748,7 @@ Root relaxation: objective 1.706269e+03, 12 iterations, 0.00 seconds
      0     0 1706.26874    0    2   89.30238 1706.26874  1811%     -    0s
 H    0     0                    1706.1897419 1706.26874  0.00%     -    0s
 
-Explored 1 nodes (12 simplex iterations) in 0.01 seconds
+Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 1706.19 89.3024 -0.1 
@@ -21091,7 +21091,7 @@ Root relaxation: objective 1.523803e+03, 12 iterations, 0.00 seconds
      0     0 1523.80256    0    2   -0.00000 1523.80256      -     -    0s
 H    0     0                    1523.6996778 1523.80256  0.01%     -    0s
 
-Explored 1 nodes (12 simplex iterations) in 0.01 seconds
+Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 1523.7 -0 -0.1 

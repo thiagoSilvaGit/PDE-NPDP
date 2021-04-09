@@ -201,6 +201,7 @@ class Projeto:
 		self.div = vdiv
 		# tempo:  lista de duracao residual para cada etapa - e atualizado pela decisao 
 		self.tempo = ltempo
+		self.tempo_init = [t for t in ltempo] # tempo inicial, não atualiza
 		# cmax: tempo maximo que o projeto pode ficar congelado
 		self.cmax = vcmax
 		# area: area do projeto
@@ -209,10 +210,14 @@ class Projeto:
 		self.etapa= vetapa
 		# instante de tempo para chegadas
 		self.tCheg = estagio
+	def tfunil(self):
+		eid = self.etapa -1
+		t = self.etapa + 1 - self.tempo[eid]/self.tempo_init[eid]
+		return t
 	def linhaPandas(self,d,tx,estagio):
 		tlan = estagio + sum(self.tempo)
 		vpl = self.vplLan_esp(tlan,tx)
-		tfunil = estagio - self.tCheg + 1
+		tfunil = self.tfunil()
 		linha = [estagio,self.nome,self.area,self.etapa,d,vpl,tfunil]
 		return linha
 	def getMinCostToGo(self,idetapa,deltat = 0):
