@@ -232,7 +232,7 @@ Etapa 1:
 Etapa 2:
 
 Using license file /home/thiago/gurobi.lic
-Academic license - for non-commercial use only - expires 2021-04-06
+Academic license - for non-commercial use only - expires 2021-06-08
 Gurobi Optimizer version 9.1.0 build v9.1.0rc0 (linux64)
 Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
 Optimize a model with 36 rows, 49 columns and 213 nonzeros
@@ -245,7 +245,7 @@ Coefficient statistics:
   RHS range        [1e+00, 3e+02]
 Found heuristic solution: objective -0.2000000
 Presolve removed 26 rows and 33 columns
-Presolve time: 0.01s
+Presolve time: 0.00s
 Presolved: 10 rows, 16 columns, 43 nonzeros
 Found heuristic solution: objective 15589.575815
 Variable types: 1 continuous, 15 integer (15 binary)
@@ -259,7 +259,7 @@ Root relaxation: objective 2.063808e+04, 7 iterations, 0.00 seconds
 H    0     0                    20637.934465 20638.0778  0.00%     -    0s
      0     0 20638.0778    0    3 20637.9345 20638.0778  0.00%     -    0s
 
-Explored 1 nodes (7 simplex iterations) in 0.15 seconds
+Explored 1 nodes (7 simplex iterations) in 0.00 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 20637.9 15589.6 -0.2 
@@ -1327,7 +1327,7 @@ H    0     0                    28003.790200 28173.9443  0.61%     -    0s
 Cutting planes:
   Gomory: 1
 
-Explored 1 nodes (20 simplex iterations) in 0.05 seconds
+Explored 1 nodes (20 simplex iterations) in 0.00 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 28003.8 3910.83 -0.1 
@@ -18527,7 +18527,7 @@ p55.0
  -4.74496232e+02  1.44335325e+01  2.41706397e+00 -3.65039349e-01
   2.26960345e+00  7.51298799e-02  8.77312270e-01 -8.66294386e-01]
 
- Tempo de treinameto: 12.573909521102905
+ Tempo de treinameto: 9.481906414031982
 Gurobi Optimizer version 9.1.0 build v9.1.0rc0 (linux64)
 Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
 Optimize a model with 36 rows, 49 columns and 213 nonzeros
@@ -18552,7 +18552,7 @@ Root relaxation: objective 1.163082e+03, 5 iterations, 0.00 seconds
 
 *    0     0               0    1163.0815395 1163.08154  0.00%     -    0s
 
-Explored 0 nodes (5 simplex iterations) in 0.00 seconds
+Explored 0 nodes (5 simplex iterations) in 0.01 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 1163.08 133.341 -0.2 
@@ -18601,6 +18601,60 @@ mod :0
 w :1.0
 custo :26.20950674169178
 
+
+PC: [0, 1, 2, 5]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5]
+
+id Modos: [1, 1, 0, 0]
+
+PC: [0, 1, 2, 5]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5]
+
+id Modos: [1, 1, 0, 0]
+
+PC: [0, 1, 2, 5]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5]
+
+id Modos: [1, 1, 0, 0]
+
+PC: [0, 1, 2, 5]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5]
+
+id Modos: [1, 1, 0, 0]
+
+PC: [0, 1, 2, 5]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5]
+
+id Modos: [1, 1, 0, 0]
+
+PC: [0, 1, 2, 5]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5]
+
+id Modos: [1, 1, 0, 0]
 
 #################################### TRANSICAO
 p0:1
@@ -18749,7 +18803,7 @@ Root relaxation: objective 1.807379e+03, 5 iterations, 0.00 seconds
 H    0     0                    1807.2925699 1807.37879  0.00%     -    0s
      0     0 1807.37879    0    1 1807.29257 1807.37879  0.00%     -    0s
 
-Explored 1 nodes (5 simplex iterations) in 0.00 seconds
+Explored 1 nodes (5 simplex iterations) in 0.01 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 1807.29 566.663 -0 
@@ -18803,6 +18857,60 @@ mod :0
 w :1.0
 custo :22.010370148118213
 
+
+PC: [0, 1, 2, 4, 5]
+id Abandonados: [3]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 4, 5]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 4, 5]
+id Abandonados: [3]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 4, 5]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 4, 5]
+id Abandonados: [3]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 4, 5]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 4, 5]
+id Abandonados: [3]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 4, 5]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 4, 5]
+id Abandonados: [3]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 4, 5]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 4, 5]
+id Abandonados: [3]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 4, 5]
+
+id Modos: [1, 0, 0, 1, 0]
 
 #################################### TRANSICAO
 p0:1
@@ -19021,6 +19129,69 @@ w :1.0
 custo :16.856798998530735
 
 
+PC: [0, 1, 3, 4, 5, 6]
+id Abandonados: [2]
+
+id Congelados: []
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 0, 1, 1, 0, 0]
+
+PC: [0, 1, 3, 4, 5, 6]
+id Abandonados: [2]
+
+id Congelados: []
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 0, 1, 1, 0, 0]
+
+PC: [0, 1, 3, 4, 5, 6]
+id Abandonados: [2]
+
+id Congelados: []
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 0, 1, 1, 0, 0]
+
+PC: [0, 1, 3, 4, 5, 6]
+id Abandonados: [2]
+
+id Congelados: []
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 0, 1, 1, 0, 0]
+
+PC: [0, 1, 3, 4, 5, 6]
+id Abandonados: [2]
+
+id Congelados: []
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 0, 1, 1, 0, 0]
+
+PC: [0, 1, 3, 4, 5, 6]
+id Abandonados: [2]
+
+id Congelados: []
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 0, 1, 1, 0, 0]
+
+PC: [0, 1, 3, 4, 5, 6]
+id Abandonados: [2]
+
+id Congelados: []
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 0, 1, 1, 0, 0]
+
 #################################### TRANSICAO
 p0:1
 p5:1
@@ -19192,7 +19363,7 @@ Root relaxation: objective 3.306089e+03, 10 iterations, 0.00 seconds
 H    0     0                    3306.0571801 3306.08857  0.00%     -    0s
      0     0 3306.08857    0    1 3306.05718 3306.08857  0.00%     -    0s
 
-Explored 1 nodes (10 simplex iterations) in 0.00 seconds
+Explored 1 nodes (10 simplex iterations) in 0.01 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 3306.06 154.212 -0.2 
@@ -19267,6 +19438,78 @@ mod :0
 w :1.0
 custo :16.856798998530735
 
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [1, 1, 1, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [1, 1, 1, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [1, 1, 1, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [1, 1, 1, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [1, 1, 1, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [1, 1, 1, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [1, 1, 1, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [1, 1, 1, 0, 0, 1, 0, 0]
 
 #################################### TRANSICAO
 p1.1:1
@@ -19459,7 +19702,7 @@ Root relaxation: objective 2.914378e+03, 11 iterations, 0.00 seconds
      0     0 2914.37775    0    3   -0.00000 2914.37775      -     -    0s
 H    0     0                    2914.1596122 2914.37775  0.01%     -    0s
 
-Explored 1 nodes (11 simplex iterations) in 0.00 seconds
+Explored 1 nodes (11 simplex iterations) in 0.01 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 2914.16 -0 -0.1 
@@ -19538,6 +19781,96 @@ custo :47.94937820078734
 
 p1
 etapa: 3
+PC: [0, 1, 4, 5, 6, 7, 8, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 1, 0, 0, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 8, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 1, 0, 0, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 8, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 1, 0, 0, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 8, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 1, 0, 0, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 8, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 1, 0, 0, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 8, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 1, 0, 0, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 8, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 1, 0, 0, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 8, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 1, 0, 0, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 8, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 1, 0, 0, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 8, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 1, 0, 0, 0, 0]
+
 #################################### TRANSICAO
 p2.0:1
 p2.1:1
@@ -19730,7 +20063,7 @@ Root relaxation: objective 2.592857e+03, 6 iterations, 0.00 seconds
 H    0     0                    2592.7398840 2592.85665  0.00%     -    0s
      0     0 2592.85665    0    2 2592.73988 2592.85665  0.00%     -    0s
 
-Explored 1 nodes (6 simplex iterations) in 0.00 seconds
+Explored 1 nodes (6 simplex iterations) in 0.01 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 2592.74 407.605 -0.1 
@@ -19803,6 +20136,87 @@ p5
 etapa: 3
 p2
 etapa: 3
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 0, 1, 0, 1]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 0, 1, 0, 1]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 0, 1, 0, 1]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 0, 1, 0, 1]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 0, 1, 0, 1]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 0, 1, 0, 1]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 0, 1, 0, 1]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 0, 1, 0, 1]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 0, 1, 0, 1]
+
 #################################### TRANSICAO
 p2.0:1
 p4.0:1
@@ -19991,7 +20405,7 @@ Root relaxation: objective 2.198868e+03, 10 iterations, 0.00 seconds
      0     0 2198.86794    0    1  316.66394 2198.86794   594%     -    0s
 H    0     0                    2198.7972199 2198.86794  0.00%     -    0s
 
-Explored 1 nodes (10 simplex iterations) in 0.00 seconds
+Explored 1 nodes (10 simplex iterations) in 0.01 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 2198.8 316.664 -0.1 
@@ -20064,6 +20478,87 @@ p0
 etapa: 3
 p2
 etapa: 3
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 1, 0, 1, 0]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 1, 0, 1, 0]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 1, 0, 1, 0]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 1, 0, 1, 0]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 1, 0, 1, 0]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 1, 0, 1, 0]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 1, 0, 1, 0]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 1, 0, 1, 0]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [2, 7]
+
+id Congelados: [7]
+
+id Executados: [0, 1, 3, 4, 5, 6]
+
+id Modos: [1, 1, 1, 0, 1, 0]
+
 #################################### TRANSICAO
 p4.0:1
 p5.0:1
@@ -20253,7 +20748,7 @@ Root relaxation: objective 1.706269e+03, 12 iterations, 0.00 seconds
      0     0 1706.26874    0    2   89.30238 1706.26874  1811%     -    0s
 H    0     0                    1706.1897419 1706.26874  0.00%     -    0s
 
-Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+Explored 1 nodes (12 simplex iterations) in 0.01 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 1706.19 89.3024 -0.1 
@@ -20328,6 +20823,87 @@ custo :0.14570276248850944
 
 p2
 etapa: 3
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: [5, 8]
+
+id Congelados: [6]
+
+id Executados: [0, 1, 2, 3, 4, 7]
+
+id Modos: [1, 1, 0, 0, 1, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: [5, 8]
+
+id Congelados: [6]
+
+id Executados: [0, 1, 2, 3, 4, 7]
+
+id Modos: [1, 1, 0, 0, 1, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: [5, 8]
+
+id Congelados: [6]
+
+id Executados: [0, 1, 2, 3, 4, 7]
+
+id Modos: [1, 1, 0, 0, 1, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: [5, 8]
+
+id Congelados: [6]
+
+id Executados: [0, 1, 2, 3, 4, 7]
+
+id Modos: [1, 1, 0, 0, 1, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: [5, 8]
+
+id Congelados: [6]
+
+id Executados: [0, 1, 2, 3, 4, 7]
+
+id Modos: [1, 1, 0, 0, 1, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: [5, 8]
+
+id Congelados: [6]
+
+id Executados: [0, 1, 2, 3, 4, 7]
+
+id Modos: [1, 1, 0, 0, 1, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: [5, 8]
+
+id Congelados: [6]
+
+id Executados: [0, 1, 2, 3, 4, 7]
+
+id Modos: [1, 1, 0, 0, 1, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: [5, 8]
+
+id Congelados: [6]
+
+id Executados: [0, 1, 2, 3, 4, 7]
+
+id Modos: [1, 1, 0, 0, 1, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: [5, 8]
+
+id Congelados: [6]
+
+id Executados: [0, 1, 2, 3, 4, 7]
+
+id Modos: [1, 1, 0, 0, 1, 1]
+
 #################################### TRANSICAO
 p4.0:1
 p6.0:1
@@ -20515,7 +21091,7 @@ Root relaxation: objective 1.523803e+03, 12 iterations, 0.00 seconds
      0     0 1523.80256    0    2   -0.00000 1523.80256      -     -    0s
 H    0     0                    1523.6996778 1523.80256  0.01%     -    0s
 
-Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+Explored 1 nodes (12 simplex iterations) in 0.01 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 3: 1523.7 -0 -0.1 
@@ -20595,6 +21171,87 @@ mod :1
 w :1.0
 custo :0.14570276248850944
 
+
+PC: [0, 1, 2, 5, 6, 8]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7, 8]
+
+id Modos: [1, 1, 0, 0, 1, 1, 1]
+
+PC: [0, 1, 2, 5, 6, 8]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7, 8]
+
+id Modos: [1, 1, 0, 0, 1, 1, 1]
+
+PC: [0, 1, 2, 5, 6, 8]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7, 8]
+
+id Modos: [1, 1, 0, 0, 1, 1, 1]
+
+PC: [0, 1, 2, 5, 6, 8]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7, 8]
+
+id Modos: [1, 1, 0, 0, 1, 1, 1]
+
+PC: [0, 1, 2, 5, 6, 8]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7, 8]
+
+id Modos: [1, 1, 0, 0, 1, 1, 1]
+
+PC: [0, 1, 2, 5, 6, 8]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7, 8]
+
+id Modos: [1, 1, 0, 0, 1, 1, 1]
+
+PC: [0, 1, 2, 5, 6, 8]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7, 8]
+
+id Modos: [1, 1, 0, 0, 1, 1, 1]
+
+PC: [0, 1, 2, 5, 6, 8]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7, 8]
+
+id Modos: [1, 1, 0, 0, 1, 1, 1]
+
+PC: [0, 1, 2, 5, 6, 8]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7, 8]
+
+id Modos: [1, 1, 0, 0, 1, 1, 1]
 
 #################################### TRANSICAO
 p4.0:1
@@ -20857,6 +21514,78 @@ mod :1
 w :1.0
 custo :0.14570276248850944
 
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [1, 1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [1, 1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [1, 1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [1, 1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [1, 1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [1, 1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [1, 1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [1, 1, 0, 0, 0, 1, 0, 1]
 
 #################################### TRANSICAO
 p4.0:1
@@ -21124,6 +21853,87 @@ custo :23.870821088178023
 
 p2.0
 etapa: 3
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 1]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 1]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 1]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 1]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 1]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 1]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 1]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 1]
+
+PC: [0, 1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 1]
+
 #################################### TRANSICAO
 p8.0:1
 p8.1:1
@@ -21407,6 +22217,96 @@ p6.1
 etapa: 3
 p5.0
 etapa: 3
+PC: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+id Abandonados: [8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+id Abandonados: [8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+id Abandonados: [8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+id Abandonados: [8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+id Abandonados: [8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+id Abandonados: [8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+id Abandonados: [8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+id Abandonados: [8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+id Abandonados: [8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+id Abandonados: [8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 0, 1, 0, 0]
+
 #################################### TRANSICAO
 p8.0:1
 p8.1:1
@@ -21682,6 +22582,96 @@ custo :0.38029581416480085
 
 p6.0
 etapa: 3
+PC: [0, 3, 4, 5, 7, 8, 9]
+id Abandonados: [1, 2, 9]
+
+id Congelados: []
+
+id Executados: [0, 3, 4, 5, 6, 7, 8]
+
+id Modos: [0, 0, 0, 0, 0, 0, 0]
+
+PC: [0, 3, 4, 5, 7, 8, 9]
+id Abandonados: [1, 2, 9]
+
+id Congelados: []
+
+id Executados: [0, 3, 4, 5, 6, 7, 8]
+
+id Modos: [0, 0, 0, 0, 0, 0, 0]
+
+PC: [0, 3, 4, 5, 7, 8, 9]
+id Abandonados: [1, 2, 9]
+
+id Congelados: []
+
+id Executados: [0, 3, 4, 5, 6, 7, 8]
+
+id Modos: [0, 0, 0, 0, 0, 0, 0]
+
+PC: [0, 3, 4, 5, 7, 8, 9]
+id Abandonados: [1, 2, 9]
+
+id Congelados: []
+
+id Executados: [0, 3, 4, 5, 6, 7, 8]
+
+id Modos: [0, 0, 0, 0, 0, 0, 0]
+
+PC: [0, 3, 4, 5, 7, 8, 9]
+id Abandonados: [1, 2, 9]
+
+id Congelados: []
+
+id Executados: [0, 3, 4, 5, 6, 7, 8]
+
+id Modos: [0, 0, 0, 0, 0, 0, 0]
+
+PC: [0, 3, 4, 5, 7, 8, 9]
+id Abandonados: [1, 2, 9]
+
+id Congelados: []
+
+id Executados: [0, 3, 4, 5, 6, 7, 8]
+
+id Modos: [0, 0, 0, 0, 0, 0, 0]
+
+PC: [0, 3, 4, 5, 7, 8, 9]
+id Abandonados: [1, 2, 9]
+
+id Congelados: []
+
+id Executados: [0, 3, 4, 5, 6, 7, 8]
+
+id Modos: [0, 0, 0, 0, 0, 0, 0]
+
+PC: [0, 3, 4, 5, 7, 8, 9]
+id Abandonados: [1, 2, 9]
+
+id Congelados: []
+
+id Executados: [0, 3, 4, 5, 6, 7, 8]
+
+id Modos: [0, 0, 0, 0, 0, 0, 0]
+
+PC: [0, 3, 4, 5, 7, 8, 9]
+id Abandonados: [1, 2, 9]
+
+id Congelados: []
+
+id Executados: [0, 3, 4, 5, 6, 7, 8]
+
+id Modos: [0, 0, 0, 0, 0, 0, 0]
+
+PC: [0, 3, 4, 5, 7, 8, 9]
+id Abandonados: [1, 2, 9]
+
+id Congelados: []
+
+id Executados: [0, 3, 4, 5, 6, 7, 8]
+
+id Modos: [0, 0, 0, 0, 0, 0, 0]
+
 #################################### TRANSICAO
 p8.0:1
 p11.0:1
@@ -21954,6 +22944,87 @@ mod :0
 w :1.0
 custo :43.823260300588665
 
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8]
+id Abandonados: [7]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 8]
+
+id Modos: [0, 1, 0, 0, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8]
+id Abandonados: [7]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 8]
+
+id Modos: [0, 1, 0, 0, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8]
+id Abandonados: [7]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 8]
+
+id Modos: [0, 1, 0, 0, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8]
+id Abandonados: [7]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 8]
+
+id Modos: [0, 1, 0, 0, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8]
+id Abandonados: [7]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 8]
+
+id Modos: [0, 1, 0, 0, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8]
+id Abandonados: [7]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 8]
+
+id Modos: [0, 1, 0, 0, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8]
+id Abandonados: [7]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 8]
+
+id Modos: [0, 1, 0, 0, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8]
+id Abandonados: [7]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 8]
+
+id Modos: [0, 1, 0, 0, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 3, 5, 6, 7, 8]
+id Abandonados: [7]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 8]
+
+id Modos: [0, 1, 0, 0, 0, 1, 1, 0]
 
 #################################### TRANSICAO
 p12.0:1
@@ -22237,6 +23308,96 @@ custo :16.32087363859109
 
 p4.0
 etapa: 3
+PC: [0, 1, 2, 3, 4, 5, 6, 8, 9]
+id Abandonados: [6, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 7, 8]
+
+id Modos: [1, 0, 0, 0, 0, 0, 0, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 8, 9]
+id Abandonados: [6, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 7, 8]
+
+id Modos: [1, 0, 0, 0, 0, 0, 0, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 8, 9]
+id Abandonados: [6, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 7, 8]
+
+id Modos: [1, 0, 0, 0, 0, 0, 0, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 8, 9]
+id Abandonados: [6, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 7, 8]
+
+id Modos: [1, 0, 0, 0, 0, 0, 0, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 8, 9]
+id Abandonados: [6, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 7, 8]
+
+id Modos: [1, 0, 0, 0, 0, 0, 0, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 8, 9]
+id Abandonados: [6, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 7, 8]
+
+id Modos: [1, 0, 0, 0, 0, 0, 0, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 8, 9]
+id Abandonados: [6, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 7, 8]
+
+id Modos: [1, 0, 0, 0, 0, 0, 0, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 8, 9]
+id Abandonados: [6, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 7, 8]
+
+id Modos: [1, 0, 0, 0, 0, 0, 0, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 8, 9]
+id Abandonados: [6, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 7, 8]
+
+id Modos: [1, 0, 0, 0, 0, 0, 0, 1]
+
+PC: [0, 1, 2, 3, 4, 5, 6, 8, 9]
+id Abandonados: [6, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 7, 8]
+
+id Modos: [1, 0, 0, 0, 0, 0, 0, 1]
+
 #################################### TRANSICAO
 p13.0:1
 p13.1:1
@@ -22514,6 +23675,96 @@ custo :25.89626904954136
 
 p8.1
 etapa: 3
+PC: [0, 1, 4, 5, 6, 7, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 0, 0, 1, 0, 0]
+
+PC: [0, 1, 4, 5, 6, 7, 9]
+id Abandonados: [2, 3, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 4, 5, 6, 7, 8]
+
+id Modos: [1, 0, 0, 0, 1, 0, 0]
+
 #################################### TRANSICAO
 p13.0:1
 p13.1:1
@@ -22778,6 +24029,87 @@ p9.1
 etapa: 3
 p9.0
 etapa: 3
+PC: [0, 1, 2, 4, 5, 6, 7]
+id Abandonados: [5, 6, 7, 8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4]
+
+id Modos: [1, 0, 0, 0, 0]
+
+PC: [0, 1, 2, 4, 5, 6, 7]
+id Abandonados: [5, 6, 7, 8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4]
+
+id Modos: [1, 0, 0, 0, 0]
+
+PC: [0, 1, 2, 4, 5, 6, 7]
+id Abandonados: [5, 6, 7, 8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4]
+
+id Modos: [1, 0, 0, 0, 0]
+
+PC: [0, 1, 2, 4, 5, 6, 7]
+id Abandonados: [5, 6, 7, 8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4]
+
+id Modos: [1, 0, 0, 0, 0]
+
+PC: [0, 1, 2, 4, 5, 6, 7]
+id Abandonados: [5, 6, 7, 8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4]
+
+id Modos: [1, 0, 0, 0, 0]
+
+PC: [0, 1, 2, 4, 5, 6, 7]
+id Abandonados: [5, 6, 7, 8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4]
+
+id Modos: [1, 0, 0, 0, 0]
+
+PC: [0, 1, 2, 4, 5, 6, 7]
+id Abandonados: [5, 6, 7, 8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4]
+
+id Modos: [1, 0, 0, 0, 0]
+
+PC: [0, 1, 2, 4, 5, 6, 7]
+id Abandonados: [5, 6, 7, 8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4]
+
+id Modos: [1, 0, 0, 0, 0]
+
+PC: [0, 1, 2, 4, 5, 6, 7]
+id Abandonados: [5, 6, 7, 8]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4]
+
+id Modos: [1, 0, 0, 0, 0]
+
 #################################### TRANSICAO
 p13.0:1
 p13.1:1
@@ -23012,6 +24344,69 @@ custo :53.90188834918554
 
 p12.0
 etapa: 3
+PC: [0, 1, 2, 3, 4, 6]
+id Abandonados: [6]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5]
+
+id Modos: [0, 0, 1, 0, 1, 0]
+
+PC: [0, 1, 2, 3, 4, 6]
+id Abandonados: [6]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5]
+
+id Modos: [0, 0, 1, 0, 1, 0]
+
+PC: [0, 1, 2, 3, 4, 6]
+id Abandonados: [6]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5]
+
+id Modos: [0, 0, 1, 0, 1, 0]
+
+PC: [0, 1, 2, 3, 4, 6]
+id Abandonados: [6]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5]
+
+id Modos: [0, 0, 1, 0, 1, 0]
+
+PC: [0, 1, 2, 3, 4, 6]
+id Abandonados: [6]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5]
+
+id Modos: [0, 0, 1, 0, 1, 0]
+
+PC: [0, 1, 2, 3, 4, 6]
+id Abandonados: [6]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5]
+
+id Modos: [0, 0, 1, 0, 1, 0]
+
+PC: [0, 1, 2, 3, 4, 6]
+id Abandonados: [6]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5]
+
+id Modos: [0, 0, 1, 0, 1, 0]
+
 #################################### TRANSICAO
 p13.0:1
 p15.0:1
@@ -23245,6 +24640,78 @@ mod :0
 w :1.0
 custo :53.90188834918554
 
+
+PC: [0, 1, 2, 5, 6]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7]
+
+id Modos: [0, 1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 5, 6]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7]
+
+id Modos: [0, 1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 5, 6]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7]
+
+id Modos: [0, 1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 5, 6]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7]
+
+id Modos: [0, 1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 5, 6]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7]
+
+id Modos: [0, 1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 5, 6]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7]
+
+id Modos: [0, 1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 5, 6]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7]
+
+id Modos: [0, 1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 5, 6]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 5, 6, 7]
+
+id Modos: [0, 1, 0, 0, 1, 0]
 
 #################################### TRANSICAO
 p15.0:1
@@ -23491,6 +24958,78 @@ mod :0
 w :1.0
 custo :53.90188834918554
 
+
+PC: [0, 1, 2, 3, 4, 5, 6]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 0, 1, 1, 0, 1, 0]
+
+PC: [0, 1, 2, 3, 4, 5, 6]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 0, 1, 1, 0, 1, 0]
+
+PC: [0, 1, 2, 3, 4, 5, 6]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 0, 1, 1, 0, 1, 0]
+
+PC: [0, 1, 2, 3, 4, 5, 6]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 0, 1, 1, 0, 1, 0]
+
+PC: [0, 1, 2, 3, 4, 5, 6]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 0, 1, 1, 0, 1, 0]
+
+PC: [0, 1, 2, 3, 4, 5, 6]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 0, 1, 1, 0, 1, 0]
+
+PC: [0, 1, 2, 3, 4, 5, 6]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 0, 1, 1, 0, 1, 0]
+
+PC: [0, 1, 2, 3, 4, 5, 6]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 0, 0, 1, 1, 0, 1, 0]
 
 #################################### TRANSICAO
 p15.0:1
@@ -23763,6 +25302,96 @@ p13.1
 etapa: 3
 p15.1
 etapa: 3
+PC: [0, 1, 2, 5, 6, 7, 8]
+id Abandonados: [4, 8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 5, 6, 7, 8]
+id Abandonados: [4, 8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 5, 6, 7, 8]
+id Abandonados: [4, 8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 5, 6, 7, 8]
+id Abandonados: [4, 8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 5, 6, 7, 8]
+id Abandonados: [4, 8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 5, 6, 7, 8]
+id Abandonados: [4, 8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 5, 6, 7, 8]
+id Abandonados: [4, 8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 5, 6, 7, 8]
+id Abandonados: [4, 8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 5, 6, 7, 8]
+id Abandonados: [4, 8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 1, 1, 0]
+
+PC: [0, 1, 2, 5, 6, 7, 8]
+id Abandonados: [4, 8, 9]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7]
+
+id Modos: [0, 0, 1, 0, 1, 1, 0]
+
 #################################### TRANSICAO
 p16.1:1
 p18.0:1
@@ -24025,6 +25654,87 @@ w :1.0
 custo :55.825251529691386
 
 
+PC: [2, 3, 4, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: []
+
+id Executados: [1, 2, 3, 4, 6, 7, 8]
+
+id Modos: [0, 0, 0, 1, 1, 0, 0]
+
+PC: [2, 3, 4, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: []
+
+id Executados: [1, 2, 3, 4, 6, 7, 8]
+
+id Modos: [0, 0, 0, 1, 1, 0, 0]
+
+PC: [2, 3, 4, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: []
+
+id Executados: [1, 2, 3, 4, 6, 7, 8]
+
+id Modos: [0, 0, 0, 1, 1, 0, 0]
+
+PC: [2, 3, 4, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: []
+
+id Executados: [1, 2, 3, 4, 6, 7, 8]
+
+id Modos: [0, 0, 0, 1, 1, 0, 0]
+
+PC: [2, 3, 4, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: []
+
+id Executados: [1, 2, 3, 4, 6, 7, 8]
+
+id Modos: [0, 0, 0, 1, 1, 0, 0]
+
+PC: [2, 3, 4, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: []
+
+id Executados: [1, 2, 3, 4, 6, 7, 8]
+
+id Modos: [0, 0, 0, 1, 1, 0, 0]
+
+PC: [2, 3, 4, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: []
+
+id Executados: [1, 2, 3, 4, 6, 7, 8]
+
+id Modos: [0, 0, 0, 1, 1, 0, 0]
+
+PC: [2, 3, 4, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: []
+
+id Executados: [1, 2, 3, 4, 6, 7, 8]
+
+id Modos: [0, 0, 0, 1, 1, 0, 0]
+
+PC: [2, 3, 4, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: []
+
+id Executados: [1, 2, 3, 4, 6, 7, 8]
+
+id Modos: [0, 0, 0, 1, 1, 0, 0]
+
 #################################### TRANSICAO
 p20.0:1
 p20.1:1
@@ -24285,6 +25995,87 @@ w :1.0
 custo :55.825251529691386
 
 
+PC: [1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: [5]
+
+id Executados: [1, 2, 3, 4, 6, 8]
+
+id Modos: [1, 0, 0, 1, 0, 0]
+
+PC: [1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: [5]
+
+id Executados: [1, 2, 3, 4, 6, 8]
+
+id Modos: [1, 0, 0, 1, 0, 0]
+
+PC: [1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: [5]
+
+id Executados: [1, 2, 3, 4, 6, 8]
+
+id Modos: [1, 0, 0, 1, 0, 0]
+
+PC: [1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: [5]
+
+id Executados: [1, 2, 3, 4, 6, 8]
+
+id Modos: [1, 0, 0, 1, 0, 0]
+
+PC: [1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: [5]
+
+id Executados: [1, 2, 3, 4, 6, 8]
+
+id Modos: [1, 0, 0, 1, 0, 0]
+
+PC: [1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: [5]
+
+id Executados: [1, 2, 3, 4, 6, 8]
+
+id Modos: [1, 0, 0, 1, 0, 0]
+
+PC: [1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: [5]
+
+id Executados: [1, 2, 3, 4, 6, 8]
+
+id Modos: [1, 0, 0, 1, 0, 0]
+
+PC: [1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: [5]
+
+id Executados: [1, 2, 3, 4, 6, 8]
+
+id Modos: [1, 0, 0, 1, 0, 0]
+
+PC: [1, 3, 4, 5, 6, 7, 8]
+id Abandonados: [0, 5]
+
+id Congelados: [5]
+
+id Executados: [1, 2, 3, 4, 6, 8]
+
+id Modos: [1, 0, 0, 1, 0, 0]
+
 #################################### TRANSICAO
 p21.0:1
 p21.1:1
@@ -24539,6 +26330,87 @@ p16.0
 etapa: 3
 p13.0
 etapa: 3
+PC: [0, 1, 4, 5, 6, 8]
+id Abandonados: [1, 2, 7]
+
+id Congelados: [5]
+
+id Executados: [0, 3, 4, 5, 6]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 4, 5, 6, 8]
+id Abandonados: [1, 2, 7]
+
+id Congelados: [5]
+
+id Executados: [0, 3, 4, 5, 6]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 4, 5, 6, 8]
+id Abandonados: [1, 2, 7]
+
+id Congelados: [5]
+
+id Executados: [0, 3, 4, 5, 6]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 4, 5, 6, 8]
+id Abandonados: [1, 2, 7]
+
+id Congelados: [5]
+
+id Executados: [0, 3, 4, 5, 6]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 4, 5, 6, 8]
+id Abandonados: [1, 2, 7]
+
+id Congelados: [5]
+
+id Executados: [0, 3, 4, 5, 6]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 4, 5, 6, 8]
+id Abandonados: [1, 2, 7]
+
+id Congelados: [5]
+
+id Executados: [0, 3, 4, 5, 6]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 4, 5, 6, 8]
+id Abandonados: [1, 2, 7]
+
+id Congelados: [5]
+
+id Executados: [0, 3, 4, 5, 6]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 4, 5, 6, 8]
+id Abandonados: [1, 2, 7]
+
+id Congelados: [5]
+
+id Executados: [0, 3, 4, 5, 6]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 4, 5, 6, 8]
+id Abandonados: [1, 2, 7]
+
+id Congelados: [5]
+
+id Executados: [0, 3, 4, 5, 6]
+
+id Modos: [1, 0, 0, 1, 0]
+
 #################################### TRANSICAO
 p21.1:1
 p22.0:1
@@ -24775,6 +26647,78 @@ p15.0
 etapa: 3
 p13.0
 etapa: 3
+PC: [0, 1, 4, 5, 6]
+id Abandonados: [2, 4, 7]
+
+id Congelados: [4]
+
+id Executados: [0, 1, 3, 5]
+
+id Modos: [1, 0, 0, 1]
+
+PC: [0, 1, 4, 5, 6]
+id Abandonados: [2, 4, 7]
+
+id Congelados: [4]
+
+id Executados: [0, 1, 3, 5]
+
+id Modos: [1, 0, 0, 1]
+
+PC: [0, 1, 4, 5, 6]
+id Abandonados: [2, 4, 7]
+
+id Congelados: [4]
+
+id Executados: [0, 1, 3, 5]
+
+id Modos: [1, 0, 0, 1]
+
+PC: [0, 1, 4, 5, 6]
+id Abandonados: [2, 4, 7]
+
+id Congelados: [4]
+
+id Executados: [0, 1, 3, 5]
+
+id Modos: [1, 0, 0, 1]
+
+PC: [0, 1, 4, 5, 6]
+id Abandonados: [2, 4, 7]
+
+id Congelados: [4]
+
+id Executados: [0, 1, 3, 5]
+
+id Modos: [1, 0, 0, 1]
+
+PC: [0, 1, 4, 5, 6]
+id Abandonados: [2, 4, 7]
+
+id Congelados: [4]
+
+id Executados: [0, 1, 3, 5]
+
+id Modos: [1, 0, 0, 1]
+
+PC: [0, 1, 4, 5, 6]
+id Abandonados: [2, 4, 7]
+
+id Congelados: [4]
+
+id Executados: [0, 1, 3, 5]
+
+id Modos: [1, 0, 0, 1]
+
+PC: [0, 1, 4, 5, 6]
+id Abandonados: [2, 4, 7]
+
+id Congelados: [4]
+
+id Executados: [0, 1, 3, 5]
+
+id Modos: [1, 0, 0, 1]
+
 #################################### TRANSICAO
 p21.1:1
 p23.0:1
@@ -24988,6 +26932,69 @@ p16.1
 etapa: 3
 p15.0
 etapa: 3
+PC: [0, 3, 5]
+id Abandonados: [1, 2, 6]
+
+id Congelados: [2]
+
+id Executados: [0, 3, 4]
+
+id Modos: [0, 0, 1]
+
+PC: [0, 3, 5]
+id Abandonados: [1, 2, 6]
+
+id Congelados: [2]
+
+id Executados: [0, 3, 4]
+
+id Modos: [0, 0, 1]
+
+PC: [0, 3, 5]
+id Abandonados: [1, 2, 6]
+
+id Congelados: [2]
+
+id Executados: [0, 3, 4]
+
+id Modos: [0, 0, 1]
+
+PC: [0, 3, 5]
+id Abandonados: [1, 2, 6]
+
+id Congelados: [2]
+
+id Executados: [0, 3, 4]
+
+id Modos: [0, 0, 1]
+
+PC: [0, 3, 5]
+id Abandonados: [1, 2, 6]
+
+id Congelados: [2]
+
+id Executados: [0, 3, 4]
+
+id Modos: [0, 0, 1]
+
+PC: [0, 3, 5]
+id Abandonados: [1, 2, 6]
+
+id Congelados: [2]
+
+id Executados: [0, 3, 4]
+
+id Modos: [0, 0, 1]
+
+PC: [0, 3, 5]
+id Abandonados: [1, 2, 6]
+
+id Congelados: [2]
+
+id Executados: [0, 3, 4]
+
+id Modos: [0, 0, 1]
+
 #################################### TRANSICAO
 p23.0:1
 p24.0:1
@@ -25187,6 +27194,60 @@ custo :19.944097995721016
 
 p16.1
 etapa: 3
+PC: [0, 2, 3, 5]
+id Abandonados: [1, 2]
+
+id Congelados: [3]
+
+id Executados: [0, 3, 4]
+
+id Modos: [0, 1, 1]
+
+PC: [0, 2, 3, 5]
+id Abandonados: [1, 2]
+
+id Congelados: [3]
+
+id Executados: [0, 3, 4]
+
+id Modos: [0, 1, 1]
+
+PC: [0, 2, 3, 5]
+id Abandonados: [1, 2]
+
+id Congelados: [3]
+
+id Executados: [0, 3, 4]
+
+id Modos: [0, 1, 1]
+
+PC: [0, 2, 3, 5]
+id Abandonados: [1, 2]
+
+id Congelados: [3]
+
+id Executados: [0, 3, 4]
+
+id Modos: [0, 1, 1]
+
+PC: [0, 2, 3, 5]
+id Abandonados: [1, 2]
+
+id Congelados: [3]
+
+id Executados: [0, 3, 4]
+
+id Modos: [0, 1, 1]
+
+PC: [0, 2, 3, 5]
+id Abandonados: [1, 2]
+
+id Congelados: [3]
+
+id Executados: [0, 3, 4]
+
+id Modos: [0, 1, 1]
+
 #################################### TRANSICAO
 p23.0:1
 p25.0:1
@@ -25367,6 +27428,60 @@ p20.1
 etapa: 3
 p16.1
 etapa: 3
+PC: [1, 2, 3]
+id Abandonados: [0, 1, 4, 5]
+
+id Congelados: [2]
+
+id Executados: [2]
+
+id Modos: [1]
+
+PC: [1, 2, 3]
+id Abandonados: [0, 1, 4, 5]
+
+id Congelados: [2]
+
+id Executados: [2]
+
+id Modos: [1]
+
+PC: [1, 2, 3]
+id Abandonados: [0, 1, 4, 5]
+
+id Congelados: [2]
+
+id Executados: [2]
+
+id Modos: [1]
+
+PC: [1, 2, 3]
+id Abandonados: [0, 1, 4, 5]
+
+id Congelados: [2]
+
+id Executados: [2]
+
+id Modos: [1]
+
+PC: [1, 2, 3]
+id Abandonados: [0, 1, 4, 5]
+
+id Congelados: [2]
+
+id Executados: [2]
+
+id Modos: [1]
+
+PC: [1, 2, 3]
+id Abandonados: [0, 1, 4, 5]
+
+id Congelados: [2]
+
+id Executados: [2]
+
+id Modos: [1]
+
 #################################### TRANSICAO
 p26.0:1
 p26.1:1
@@ -25515,6 +27630,42 @@ custo :25.75653757713262
 
 p21.1
 etapa: 3
+PC: [2]
+id Abandonados: [0, 1, 3]
+
+id Congelados: []
+
+id Executados: [2]
+
+id Modos: [1]
+
+PC: [2]
+id Abandonados: [0, 1, 3]
+
+id Congelados: []
+
+id Executados: [2]
+
+id Modos: [1]
+
+PC: [2]
+id Abandonados: [0, 1, 3]
+
+id Congelados: []
+
+id Executados: [2]
+
+id Modos: [1]
+
+PC: [2]
+id Abandonados: [0, 1, 3]
+
+id Congelados: []
+
+id Executados: [2]
+
+id Modos: [1]
+
 #################################### TRANSICAO
 p27.0:1
 p27.1:1
@@ -25642,6 +27793,33 @@ mod :0
 w :1.0
 custo :25.75653757713262
 
+
+PC: [0, 1, 2]
+id Abandonados: [0, 1]
+
+id Congelados: []
+
+id Executados: [2]
+
+id Modos: [0]
+
+PC: [0, 1, 2]
+id Abandonados: [0, 1]
+
+id Congelados: []
+
+id Executados: [2]
+
+id Modos: [0]
+
+PC: [0, 1, 2]
+id Abandonados: [0, 1]
+
+id Congelados: []
+
+id Executados: [2]
+
+id Modos: [0]
 
 #################################### TRANSICAO
 p28.0:1
@@ -25778,6 +27956,33 @@ custo :13.141574279315344
 
 p23.0
 etapa: 3
+PC: [0, 1, 2]
+id Abandonados: [0, 2]
+
+id Congelados: []
+
+id Executados: [1]
+
+id Modos: [1]
+
+PC: [0, 1, 2]
+id Abandonados: [0, 2]
+
+id Congelados: []
+
+id Executados: [1]
+
+id Modos: [1]
+
+PC: [0, 1, 2]
+id Abandonados: [0, 2]
+
+id Congelados: []
+
+id Executados: [1]
+
+id Modos: [1]
+
 #################################### TRANSICAO
 p29.0:1
 p29.1:1
@@ -25921,6 +28126,33 @@ mod :0
 w :1.0
 custo :29.80902285003871
 
+
+PC: [0, 1, 2]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2]
+
+id Modos: [1, 0, 0]
+
+PC: [0, 1, 2]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2]
+
+id Modos: [1, 0, 0]
+
+PC: [0, 1, 2]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2]
+
+id Modos: [1, 0, 0]
 
 #################################### TRANSICAO
 p29.1:1
@@ -26089,6 +28321,51 @@ p31.0
 etapa: 1
 p31.1
 etapa: 1
+PC: [0, 1, 2]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2]
+
+id Modos: [1, 0, 0]
+
+PC: [0, 1, 2]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2]
+
+id Modos: [1, 0, 0]
+
+PC: [0, 1, 2]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2]
+
+id Modos: [1, 0, 0]
+
+PC: [0, 1, 2]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2]
+
+id Modos: [1, 0, 0]
+
+PC: [0, 1, 2]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2]
+
+id Modos: [1, 0, 0]
+
 #################################### TRANSICAO
 p29.1:1
 p30.0:1
@@ -26267,6 +28544,51 @@ mod :1
 w :1.0
 custo :23.52594414045357
 
+
+PC: [0, 1, 3, 4]
+id Abandonados: [2]
+
+id Congelados: []
+
+id Executados: [0, 1, 3, 4]
+
+id Modos: [0, 0, 0, 1]
+
+PC: [0, 1, 3, 4]
+id Abandonados: [2]
+
+id Congelados: []
+
+id Executados: [0, 1, 3, 4]
+
+id Modos: [0, 0, 0, 1]
+
+PC: [0, 1, 3, 4]
+id Abandonados: [2]
+
+id Congelados: []
+
+id Executados: [0, 1, 3, 4]
+
+id Modos: [0, 0, 0, 1]
+
+PC: [0, 1, 3, 4]
+id Abandonados: [2]
+
+id Congelados: []
+
+id Executados: [0, 1, 3, 4]
+
+id Modos: [0, 0, 0, 1]
+
+PC: [0, 1, 3, 4]
+id Abandonados: [2]
+
+id Congelados: []
+
+id Executados: [0, 1, 3, 4]
+
+id Modos: [0, 0, 0, 1]
 
 #################################### TRANSICAO
 p30.0:1
@@ -26457,6 +28779,60 @@ w :1.0
 custo :23.52594414045357
 
 
+PC: [2, 3, 4, 5]
+id Abandonados: [0, 1]
+
+id Congelados: []
+
+id Executados: [2, 3, 4, 5]
+
+id Modos: [0, 0, 1, 1]
+
+PC: [2, 3, 4, 5]
+id Abandonados: [0, 1]
+
+id Congelados: []
+
+id Executados: [2, 3, 4, 5]
+
+id Modos: [0, 0, 1, 1]
+
+PC: [2, 3, 4, 5]
+id Abandonados: [0, 1]
+
+id Congelados: []
+
+id Executados: [2, 3, 4, 5]
+
+id Modos: [0, 0, 1, 1]
+
+PC: [2, 3, 4, 5]
+id Abandonados: [0, 1]
+
+id Congelados: []
+
+id Executados: [2, 3, 4, 5]
+
+id Modos: [0, 0, 1, 1]
+
+PC: [2, 3, 4, 5]
+id Abandonados: [0, 1]
+
+id Congelados: []
+
+id Executados: [2, 3, 4, 5]
+
+id Modos: [0, 0, 1, 1]
+
+PC: [2, 3, 4, 5]
+id Abandonados: [0, 1]
+
+id Congelados: []
+
+id Executados: [2, 3, 4, 5]
+
+id Modos: [0, 0, 1, 1]
+
 #################################### TRANSICAO
 p33.0:1
 p33.1:1
@@ -26638,6 +29014,60 @@ p30.1
 etapa: 3
 p29.1
 etapa: 3
+PC: [2, 3, 4, 5]
+id Abandonados: [0, 1, 4, 5]
+
+id Congelados: []
+
+id Executados: [2, 3]
+
+id Modos: [0, 1]
+
+PC: [2, 3, 4, 5]
+id Abandonados: [0, 1, 4, 5]
+
+id Congelados: []
+
+id Executados: [2, 3]
+
+id Modos: [0, 1]
+
+PC: [2, 3, 4, 5]
+id Abandonados: [0, 1, 4, 5]
+
+id Congelados: []
+
+id Executados: [2, 3]
+
+id Modos: [0, 1]
+
+PC: [2, 3, 4, 5]
+id Abandonados: [0, 1, 4, 5]
+
+id Congelados: []
+
+id Executados: [2, 3]
+
+id Modos: [0, 1]
+
+PC: [2, 3, 4, 5]
+id Abandonados: [0, 1, 4, 5]
+
+id Congelados: []
+
+id Executados: [2, 3]
+
+id Modos: [0, 1]
+
+PC: [2, 3, 4, 5]
+id Abandonados: [0, 1, 4, 5]
+
+id Congelados: []
+
+id Executados: [2, 3]
+
+id Modos: [0, 1]
+
 #################################### TRANSICAO
 p34.0:1
 p34.1:1
@@ -26795,6 +29225,42 @@ mod :0
 w :1.0
 custo :7.5700117197352315
 
+
+PC: [0, 1, 2, 3]
+id Abandonados: [0]
+
+id Congelados: []
+
+id Executados: [1, 2, 3]
+
+id Modos: [1, 1, 0]
+
+PC: [0, 1, 2, 3]
+id Abandonados: [0]
+
+id Congelados: []
+
+id Executados: [1, 2, 3]
+
+id Modos: [1, 1, 0]
+
+PC: [0, 1, 2, 3]
+id Abandonados: [0]
+
+id Congelados: []
+
+id Executados: [1, 2, 3]
+
+id Modos: [1, 1, 0]
+
+PC: [0, 1, 2, 3]
+id Abandonados: [0]
+
+id Congelados: []
+
+id Executados: [1, 2, 3]
+
+id Modos: [1, 1, 0]
 
 #################################### TRANSICAO
 p35.0:1
@@ -26970,6 +29436,51 @@ custo :41.52715520885547
 
 p30.0
 etapa: 3
+PC: [0, 2, 3, 4]
+id Abandonados: [1, 4]
+
+id Congelados: []
+
+id Executados: [0, 2, 3]
+
+id Modos: [1, 1, 0]
+
+PC: [0, 2, 3, 4]
+id Abandonados: [1, 4]
+
+id Congelados: []
+
+id Executados: [0, 2, 3]
+
+id Modos: [1, 1, 0]
+
+PC: [0, 2, 3, 4]
+id Abandonados: [1, 4]
+
+id Congelados: []
+
+id Executados: [0, 2, 3]
+
+id Modos: [1, 1, 0]
+
+PC: [0, 2, 3, 4]
+id Abandonados: [1, 4]
+
+id Congelados: []
+
+id Executados: [0, 2, 3]
+
+id Modos: [1, 1, 0]
+
+PC: [0, 2, 3, 4]
+id Abandonados: [1, 4]
+
+id Congelados: []
+
+id Executados: [0, 2, 3]
+
+id Modos: [1, 1, 0]
+
 #################################### TRANSICAO
 p35.1:1
 p36.0:1
@@ -27145,6 +29656,51 @@ p37.1
 etapa: 1
 p32.1
 etapa: 3
+PC: [0, 1, 4]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2]
+
+id Modos: [1, 1, 0]
+
+PC: [0, 1, 4]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2]
+
+id Modos: [1, 1, 0]
+
+PC: [0, 1, 4]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2]
+
+id Modos: [1, 1, 0]
+
+PC: [0, 1, 4]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2]
+
+id Modos: [1, 1, 0]
+
+PC: [0, 1, 4]
+id Abandonados: [3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2]
+
+id Modos: [1, 1, 0]
+
 #################################### TRANSICAO
 p35.1:1
 p36.1:1
@@ -27328,6 +29884,51 @@ mod :1
 w :1.0
 custo :10.093810993243265
 
+
+PC: [0, 2, 3, 4]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4]
+
+id Modos: [1, 0, 0, 0, 1]
+
+PC: [0, 2, 3, 4]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4]
+
+id Modos: [1, 0, 0, 0, 1]
+
+PC: [0, 2, 3, 4]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4]
+
+id Modos: [1, 0, 0, 0, 1]
+
+PC: [0, 2, 3, 4]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4]
+
+id Modos: [1, 0, 0, 0, 1]
+
+PC: [0, 2, 3, 4]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4]
+
+id Modos: [1, 0, 0, 0, 1]
 
 #################################### TRANSICAO
 p36.1:1
@@ -27541,6 +30142,69 @@ mod :1
 w :1.0
 custo :10.093810993243265
 
+
+PC: [0, 2, 3, 5, 6]
+id Abandonados: [1]
+
+id Congelados: []
+
+id Executados: [0, 2, 3, 4, 5, 6]
+
+id Modos: [0, 1, 0, 1, 0, 1]
+
+PC: [0, 2, 3, 5, 6]
+id Abandonados: [1]
+
+id Congelados: []
+
+id Executados: [0, 2, 3, 4, 5, 6]
+
+id Modos: [0, 1, 0, 1, 0, 1]
+
+PC: [0, 2, 3, 5, 6]
+id Abandonados: [1]
+
+id Congelados: []
+
+id Executados: [0, 2, 3, 4, 5, 6]
+
+id Modos: [0, 1, 0, 1, 0, 1]
+
+PC: [0, 2, 3, 5, 6]
+id Abandonados: [1]
+
+id Congelados: []
+
+id Executados: [0, 2, 3, 4, 5, 6]
+
+id Modos: [0, 1, 0, 1, 0, 1]
+
+PC: [0, 2, 3, 5, 6]
+id Abandonados: [1]
+
+id Congelados: []
+
+id Executados: [0, 2, 3, 4, 5, 6]
+
+id Modos: [0, 1, 0, 1, 0, 1]
+
+PC: [0, 2, 3, 5, 6]
+id Abandonados: [1]
+
+id Congelados: []
+
+id Executados: [0, 2, 3, 4, 5, 6]
+
+id Modos: [0, 1, 0, 1, 0, 1]
+
+PC: [0, 2, 3, 5, 6]
+id Abandonados: [1]
+
+id Congelados: []
+
+id Executados: [0, 2, 3, 4, 5, 6]
+
+id Modos: [0, 1, 0, 1, 0, 1]
 
 #################################### TRANSICAO
 p38.1:1
@@ -27786,6 +30450,78 @@ mod :1
 w :1.0
 custo :48.867409875801016
 
+
+PC: [0, 2, 3, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 1, 1, 1, 0, 0, 0, 1]
+
+PC: [0, 2, 3, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 1, 1, 1, 0, 0, 0, 1]
+
+PC: [0, 2, 3, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 1, 1, 1, 0, 0, 0, 1]
+
+PC: [0, 2, 3, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 1, 1, 1, 0, 0, 0, 1]
+
+PC: [0, 2, 3, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 1, 1, 1, 0, 0, 0, 1]
+
+PC: [0, 2, 3, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 1, 1, 1, 0, 0, 0, 1]
+
+PC: [0, 2, 3, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 1, 1, 1, 0, 0, 0, 1]
+
+PC: [0, 2, 3, 5, 6, 7]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 4, 5, 6, 7]
+
+id Modos: [0, 1, 1, 1, 0, 0, 0, 1]
 
 #################################### TRANSICAO
 p39.1:1
@@ -28060,6 +30796,96 @@ mod :1
 w :1.0
 custo :48.867409875801016
 
+
+PC: [0, 2, 3, 5, 7, 8, 9]
+id Abandonados: [4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+
+id Modos: [0, 0, 1, 1, 1, 0, 1, 0, 1]
+
+PC: [0, 2, 3, 5, 7, 8, 9]
+id Abandonados: [4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+
+id Modos: [0, 0, 1, 1, 1, 0, 1, 0, 1]
+
+PC: [0, 2, 3, 5, 7, 8, 9]
+id Abandonados: [4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+
+id Modos: [0, 0, 1, 1, 1, 0, 1, 0, 1]
+
+PC: [0, 2, 3, 5, 7, 8, 9]
+id Abandonados: [4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+
+id Modos: [0, 0, 1, 1, 1, 0, 1, 0, 1]
+
+PC: [0, 2, 3, 5, 7, 8, 9]
+id Abandonados: [4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+
+id Modos: [0, 0, 1, 1, 1, 0, 1, 0, 1]
+
+PC: [0, 2, 3, 5, 7, 8, 9]
+id Abandonados: [4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+
+id Modos: [0, 0, 1, 1, 1, 0, 1, 0, 1]
+
+PC: [0, 2, 3, 5, 7, 8, 9]
+id Abandonados: [4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+
+id Modos: [0, 0, 1, 1, 1, 0, 1, 0, 1]
+
+PC: [0, 2, 3, 5, 7, 8, 9]
+id Abandonados: [4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+
+id Modos: [0, 0, 1, 1, 1, 0, 1, 0, 1]
+
+PC: [0, 2, 3, 5, 7, 8, 9]
+id Abandonados: [4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+
+id Modos: [0, 0, 1, 1, 1, 0, 1, 0, 1]
+
+PC: [0, 2, 3, 5, 7, 8, 9]
+id Abandonados: [4]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+
+id Modos: [0, 0, 1, 1, 1, 0, 1, 0, 1]
 
 #################################### TRANSICAO
 p39.1:1
@@ -28352,6 +31178,105 @@ w :1.0
 custo :48.867409875801016
 
 
+PC: [0, 2, 4, 5, 6, 8, 9, 10]
+id Abandonados: [0, 1, 8]
+
+id Congelados: [6]
+
+id Executados: [2, 3, 4, 5, 6, 7, 10]
+
+id Modos: [1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 2, 4, 5, 6, 8, 9, 10]
+id Abandonados: [0, 1, 8]
+
+id Congelados: [6]
+
+id Executados: [2, 3, 4, 5, 6, 7, 10]
+
+id Modos: [1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 2, 4, 5, 6, 8, 9, 10]
+id Abandonados: [0, 1, 8]
+
+id Congelados: [6]
+
+id Executados: [2, 3, 4, 5, 6, 7, 10]
+
+id Modos: [1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 2, 4, 5, 6, 8, 9, 10]
+id Abandonados: [0, 1, 8]
+
+id Congelados: [6]
+
+id Executados: [2, 3, 4, 5, 6, 7, 10]
+
+id Modos: [1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 2, 4, 5, 6, 8, 9, 10]
+id Abandonados: [0, 1, 8]
+
+id Congelados: [6]
+
+id Executados: [2, 3, 4, 5, 6, 7, 10]
+
+id Modos: [1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 2, 4, 5, 6, 8, 9, 10]
+id Abandonados: [0, 1, 8]
+
+id Congelados: [6]
+
+id Executados: [2, 3, 4, 5, 6, 7, 10]
+
+id Modos: [1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 2, 4, 5, 6, 8, 9, 10]
+id Abandonados: [0, 1, 8]
+
+id Congelados: [6]
+
+id Executados: [2, 3, 4, 5, 6, 7, 10]
+
+id Modos: [1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 2, 4, 5, 6, 8, 9, 10]
+id Abandonados: [0, 1, 8]
+
+id Congelados: [6]
+
+id Executados: [2, 3, 4, 5, 6, 7, 10]
+
+id Modos: [1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 2, 4, 5, 6, 8, 9, 10]
+id Abandonados: [0, 1, 8]
+
+id Congelados: [6]
+
+id Executados: [2, 3, 4, 5, 6, 7, 10]
+
+id Modos: [1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 2, 4, 5, 6, 8, 9, 10]
+id Abandonados: [0, 1, 8]
+
+id Congelados: [6]
+
+id Executados: [2, 3, 4, 5, 6, 7, 10]
+
+id Modos: [1, 0, 0, 0, 1, 0, 1]
+
+PC: [0, 2, 4, 5, 6, 8, 9, 10]
+id Abandonados: [0, 1, 8]
+
+id Congelados: [6]
+
+id Executados: [2, 3, 4, 5, 6, 7, 10]
+
+id Modos: [1, 0, 0, 0, 1, 0, 1]
+
 #################################### TRANSICAO
 p42.0:1
 p42.1:1
@@ -28623,6 +31548,96 @@ p36.1
 etapa: 3
 p35.1
 etapa: 3
+PC: [2, 3, 5, 6, 8, 9]
+id Abandonados: [0, 1, 5, 6, 7]
+
+id Congelados: [4, 5]
+
+id Executados: [2, 3, 4]
+
+id Modos: [0, 0, 0]
+
+PC: [2, 3, 5, 6, 8, 9]
+id Abandonados: [0, 1, 5, 6, 7]
+
+id Congelados: [4, 5]
+
+id Executados: [2, 3, 4]
+
+id Modos: [0, 0, 0]
+
+PC: [2, 3, 5, 6, 8, 9]
+id Abandonados: [0, 1, 5, 6, 7]
+
+id Congelados: [4, 5]
+
+id Executados: [2, 3, 4]
+
+id Modos: [0, 0, 0]
+
+PC: [2, 3, 5, 6, 8, 9]
+id Abandonados: [0, 1, 5, 6, 7]
+
+id Congelados: [4, 5]
+
+id Executados: [2, 3, 4]
+
+id Modos: [0, 0, 0]
+
+PC: [2, 3, 5, 6, 8, 9]
+id Abandonados: [0, 1, 5, 6, 7]
+
+id Congelados: [4, 5]
+
+id Executados: [2, 3, 4]
+
+id Modos: [0, 0, 0]
+
+PC: [2, 3, 5, 6, 8, 9]
+id Abandonados: [0, 1, 5, 6, 7]
+
+id Congelados: [4, 5]
+
+id Executados: [2, 3, 4]
+
+id Modos: [0, 0, 0]
+
+PC: [2, 3, 5, 6, 8, 9]
+id Abandonados: [0, 1, 5, 6, 7]
+
+id Congelados: [4, 5]
+
+id Executados: [2, 3, 4]
+
+id Modos: [0, 0, 0]
+
+PC: [2, 3, 5, 6, 8, 9]
+id Abandonados: [0, 1, 5, 6, 7]
+
+id Congelados: [4, 5]
+
+id Executados: [2, 3, 4]
+
+id Modos: [0, 0, 0]
+
+PC: [2, 3, 5, 6, 8, 9]
+id Abandonados: [0, 1, 5, 6, 7]
+
+id Congelados: [4, 5]
+
+id Executados: [2, 3, 4]
+
+id Modos: [0, 0, 0]
+
+PC: [2, 3, 5, 6, 8, 9]
+id Abandonados: [0, 1, 5, 6, 7]
+
+id Congelados: [4, 5]
+
+id Executados: [2, 3, 4]
+
+id Modos: [0, 0, 0]
+
 #################################### TRANSICAO
 p43.0:1
 p43.1:1
@@ -28849,6 +31864,69 @@ p36.1
 etapa: 3
 p35.1
 etapa: 3
+PC: [0, 2, 3, 6]
+id Abandonados: [1, 3, 4, 5, 6]
+
+id Congelados: []
+
+id Executados: [0, 2]
+
+id Modos: [0, 0]
+
+PC: [0, 2, 3, 6]
+id Abandonados: [1, 3, 4, 5, 6]
+
+id Congelados: []
+
+id Executados: [0, 2]
+
+id Modos: [0, 0]
+
+PC: [0, 2, 3, 6]
+id Abandonados: [1, 3, 4, 5, 6]
+
+id Congelados: []
+
+id Executados: [0, 2]
+
+id Modos: [0, 0]
+
+PC: [0, 2, 3, 6]
+id Abandonados: [1, 3, 4, 5, 6]
+
+id Congelados: []
+
+id Executados: [0, 2]
+
+id Modos: [0, 0]
+
+PC: [0, 2, 3, 6]
+id Abandonados: [1, 3, 4, 5, 6]
+
+id Congelados: []
+
+id Executados: [0, 2]
+
+id Modos: [0, 0]
+
+PC: [0, 2, 3, 6]
+id Abandonados: [1, 3, 4, 5, 6]
+
+id Congelados: []
+
+id Executados: [0, 2]
+
+id Modos: [0, 0]
+
+PC: [0, 2, 3, 6]
+id Abandonados: [1, 3, 4, 5, 6]
+
+id Congelados: []
+
+id Executados: [0, 2]
+
+id Modos: [0, 0]
+
 #################################### TRANSICAO
 p44.0:1
 p44.1:1
@@ -29020,6 +32098,42 @@ w :1.0
 custo :25.482869510132687
 
 
+PC: [0, 1, 2, 3]
+id Abandonados: [1]
+
+id Congelados: []
+
+id Executados: [0, 2, 3]
+
+id Modos: [0, 1, 1]
+
+PC: [0, 1, 2, 3]
+id Abandonados: [1]
+
+id Congelados: []
+
+id Executados: [0, 2, 3]
+
+id Modos: [0, 1, 1]
+
+PC: [0, 1, 2, 3]
+id Abandonados: [1]
+
+id Congelados: []
+
+id Executados: [0, 2, 3]
+
+id Modos: [0, 1, 1]
+
+PC: [0, 1, 2, 3]
+id Abandonados: [1]
+
+id Congelados: []
+
+id Executados: [0, 2, 3]
+
+id Modos: [0, 1, 1]
+
 #################################### TRANSICAO
 p44.0:1
 p45.0:1
@@ -29186,6 +32300,51 @@ p46.1
 etapa: 1
 p41.0
 etapa: 3
+PC: [0, 1, 4]
+id Abandonados: [2, 3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1]
+
+id Modos: [0, 1]
+
+PC: [0, 1, 4]
+id Abandonados: [2, 3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1]
+
+id Modos: [0, 1]
+
+PC: [0, 1, 4]
+id Abandonados: [2, 3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1]
+
+id Modos: [0, 1]
+
+PC: [0, 1, 4]
+id Abandonados: [2, 3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1]
+
+id Modos: [0, 1]
+
+PC: [0, 1, 4]
+id Abandonados: [2, 3, 4]
+
+id Congelados: []
+
+id Executados: [0, 1]
+
+id Modos: [0, 1]
+
 #################################### TRANSICAO
 p44.0:1
 p45.1:1
@@ -29354,6 +32513,42 @@ mod :0
 w :1.0
 custo :31.555271200951616
 
+
+PC: [0, 1, 2, 3]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3]
+
+id Modos: [1, 1, 1, 0]
+
+PC: [0, 1, 2, 3]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3]
+
+id Modos: [1, 1, 1, 0]
+
+PC: [0, 1, 2, 3]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3]
+
+id Modos: [1, 1, 1, 0]
+
+PC: [0, 1, 2, 3]
+id Abandonados: []
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 3]
+
+id Modos: [1, 1, 1, 0]
 
 #################################### TRANSICAO
 p45.1:1
@@ -29547,6 +32742,60 @@ mod :0
 w :1.0
 custo :31.555271200951616
 
+
+PC: [0, 1, 2, 4, 5]
+id Abandonados: [3]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 4, 5]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 4, 5]
+id Abandonados: [3]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 4, 5]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 4, 5]
+id Abandonados: [3]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 4, 5]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 4, 5]
+id Abandonados: [3]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 4, 5]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 4, 5]
+id Abandonados: [3]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 4, 5]
+
+id Modos: [1, 0, 0, 1, 0]
+
+PC: [0, 1, 2, 4, 5]
+id Abandonados: [3]
+
+id Congelados: []
+
+id Executados: [0, 1, 2, 4, 5]
+
+id Modos: [1, 0, 0, 1, 0]
 
 #################################### TRANSICAO
 p47.0:1

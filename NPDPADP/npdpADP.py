@@ -210,10 +210,10 @@ class Projeto:
 		# instante de tempo para chegadas
 		self.tCheg = estagio
 	def linhaPandas(self,d,tx,estagio):
-		tlan = sum(self.tempo)
+		tlan = estagio + sum(self.tempo)
 		vpl = self.vplLan_esp(tlan,tx)
 		tfunil = estagio - self.tCheg + 1
-		linha = [self.nome,self.area,self.etapa,d,vpl,tfunil]
+		linha = [estagio,self.nome,self.area,self.etapa,d,vpl,tfunil]
 		return linha
 	def getMinCostToGo(self,idetapa,deltat = 0):
 		idetp = idetapa
@@ -405,7 +405,8 @@ class Decisao:
 		self.Executados = [p for p in range(len(self.w)) if sum(self.w[p]) == 1]
 		self.ExecModo =  [self.w[p].index(1) for p in self.Executados]
 	def decproj(self, pid,lPc):
-
+		print(f'PC: {lPc}')
+		self.imprime()
 		if pid in self.Abandonados:
 			decisao = 'Abandonar'
 		elif pid in self.Executados:
@@ -414,7 +415,7 @@ class Decisao:
 				decisao = 'Continuar'
 			elif self.ExecModo[pid_modo] == 1:
 				decisao = 'Melhorar'
-			else self.ExecModo[pid_modo] == 2:
+			else:
 				decisao = 'Acelerar'
 		else:
 			pid_con = lPc.index(pid)
@@ -1116,16 +1117,19 @@ class Politica_GulosaVPL:
 class Simulador:
 	def simulacao(self, Prob, Pol, niter, caminho):
 		stat_basis = []
-		stat_poj = []
+		stat_proj = []
+
 		lpar = [Prob.vqCheg, Prob.vfi, Prob.vbe, Prob.vro1, Prob.vro2, Prob.lqrn, Prob.lareas, Prob.letapas]
 		S = c.deepcopy(Prob.S)
+
 		for n in range(niter):
 			# print('iteracao ' + str(n) + ': \n')
 			# S.imprime()
 			# print('\n\n')
 			Sm1 = c.deepcopy(S)
 			a = Pol.solver(S)
-			stat_proj = stat_proj + [p.linhaPandas(a.decproj(pid,S.Pc),Prob.tx,n) for p,pid in enumerate(S.P)]
+			lpc = [S.P.index(p) for p in S.Pc]
+			stat_proj = stat_proj + [p.linhaPandas(a.decproj(pid,lpc),Prob.tx,n) for pid,p in enumerate(S.P)]
 			custo = S.transicao(a, Prob.vqCheg)
 			fgf = Pol.calc_phiGammaPhi(Sm1, S, lpar)
 			erro = Pol.calc_erro_m(custo, fgf)
@@ -1138,9 +1142,9 @@ class Simulador:
 
 	def writeStatProj(self,Stats,caminho):
 		local = caminho + 'Log/'
-		labels = ['projeto','area','etapa','decisao','vpl','tfunil']
+		labels = ['estagio','projeto','area','etapa','decisao','vpl','tfunil']
 		df = pd.DataFrame(Stats)
-		df.to_csv(local + 'sim_stat_proj.csv', header=labels)
+		df.to_csv(local + 'sim_stat_proj.csv', header=labels, index=False)
 
 
 	def writeStatBasis(self, labels, Stats, caminho):
