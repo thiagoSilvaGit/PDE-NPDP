@@ -21,7 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f0c0eeff-bdeb-43b4-86c7-cf8ca7f40148" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NPDPADP/npdpADP.py" beforeDir="false" afterPath="$PROJECT_DIR$/NPDPADP/npdpADP.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb0.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb0.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb1.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb10.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb10.png" afterDir="false" />
@@ -36,12 +35,6 @@
       <change beforePath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb9.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/ função Theta_fb9.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Teste/Graficos/Custo.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/Custo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Teste/Graficos/Erro.png" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Graficos/Erro.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Teste/Log/adp_stat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Log/adp_stat.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Teste/Log/saida.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Log/saida.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Teste/Log/saida_B.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Log/saida_B.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Teste/Log/saida_Theta.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Log/saida_Theta.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Teste/Log/saida_updpol.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Teste/Log/saida_updpol.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/conf.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/saida.txt" beforeDir="false" afterPath="$PROJECT_DIR$/saida.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
